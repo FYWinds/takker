@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-10 10:04:37
-LastEditTime: 2021-08-12 13:15:10
+LastEditTime: 2021-08-12 18:01:19
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
@@ -21,7 +21,7 @@ async def init_bot():
     await db_init()
 
     # 为windows下的playwright的异步注入猴子补丁
-    # patch() # 改源码了，不注入了
+    # patch() # 改框架源码了，不注入了
 
     # # 载入只读不写的数据到内存中
     # load_data()

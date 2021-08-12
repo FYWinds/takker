@@ -1,26 +1,34 @@
 """
 Author: FYWindIsland
 Date: 2021-08-01 07:48:47
-LastEditTime: 2021-08-12 11:08:54
+LastEditTime: 2021-08-12 19:13:54
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
 """
 ## Author HibiKier/zhenxun_bot
 ## Edit by FYWinds
-from configs.path_config import IMAGE_PATH, VOICE_PATH
-from nonebot.adapters.cqhttp.message import MessageSegment
 import os
-from nonebot.log import logger
 import ujson
+from typing import Optional, Union
+
+from nonebot.adapters.cqhttp.message import Message, MessageSegment
+from nonebot.log import logger
+
+from configs.path_config import IMAGE_PATH, VOICE_PATH
 
 
-def image(img_name: str = None, path: str = "", abspath: str = None, b64: str = None):
+def image(
+    img_name: str = None,
+    path: str = "",
+    abspath: Optional[str] = None,
+    b64: Optional[str] = None,
+) -> MessageSegment:
     if abspath:
         if os.path.exists(abspath):
             return MessageSegment.image("file:///" + abspath)
         else:
-            return ""
+            return text("")
     elif b64:
         if b64.find("base64://") != -1:
             return MessageSegment.image(b64)
@@ -37,16 +45,16 @@ def image(img_name: str = None, path: str = "", abspath: str = None, b64: str = 
                 )
             else:
                 logger.warning(f"图片 {path}/{img_name} 不存在")
-                return ""
+                return text("")
         else:
             return MessageSegment.image(img_name)
 
 
-def at(qq):
+def at(qq: Union[int, str]) -> MessageSegment:
     return MessageSegment.at(qq)
 
 
-def record(voice_name="", path=""):
+def record(voice_name: str = "", path: Optional[str] = "") -> MessageSegment:
     if len(voice_name.split(".")) == 1:
         voice_name += ".mp3"
     if path == "":
@@ -59,39 +67,48 @@ def record(voice_name="", path=""):
             return result
         else:
             logger.warning(f"语音{path}/{voice_name} 不存在")
-            return ""
+            return text("")
     else:
         return MessageSegment.record(voice_name)
 
 
-def text(msg):
+def text(msg: str) -> MessageSegment:
     return MessageSegment.text(msg)
 
 
-def contact_user(qq):
+def contact_user(qq: int) -> MessageSegment:
     return MessageSegment.contact_user(qq)
 
 
-def share(url, title, content="", image_url=""):
+def share(
+    url: str = "",
+    title: str = "",
+    content: Optional[str] = None,
+    image_url: Optional[str] = None,
+) -> MessageSegment:
     return MessageSegment.share(url, title, content, image_url)
 
 
-def xml(data):
+def xml(data: str) -> MessageSegment:
     return MessageSegment.xml(data)
 
 
-def json(data):
+def json(data: str) -> MessageSegment:
     data = ujson.dumps(data)
     return MessageSegment.json(data)
 
 
-def face(id_):
+def face(id_: int) -> MessageSegment:
     return MessageSegment.face(id_)
 
 
-def poke(qq):
-    return MessageSegment.poke("", qq)
+def poke(id_: str) -> MessageSegment:
+    return MessageSegment.poke("", id_)
 
 
-def music_163(id_):
+def music_163(id_: int) -> MessageSegment:
     return MessageSegment.music("163", id_)
+
+
+def reply(id_: int) -> MessageSegment:
+    return MessageSegment.reply(id_)
