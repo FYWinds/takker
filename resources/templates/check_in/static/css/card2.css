@@ -1,0 +1,106 @@
+/* Generals resets and unimportant stuff */
+* { margin: 0px; padding: 0px; }
+body {
+	background: #eaebec;
+	font-family: "Open Sans", sans-serif; 
+	position: relative;
+    perspective: 800px;
+    width:50%;
+    height:90%;
+    transform-style: preserve-3d;
+    position:absolute;    
+    top:80px;
+    left:50%;	
+    margin-left:-25%;
+}
+/* --- Card ---- */
+#card{
+	width:80%;
+	height:70%;
+	position:absolute;
+	overflow:hidden;
+}
+.image{
+    width: 100%;
+    height: 40%;
+}
+.image img{
+    width:100%;
+	height: 100%;
+}
+
+.stats{
+	width: 100%;
+	height: 60%;
+}
+
+.stats-container{
+	background:#fff;	
+	position:absolute;
+	top:40%;
+	left:0;
+	width:90%;
+	height:58%;
+	padding:3% 5% 0;	
+}
+.stats-container .time{
+	font-size: xxx-large;
+    font-weight: 600;
+	color:#393c45;	
+}
+.stats-container p{
+	font-size:normal;
+	color:#b1b1b3;	
+	/* padding:2px 0 20px 0; */
+}
+.stats-container .day-time{
+	float:right;
+	color:#48cfad;
+	font-size:xx-large;
+	font-weight:600;
+}
+.stick{
+	padding:2% 0 0;
+}
+.stick strong{
+	font-weight:700;
+	color:#393c45;
+	font-size:x-large;
+	padding: 1% 0 0;
+	margin-right: 80%
+}
+.stick span{	
+	color:#969699;
+	font-size:large;
+	display:block;
+	margin-bottom:1%;
+}
+.comment strong{
+    font-weight:700;
+	color:#393c45;
+	font-size:x-large;
+}
+div.comment{
+	width:100%; 
+	margin-top: 1%;	
+    font-size:large;
+    color: #111111;
+}
+div.resolve{
+	margin-top:1%;
+	font-size:normal;
+	height: 85px;
+	color: #999999;
+}
+div.dnt{
+	margin-top:1%;
+	text-align: center;
+	font-size: small;
+	color: #999999;
+}
+div.copyright{
+    margin-bottom:1px;
+    text-align: center;
+    font-size: small;
+    color: #AAAAAA;
+}

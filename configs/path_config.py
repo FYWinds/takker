@@ -1,0 +1,50 @@
+"""
+Author: FYWindIsland
+Date: 2021-08-01 07:48:46
+LastEditTime: 2021-08-12 11:25:18
+LastEditors: FYWindIsland
+Description: 
+I'm writing SHIT codes
+"""
+from pathlib import Path
+
+# 图片路径
+IMAGE_PATH = Path("resources/img/")
+# 音频路径
+VOICE_PATH = Path("resources/voice/")
+# 文本路径
+TEXT_PATH = Path("resources/text/")
+# 模板路径
+TEMPLATE_PATH = Path("resources/templates")
+# 字体路径
+FONT_PATH = Path("resources/fonts/")
+# 日志路径
+LOG_PATH = Path("log/")
+# 数据路径
+DATA_PATH = Path("data/")
+# 临时图片路径
+TEMP_PATH = Path("resources/img/temp/")
+
+
+def init_path():
+    global IMAGE_PATH, VOICE_PATH, TEXT_PATH, LOG_PATH, FONT_PATH, DATA_PATH, TEMP_PATH, TEMPLATE_PATH
+    IMAGE_PATH.mkdir(parents=True, exist_ok=True)
+    VOICE_PATH.mkdir(parents=True, exist_ok=True)
+    TEXT_PATH.mkdir(parents=True, exist_ok=True)
+    TEMPLATE_PATH.mkdir(parents=True, exist_ok=True)
+    FONT_PATH.mkdir(parents=True, exist_ok=True)
+    LOG_PATH.mkdir(parents=True, exist_ok=True)
+    DATA_PATH.mkdir(parents=True, exist_ok=True)
+    TEMP_PATH.mkdir(parents=True, exist_ok=True)
+
+    IMAGE_PATH = str(IMAGE_PATH.absolute()) + "/"
+    VOICE_PATH = str(VOICE_PATH.absolute()) + "/"
+    TEXT_PATH = str(TEXT_PATH.absolute()) + "/"
+    TEMPLATE_PATH = str(TEMPLATE_PATH.absolute()) + "/"
+    FONT_PATH = str(FONT_PATH.absolute()) + "/"
+    LOG_PATH = str(LOG_PATH.absolute()) + "/"
+    DATA_PATH = str(DATA_PATH.absolute()) + "/"
+    TEMP_PATH = str(TEMP_PATH.absolute()) + "/"
+
+
+init_path()
