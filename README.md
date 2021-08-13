@@ -1,6 +1,6 @@
-![maven](https://img.shields.io/badge/python-3.9%2B-blue)
-![maven](https://img.shields.io/badge/nonebot-2.0.0a15-green)
-![maven](https://img.shields.io/badge/go--cqhttp-1.0.0--beta5-purple)
+![maven](https://img.shields.io/badge/python-3.9%2B-green)
+![maven](https://img.shields.io/badge/nonebot-2.0.0a15-mint)
+![maven](https://img.shields.io/badge/go--cqhttp-1.0.0--beta5-lime)
 
 # Takker 目前还没啥功能（
 # 且没经过完整测试，一定有一堆bug
