@@ -1,3 +1,11 @@
+"""
+Author: FYWindIsland
+Date: 2021-08-05 14:46:50
+LastEditTime: 2021-08-13 09:39:12
+LastEditors: FYWindIsland
+Description: 
+I'm writing SHIT codes
+"""
 from typing import Dict, List, Optional
 from nonebot.log import logger
 from nonebot.plugin import get_loaded_plugins, get_plugin
@@ -17,6 +25,8 @@ async def get_plugin_list(
     for p in list(plugin_list.keys()):
         plugin = get_plugin(p)
         if plugin:
+            if plugin.name in HIDDEN_PLUGINS:
+                continue
             plugin_perm = int(plugin.module.__getattribute__("__permission__"))
             if plugin_perm <= perm:
                 result.update({p: bool(plugin_list[p])})

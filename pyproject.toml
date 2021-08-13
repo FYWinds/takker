@@ -18,15 +18,14 @@ types-ujson = "^0.1.1"
 
 
 [tool.poetry.dev-dependencies]
+nonebot-plugin-test = "^0.3.0"
 flake8 = "^3.9.2"
 autopep8 = "^1.5.7"
-nonebot-plugin-test = "^0.2.0"
 mypy = "^0.910"
 black = "^21.7b0"
-pytest = "^6.2.4"
 
 [nonebot.plugins]
-plugins = ["nonebot_plugin_apscheduler"]
+plugins = ["nonebot_plugin_apscheduler", "nonebot_plugin_test"]
 plugin_dirs = []
 
 [build-system]

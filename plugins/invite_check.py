@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-12 18:01:58
-LastEditTime: 2021-08-12 19:21:43
+LastEditTime: 2021-08-13 10:06:12
 LastEditors: FYWindIsland
 Description: 将加好友请求发送给bot主人用于审核，加群请求仅接收超级管理员的
 I'm writing SHIT codes
@@ -60,7 +60,6 @@ checker = on_message(priority=1, permission=PRIVATE_FRIEND)
 @checker.handle()
 async def _ch(bot: Bot, event: PrivateMessageEvent, state: T_State):
     global requests
-    print(requests)
     if str(event.user_id) not in OWNER:
         await checker.finish()
     result = await bot.get_msg(message_id=event.message_id)

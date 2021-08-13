@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-02 19:19:38
-LastEditTime: 2021-08-12 18:42:38
+LastEditTime: 2021-08-13 09:53:53
 LastEditors: FYWindIsland
 Description: PreProcessors before matchers
 I'm writing SHIT codes
@@ -28,6 +28,7 @@ from service.db.utils.ban import ban, isbanned
 from service.db.utils.plugin_manager import query_plugin_status, set_plugin_status
 from utils.utils import perm_check, enable_check, ExploitCheck
 from configs.config import (
+    OWNER,
     SUPERUSERS,
     HIDDEN_PLUGINS,
     BAN_TIME,
@@ -99,6 +100,8 @@ async def __update_plugin(conv={"user": [], "group": []}):
 async def __update_perm(uid: int, role: str):
     id = str(uid)
     if id in SUPERUSERS:
+        await set_perm(id=id, perm=9)
+    if id in OWNER:
         await set_perm(id=id, perm=10)
 
 
@@ -117,7 +120,7 @@ async def ban_exploit_check(
     if not isinstance(event, GroupMessageEvent):
         return
     if matcher.type == "message" and matcher.priority not in range(0, 9):
-        if isbanned(event.user_id):
+        if await isbanned(event.user_id):
             raise IgnoredException("用户正在封禁中")
         if state["_prefix"]["raw_command"]:
             if exploit.check(f'{event.user_id}{state["_prefix"]["raw_command"]}'):
@@ -125,7 +128,7 @@ async def ban_exploit_check(
                     logger.info(f"USER {event.user_id} 触发了恶意触发检测")
                 await bot.send_group_msg(
                     group_id=event.group_id,
-                    message=at(event.user_id) + "检测到恶意触发命令，您将被封禁 30 分钟",
+                    message=at(event.user_id) + f"检测到恶意触发命令，您将被封禁 {BAN_TIME} 分钟",
                 )
                 raise IgnoredException("检测到恶意触发命令")
         exploit.add(f'{event.user_id}{state["_prefix"]["raw_command"]}')

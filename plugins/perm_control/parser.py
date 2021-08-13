@@ -1,14 +1,14 @@
 """
 Author: FYWindIsland
 Date: 2021-08-11 16:16:38
-LastEditTime: 2021-08-11 17:18:26
+LastEditTime: 2021-08-13 09:43:57
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
 """
 from nonebot.rule import ArgumentParser
 
-from .handle import *
+from .handle import list_perm, get_perm, edit_perm
 
 perm_parser = ArgumentParser("perm")
 

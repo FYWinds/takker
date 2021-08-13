@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-01 07:48:46
-LastEditTime: 2021-08-12 18:40:57
+LastEditTime: 2021-08-13 10:40:09
 LastEditors: FYWindIsland
 Description: Takker的各项配置所在之处
 I'm writing SHIT codes
@@ -15,7 +15,7 @@ CQ_SECRET: str = ""  # HTTP_API的secret
 
 # 身份名单
 OWNER: str = "2330705135"  # 主人
-SUPERUSERS: List[str] = ["0", "2330705135"]  # 超级用户名单
+SUPERUSERS: List[str] = ["0", "1609225832"]  # 超级用户名单
 
 # 各个API的Token
 ALAPI_TOKEN: str = "F71XeXpJSBzIjIim"
@@ -27,4 +27,9 @@ BAN_CHECK_PERIOD: int = 3  # 恶意触发命令检测时间
 BAN_TIME: int = 5  # 恶意触发命令后的封禁时间，单位分钟
 
 # 隐藏插件列表
-HIDDEN_PLUGINS: List[str] = ["nonebot_plugin_apscheduler", "hook", "invite_check"]
+HIDDEN_PLUGINS: List[str] = [
+    "nonebot_plugin_apscheduler",
+    "nonebot_plugin_test",
+    "hook",
+    "invite_check",
+]
