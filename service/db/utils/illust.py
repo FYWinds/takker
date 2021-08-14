@@ -1,0 +1,52 @@
+"""
+Author: FYWindIsland
+Date: 2021-08-13 15:11:57
+LastEditTime: 2021-08-14 11:03:21
+LastEditors: FYWindIsland
+Description: 
+I'm writing SHIT codes
+"""
+import random
+from typing import Optional
+from tortoise.query_utils import Q
+
+from service.db.model.illust_model import Illust
+
+
+async def get_random_illust(
+    nsfw: Optional[int] = 0, keyword: Optional[str] = ""
+) -> dict:
+    if keyword:
+        a = await Illust.filter(
+            Q(nsfw=nsfw)
+            & (
+                Q(tags__contains=keyword)
+                | Q(title__contains=keyword)
+                | Q(author__contains=keyword)
+            )
+        ).values()
+        if a:
+            num = len(a)
+            return a[random.randint(0, num)]
+        else:
+            return {}
+    else:
+        a = await Illust.filter(Q(nsfw=nsfw)).values()
+        num = len(a)
+        return a[random.randint(0, num)]
+
+
+async def remove_illust(a: dict):
+    """
+    :说明: `remove_illust`
+    > 使已失效图片无法查询
+    此处为了防止误删除
+    所以使用了特殊的方式
+    即直接把nsfw改成3
+
+    :参数:
+      * `a: dict`: 参考数据库Model
+    """
+    if not a:
+        return
+    await Illust.filter(Q(id=a["id"])).update(nsfw=3)

@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-01 07:48:47
-LastEditTime: 2021-08-12 22:08:58
+LastEditTime: 2021-08-14 13:26:52
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
@@ -23,6 +23,7 @@ def image(
     path: str = "",
     abspath: Optional[str] = None,
     b64: Optional[str] = None,
+    bytes: Optional[bytes] = None,
 ) -> MessageSegment:
     if abspath:
         if os.path.exists(abspath):
@@ -34,6 +35,8 @@ def image(
             return MessageSegment.image(b64)
         else:
             return MessageSegment.image("base64://" + b64)
+    elif bytes:
+        return MessageSegment.image(bytes)
     else:
         img_name = str(img_name)
         if img_name.find("http") == -1:

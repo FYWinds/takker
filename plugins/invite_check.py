@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-12 18:01:58
-LastEditTime: 2021-08-13 10:06:12
+LastEditTime: 2021-08-13 13:55:21
 LastEditors: FYWindIsland
 Description: 将加好友请求发送给bot主人用于审核，加群请求仅接收超级管理员的
 I'm writing SHIT codes
@@ -19,10 +19,9 @@ from nonebot.adapters.cqhttp.event import (
 from nonebot.adapters.cqhttp.bot import Bot
 from nonebot.adapters.cqhttp.permission import PRIVATE_FRIEND
 from nonebot.typing import T_State
-from pydantic.tools import T
+from pydantic.errors import FrozenSetError
 
 from configs.config import SUPERUSERS, OWNER
-from utils.msg_util import reply
 
 __permission__ = 0
 
@@ -33,8 +32,10 @@ requests: Dict[str, str] = {}
 @friend_request.handle()
 async def _frh(bot: Bot, event: FriendRequestEvent, state: T_State):
     global requests
+    if not isinstance(event, FriendRequestEvent):
+        await friend_request.finish()
     if str(event.user_id) in SUPERUSERS:
-        await event.approve(bot)
+        await bot.set_friend_add_request(flag=event.flag, approve=True)
     else:
         user = OWNER
         message = f"收到来自({event.user_id})的好友请求，验证消息为：{event.comment}"
@@ -49,12 +50,14 @@ group_request = on_request(priority=1)
 async def _grh(bot: Bot, event: GroupRequestEvent, state: T_State):
     if event.sub_type == "invite":
         if str(event.user_id) in SUPERUSERS:
-            await event.approve(bot)
+            await bot.set_group_add_request(
+                flag=event.flag, sub_type="invite", approve=True
+            )
         else:
             await group_request.finish()
 
 
-checker = on_message(priority=1, permission=PRIVATE_FRIEND)
+checker = on_message(priority=1, permission=PRIVATE_FRIEND, block=False)
 
 
 @checker.handle()

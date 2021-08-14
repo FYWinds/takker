@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-02 19:19:38
-LastEditTime: 2021-08-13 09:53:53
+LastEditTime: 2021-08-14 13:10:31
 LastEditors: FYWindIsland
 Description: PreProcessors before matchers
 I'm writing SHIT codes
@@ -58,8 +58,10 @@ async def handle_plugin_permission(
     await __update_plugin(conv)
     if isinstance(event, MessageEvent):
         await __update_perm(event.user_id, event.sender.role)  # type: ignore
-
-    plugin_perm = get_plugin(module_name).module.__getattribute__("__permission__")  # type: ignore
+    try:
+        plugin_perm = get_plugin(module_name).module.__getattribute__("__permission__")  # type: ignore
+    except:
+        plugin_perm = 5
     enabled = await enable_check(plugin=module_name, event=event)
     has_perm = await perm_check(perm=plugin_perm, event=event)
     if not (enabled and has_perm):

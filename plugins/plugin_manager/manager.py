@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-05 14:46:50
-LastEditTime: 2021-08-13 09:39:12
+LastEditTime: 2021-08-14 13:10:15
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
@@ -30,7 +30,6 @@ async def get_plugin_list(
             plugin_perm = int(plugin.module.__getattribute__("__permission__"))
             if plugin_perm <= perm:
                 result.update({p: bool(plugin_list[p])})
-    print(result)
     return result
 
 

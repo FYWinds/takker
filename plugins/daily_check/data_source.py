@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-12 09:36:42
-LastEditTime: 2021-08-12 11:45:18
+LastEditTime: 2021-08-14 10:46:47
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
@@ -18,7 +18,6 @@ from utils.data import fortune
 async def get_acg_image():
     url = "https://v2.alapi.cn/api/acg"
     params = {"token": ALAPI_TOKEN, "format": "json"}
-
     async with httpx.AsyncClient(headers=get_ua()) as client:
         resp = await client.get(url=url, params=params)
     return resp.json()["data"]["url"]

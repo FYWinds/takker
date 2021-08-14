@@ -414,7 +414,7 @@ python-versions = ">=3.6"
 
 [[package]]
 name = "playwright"
-version = "1.13.1"
+version = "1.14.0"
 description = "A high-level API to automate web browsers"
 category = "main"
 optional = false
@@ -736,10 +736,18 @@ python-versions = ">=3.5"
 [package.extras]
 dev = ["pytest (>=4.6.2)", "black (>=19.3b0)"]
 
+[[package]]
+name = "zhconv"
+version = "1.4.2"
+description = "A simple implementation of Simplified-Traditional Chinese conversion."
+category = "main"
+optional = false
+python-versions = "*"
+
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "c1175489066571308fd8bce1f704328e09d373937c69635f86ea6fefc738dccd"
+content-hash = "0039683e3824e1f71f9be7445167600f13594ee6318d79a4034247980f08cf78"
 
 [metadata.files]
 aiofiles = [
@@ -997,11 +1005,11 @@ pillow = [
     {file = "Pillow-8.3.1.tar.gz", hash = "sha256:2cac53839bfc5cece8fdbe7f084d5e3ee61e1303cccc86511d351adcb9e2c792"},
 ]
 playwright = [
-    {file = "playwright-1.13.1-py3-none-macosx_10_13_x86_64.whl", hash = "sha256:c35faa9f2a75899635e92effeebcae6175526f34f4d11c20d61356e3d9b8d2e4"},
-    {file = "playwright-1.13.1-py3-none-macosx_11_0_universal2.whl", hash = "sha256:3214444249ae5b36ff7c5e378dd151977cee2c4d4a6c05e8a19ce373331ce66e"},
-    {file = "playwright-1.13.1-py3-none-manylinux1_x86_64.whl", hash = "sha256:f3fac1509f3fa5a121e396c2ed57889a8bfe5785435ac0ae8fcce94045853e0b"},
-    {file = "playwright-1.13.1-py3-none-win32.whl", hash = "sha256:b08271b01051094f5ea6b3f89feb5fbffd7131df6243eee2cdcea9845a58e0b3"},
-    {file = "playwright-1.13.1-py3-none-win_amd64.whl", hash = "sha256:d99a7a13c39e6571ba3a4cbed1e772a24742ec1099d4cb6486394752eb725c08"},
+    {file = "playwright-1.14.0-py3-none-macosx_10_13_x86_64.whl", hash = "sha256:a1aadedd1c12936c3c9032b05700648d8ce0c551f21579b27d172074ab165fb9"},
+    {file = "playwright-1.14.0-py3-none-macosx_11_0_universal2.whl", hash = "sha256:f37a7fac1166faf8b3bd9217cce19d9913018174ffaaa52983602803c372e1c6"},
+    {file = "playwright-1.14.0-py3-none-manylinux1_x86_64.whl", hash = "sha256:d305d811272c9f0140595cac7bd113d8db3168aeff26555f8886b916c553b4af"},
+    {file = "playwright-1.14.0-py3-none-win32.whl", hash = "sha256:205fffc9586947f2b10288baa1a3f125c7adc1b8aa3c7a78138aa37272665f75"},
+    {file = "playwright-1.14.0-py3-none-win_amd64.whl", hash = "sha256:6dfe60121733420cb8f8e83df6480625ed3830ce5bf3e16ae45f9f6c806d7f0e"},
 ]
 pycodestyle = [
     {file = "pycodestyle-2.7.0-py2.py3-none-any.whl", hash = "sha256:514f76d918fcc0b55c6680472f0a37970994e07bbb80725808c17089be302068"},
@@ -1288,4 +1296,7 @@ websockets = [
 win32-setctime = [
     {file = "win32_setctime-1.0.3-py3-none-any.whl", hash = "sha256:dc925662de0a6eb987f0b01f599c01a8236cb8c62831c22d9cada09ad958243e"},
     {file = "win32_setctime-1.0.3.tar.gz", hash = "sha256:4e88556c32fdf47f64165a2180ba4552f8bb32c1103a2fafd05723a0bd42bd4b"},
+]
+zhconv = [
+    {file = "zhconv-1.4.2.tar.gz", hash = "sha256:c1570d8550dfecf6fe9fe911fe12eee1858d96578187f37d90efb903522250a1"},
 ]

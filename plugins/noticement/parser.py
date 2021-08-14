@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-13 09:24:01
-LastEditTime: 2021-08-13 10:12:44
+LastEditTime: 2021-08-14 11:32:21
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
@@ -18,9 +18,9 @@ list_parser = n_subparsers.add_parser("list")
 list_group = list_parser.add_mutually_exclusive_group()
 list_parser.set_defaults(handle=handle_ls)
 
-ban_parser = n_subparsers.add_parser("send")
-ban_parser.add_argument("groups", nargs="*")
-ban_parser.add_argument(
+send_parser = n_subparsers.add_parser("send")
+send_parser.add_argument("groups", nargs="*")
+send_parser.add_argument(
     "-n", "--notice", action="store", nargs="+", default=[], type=str
 )
-ban_parser.set_defaults(handle=handle_send)
+send_parser.set_defaults(handle=handle_send)

@@ -7,14 +7,15 @@ license = "AGPL-v3"
 
 [tool.poetry.dependencies]
 python = "^3.9"
-nonebot2 = "^2.0.0-alpha.14"
-nonebot-adapter-cqhttp = "^2.0.0-alpha.14"
+nonebot2 = "^2.0.0-alpha.15"
+nonebot-adapter-cqhttp = "^2.0.0-alpha.15"
 nonebot-plugin-apscheduler = "^0.1.2"
 ujson = "^4.0.2"
 tortoise-orm = {extras = ["accel"], version = "^0.17.6"}
-playwright = "^1.13.1"
+playwright = "^1.14.0"
 Pillow = "^8.3.1"
 types-ujson = "^0.1.1"
+zhconv = "^1.4.2"
 
 
 [tool.poetry.dev-dependencies]

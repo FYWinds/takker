@@ -1,5 +1,13 @@
+"""
+Author: FYWindIsland
+Date: 2021-08-01 07:48:47
+LastEditTime: 2021-08-14 12:11:39
+LastEditors: FYWindIsland
+Description: 
+I'm writing SHIT codes
+"""
 from tortoise.models import Model
-from tortoise.fields.data import *  #  type: ignore
+from tortoise.fields.data import *  # type: ignore
 
 
 class Starluck(Model):
@@ -62,24 +70,6 @@ class Wordcloud(Model):
     class Meta:
         table = "wordcloud"
         table_description = "热词词云数据"
-
-
-class Setu(Model):
-    """色图图库"""
-
-    id = IntField(pk=True)
-    pid = IntField()
-    uid = IntField()
-    title = CharField(max_length=512)
-    author = CharField(max_length=512)
-    nsfw = BooleanField()
-    category = IntField()
-    tags = TextField()
-    url = TextField()
-
-    class Meta:
-        table = "setu"
-        table_description = "色图数据"
 
 
 class Cp(Model):
