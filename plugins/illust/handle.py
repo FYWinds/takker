@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-14 11:31:43
-LastEditTime: 2021-08-14 13:33:23
+LastEditTime: 2021-08-14 14:12:15
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
@@ -17,7 +17,6 @@ _plmt = Processing()
 
 async def handle_get(args: Namespace):
     _plmt.set_True(args.user)
-    print(args.keywords, args.level)
     if args.keywords:
         keyword = args.keywords[0]
     else:
@@ -31,5 +30,4 @@ async def handle_get(args: Namespace):
     else:
         nsfw_level = 0
     result = await get_illust(nsfw_level, keyword)
-    _plmt.set_False(args.user)
     return result

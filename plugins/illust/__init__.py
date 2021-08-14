@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-13 16:10:42
-LastEditTime: 2021-08-14 13:36:51
+LastEditTime: 2021-08-14 14:16:06
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
@@ -30,15 +30,11 @@ from .parser import pic_parser
 
 pic = on_shell_command("pix", parser=pic_parser)
 
-_plmt = Processing()
-
 
 @pic.handle()
 async def _(bot: Bot, event: MessageEvent, state: T_State):
     args = state["args"]
     args.user = event.user_id
-    if _plmt.check(key=args.user):
-        await pic.finish(reply(args.user) + text("您有图片正在处理中，请勿重复发送命令"))
 
     if hasattr(args, "handle"):
         result = await args.handle(args)
