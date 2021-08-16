@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-14 19:36:09
-LastEditTime: 2021-08-15 15:44:43
+LastEditTime: 2021-08-16 11:10:49
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
@@ -17,6 +17,10 @@ from .handle import how_many, what_time, how_long, hif, who, handle_pers
 
 
 __permission__ = 1
+
+__plugin_name__ = "问答"
+
+__usage__ = "问内容"
 
 ask = on_startswith("问")
 

@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-01 07:48:46
-LastEditTime: 2021-08-11 17:47:10
+LastEditTime: 2021-08-16 11:14:02
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
@@ -20,6 +20,12 @@ from .parser import perm_parser
 
 
 __permission__ = 0
+
+__plugin_name__ = "权限系统"
+
+__usage__ = """perm get | 获取当前会话的权限等级
+perm set [权限等级] | 调整当前会话的权限等级，需求该用户的权限等级大于设定的权限等级
+"""
 
 perm = on_shell_command("perm", parser=perm_parser, priority=1, block=True)
 
@@ -40,7 +46,7 @@ async def _(bot: Bot, event: MessageEvent, state: T_State):
     args.is_group = isinstance(event, GroupMessageEvent)
 
     if hasattr(args, "handle"):
-        if event.sender.role not in ["admin", "owner"] and not args.is_superuser:
+        if not args.is_admin and not args.is_superuser:
             raise IgnoredException("权限不足")
         message = await args.handle(args)
         if message:

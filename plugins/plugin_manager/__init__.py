@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-03 12:55:30
-LastEditTime: 2021-08-12 18:04:24
+LastEditTime: 2021-08-16 11:16:45
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
@@ -22,6 +22,13 @@ from .parser import pm_parser
 
 __permission__ = 0
 
+__plugin_name__ = "插件管理器"
+
+__usage__ = """pm list | 获取当前会话的插件里列表
+pm ban [插件1] <插件x> | 禁用当前会话中的这些插件
+pm unban [插件1] <插件x> | 启用当前会话中的这些插件
+"""
+
 pm = on_shell_command("pm", parser=pm_parser, priority=1, block=True)
 
 
@@ -40,7 +47,7 @@ async def _(bot: Bot, event: MessageEvent, state: T_State):
     args.is_superuser = str(event.user_id) in SUPERUSERS
 
     if hasattr(args, "handle"):
-        if event.sender.role not in ["admin", "owner"] and not args.is_superuser:
+        if not args.is_admin and not args.is_superuser:
             raise IgnoredException("权限不足")
         message = await args.handle(args)
         if message:

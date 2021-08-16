@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-02 18:57:39
-LastEditTime: 2021-08-14 13:10:19
+LastEditTime: 2021-08-16 11:20:38
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
@@ -24,7 +24,7 @@ from configs.path_config import TEMPLATE_PATH
 
 testtest = on_command("test", priority=1, block=True)
 
-__permission__ = 0
+__permission__ = 10
 
 
 @testtest.handle()

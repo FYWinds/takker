@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-12 09:36:04
-LastEditTime: 2021-08-14 11:22:46
+LastEditTime: 2021-08-16 11:09:45
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
@@ -19,6 +19,11 @@ from configs.config import SUPERUSERS
 from .handler import get_card
 
 __permission__ = 1
+
+__plugin_name__ = "每日签到"
+
+__usage__ = "签到"
+
 
 check = on_command(
     "签到",

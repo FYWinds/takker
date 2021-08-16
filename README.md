@@ -25,6 +25,7 @@
 - [x] 每日一签
 - [x] pixiv美图/色图 (常用(大嘘
 - [x] 问（智障回复）
+- [x] 缩写查询
 
 ### 已实现的管理员功能
 - [x] 95%的插件功能开关 (基于[nonebot_plugin_manager](https://github.com/Jigsaw111/nonebot_plugin_manager)插件修改)
