@@ -80,6 +80,7 @@
 ## 部分功能展示
 <details>
 <summary>功能实例展示</summary>
+### 群内消息总结词云
 ![](https://raw.githubusercontent.com/FYWinds/takker/master/readme_images/summary_wordcloud.png)
 </details>
 
