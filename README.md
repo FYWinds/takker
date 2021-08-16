@@ -80,6 +80,7 @@
 ## 部分功能展示
 <details>
 <summary>功能实例展示</summary>
+![image](readme_images/summary_wordcloud.png)
 </details>
 
 ## 配置文件注解
