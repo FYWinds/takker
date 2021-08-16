@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-01 07:48:47
-LastEditTime: 2021-08-14 12:11:39
+LastEditTime: 2021-08-16 21:42:08
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
@@ -61,11 +61,11 @@ class Plugin(Model):
 class Wordcloud(Model):
     """群热词词云"""
 
-    gid = BigIntField(pk=True)
+    gid = BigIntField()
     uid = BigIntField()
-    time = DatetimeField(auto_now_add=True)
-    message = TextField()
-    msg_seg = CharField(max_length=512)
+    time = BigIntField()
+    msg = TextField()
+    msg_seg = TextField()
 
     class Meta:
         table = "wordcloud"

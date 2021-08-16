@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-14 15:48:24
-LastEditTime: 2021-08-16 11:09:00
+LastEditTime: 2021-08-16 11:33:09
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
@@ -29,4 +29,4 @@ __usage__ = """好好说话 [缩写内容]
 
 __plugin_name__ = "缩写查询"
 
-__permission__ = "3"
+__permission__ = 2

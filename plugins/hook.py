@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-02 19:19:38
-LastEditTime: 2021-08-15 13:02:47
+LastEditTime: 2021-08-16 19:53:33
 LastEditors: FYWindIsland
 Description: PreProcessors before matchers
 I'm writing SHIT codes
@@ -48,7 +48,7 @@ async def handle_plugin_permission(
         "user": [event.user_id],
         "group": [event.group_id] if isinstance(event, GroupMessageEvent) else [],
     }
-    module_name = str(matcher.plugin_name)
+    module_name = str(matcher.module_name)
     if module_name in HIDDEN_PLUGINS:
         return
 

@@ -6,7 +6,7 @@ authors = ["风屿 <i@windis.cn>"]
 license = "AGPL-v3"
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = ">=3.9,<3.11"
 nonebot2 = "^2.0.0-alpha.15"
 nonebot-adapter-cqhttp = "^2.0.0-alpha.15"
 nonebot-plugin-apscheduler = "^0.1.2"
@@ -16,6 +16,10 @@ playwright = "^1.14.0"
 Pillow = "^8.3.1"
 types-ujson = "^0.1.1"
 zhconv = "^1.4.2"
+wordcloud = "^1.8.1"
+numpy = "^1.21.2"
+multidict = "^5.1.0"
+jieba = "^0.42.1"
 
 
 [tool.poetry.dev-dependencies]
