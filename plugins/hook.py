@@ -1,22 +1,21 @@
 """
 Author: FYWindIsland
 Date: 2021-08-02 19:19:38
-LastEditTime: 2021-08-14 13:10:31
+LastEditTime: 2021-08-15 13:02:47
 LastEditors: FYWindIsland
 Description: PreProcessors before matchers
 I'm writing SHIT codes
 """
 from typing import Dict
 from nonebot import logger
-from nonebot import plugin
-from nonebot.adapters.cqhttp.message import MessageSegment
 from nonebot.exception import IgnoredException
 from nonebot.message import run_preprocessor
 from nonebot.typing import T_State
 from nonebot.matcher import Matcher
 from nonebot.plugin import get_plugin, get_loaded_plugins
-from nonebot.adapters.cqhttp.bot import Bot
+from nonebot.adapters import Bot
 from nonebot.adapters.cqhttp.event import (
+    Event,
     MessageEvent,
     GroupMessageEvent,
     PrivateMessageEvent,
@@ -41,7 +40,7 @@ __permission__ = 0
 
 @run_preprocessor  # type: ignore
 async def handle_plugin_permission(
-    matcher: Matcher, bot: Bot, event: MessageEvent, state: T_State
+    matcher: Matcher, bot: Bot, event: Event, state: T_State
 ):
     if not isinstance(event, MessageEvent):
         return
@@ -49,7 +48,7 @@ async def handle_plugin_permission(
         "user": [event.user_id],
         "group": [event.group_id] if isinstance(event, GroupMessageEvent) else [],
     }
-    module_name = str(matcher.module_name)
+    module_name = str(matcher.plugin_name)
     if module_name in HIDDEN_PLUGINS:
         return
 

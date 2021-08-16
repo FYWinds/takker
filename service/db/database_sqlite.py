@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-01 07:48:47
-LastEditTime: 2021-08-14 12:19:14
+LastEditTime: 2021-08-15 12:00:06
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
@@ -50,9 +50,9 @@ async def db_init():
         #     modules={"models": ["service.db.model.illust_model"]},
         # )
         await Tortoise.generate_schemas()
-        logger.info("数据库载入完成")
+        logger.info("数据库连接成功")
     except:
-        logger.warning("数据库载入失败，请尝试删除data目录下的.db文件")
+        logger.warning("数据库连接失败，请尝试删除data目录下的data.db文件")
 
 
 async def db_disconnect():

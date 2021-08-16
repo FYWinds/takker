@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-01 07:48:44
-LastEditTime: 2021-08-13 13:49:52
+LastEditTime: 2021-08-15 11:58:35
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
@@ -11,6 +11,7 @@ from nonebot.adapters.cqhttp import Bot as CQHTTPBot
 
 from service.db.database_sqlite import db_disconnect
 from service.init import init_bot
+from utils.patcher import patch
 
 
 nonebot.init()
@@ -18,6 +19,7 @@ driver = nonebot.get_driver()
 driver.register_adapter("cqhttp", CQHTTPBot)
 config = driver.config
 
+patch()
 
 driver.on_startup(init_bot)
 driver.on_shutdown(db_disconnect)

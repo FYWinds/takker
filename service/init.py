@@ -1,15 +1,14 @@
 """
 Author: FYWindIsland
 Date: 2021-08-10 10:04:37
-LastEditTime: 2021-08-13 08:48:02
+LastEditTime: 2021-08-15 16:17:38
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
 """
-from utils.patcher import patch
-
 # from utils.data import load_data
-from service.log import log_to_file
+from utils.browser import install
+from utils.log import log_to_file
 from service.db.database_sqlite import db_init
 
 
@@ -25,3 +24,6 @@ async def init_bot():
 
     # # 载入只读不写的数据到内存中
     # load_data()
+
+    # 检查更新Playwright的Chromuim
+    await install()

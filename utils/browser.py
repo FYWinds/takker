@@ -1,11 +1,12 @@
 """
 Author: FYWindIsland
 Date: 2021-08-10 20:51:15
-LastEditTime: 2021-08-11 17:20:36
+LastEditTime: 2021-08-15 10:18:15
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
 """
+import os
 import base64
 import shutil
 from pathlib import Path
@@ -29,3 +30,8 @@ async def init(**kwargs) -> Browser:
 
 async def get_browser(**kwargs) -> Browser:
     return _browser or await init(**kwargs)
+
+
+async def install():
+    logger.info("正在检查/安装Chormium更新")
+    os.system("python -m playwright install chromium")

@@ -1,8 +1,16 @@
+"""
+Author: FYWindIsland
+Date: 2021-08-14 11:47:29
+LastEditTime: 2021-08-15 10:10:55
+LastEditors: FYWindIsland
+Description: 
+I'm writing SHIT codes
+"""
 from argparse import Namespace
 
 from nonebot.log import logger
 
-from api.info import group_list
+from api.info import get_group_list
 from service.db.utils.perm import query_perm, set_perm
 
 
@@ -13,7 +21,7 @@ async def list_perm(args: Namespace) -> str:
         return "获取群权限等级列表需要超级用户权限"
 
     message = "群权限等级列表："
-    g_list = await group_list()
+    g_list = await get_group_list()
     for group in g_list:
         group_id = group["group_id"]
         perm = await query_perm(id=str(group_id), isGroup=True)

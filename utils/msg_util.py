@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-01 07:48:47
-LastEditTime: 2021-08-14 13:26:52
+LastEditTime: 2021-08-15 11:47:29
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
@@ -12,18 +12,18 @@ import os
 import ujson
 from typing import Optional, Union
 
-from nonebot.adapters.cqhttp.message import Message, MessageSegment
+from nonebot.adapters.cqhttp.message import MessageSegment
 from nonebot.log import logger
 
 from configs.path_config import IMAGE_PATH, VOICE_PATH
 
 
 def image(
-    img_name: str = None,
+    img_file: str = None,
     path: str = "",
     abspath: Optional[str] = None,
-    b64: Optional[str] = None,
     bytes: Optional[bytes] = None,
+    b64: Optional[str] = None,
 ) -> MessageSegment:
     if abspath:
         if os.path.exists(abspath):
@@ -38,19 +38,19 @@ def image(
     elif bytes:
         return MessageSegment.image(bytes)
     else:
-        img_name = str(img_name)
-        if img_name.find("http") == -1:
-            if len(img_name.split(".")) == 1:
-                img_name += ".jpg"
-            if os.path.exists(IMAGE_PATH + path + "/" + img_name):
+        img_file = str(img_file)
+        if img_file.find("http") == -1:
+            if len(img_file.split(".")) == 1:
+                img_file += ".jpg"
+            if os.path.exists(IMAGE_PATH + path + "/" + img_file):
                 return MessageSegment.image(
-                    "file:///" + IMAGE_PATH + path + "/" + img_name
+                    "file:///" + IMAGE_PATH + path + "/" + img_file
                 )
             else:
-                logger.warning(f"图片 {path}/{img_name} 不存在")
+                logger.warning(f"图片 {path}/{img_file} 不存在")
                 return text("")
         else:
-            return MessageSegment.image(img_name)
+            return MessageSegment.image(img_file)
 
 
 def at(qq: Union[int, str]) -> MessageSegment:

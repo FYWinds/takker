@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-13 16:41:49
-LastEditTime: 2021-08-13 16:41:51
+LastEditTime: 2021-08-14 20:51:01
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
@@ -21,16 +21,13 @@ from tortoise.fields.data import IntField, BooleanField, TextField
 class Illust(Model):
     """图库"""
 
-    id = IntField(pk=True)
-    pid = IntField()
+    pid = IntField(pk=True)
     uid = IntField()
+    nsfw = IntField()
     title = TextField()
     author = TextField()
-    nsfw = IntField()
     tags = TextField()
     url = TextField()
-    width = IntField()
-    height = IntField()
 
     class Meta:
         table = "pixiv"

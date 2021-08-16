@@ -5,8 +5,8 @@ body {
 	font-family: "Open Sans", sans-serif; 
 	position: relative;
     perspective: 800px;
-    width:40%;
-    height:72%;
+    width:432px;
+    height:675px;
     transform-style: preserve-3d;
     position:absolute;    
     top:80px;
@@ -67,7 +67,7 @@ body {
 	color:#393c45;
 	font-size:x-large;
 	padding: 1% 0 0;
-	margin-right: 80%
+	/* margin-right: 80% */
 }
 .stick span{	
 	color:#969699;
@@ -93,13 +93,15 @@ div.resolve{
 	color: #999999;
 }
 div.dnt{
-	margin-top: 10%;
+	position:fixed;
+	bottom: 4%;
 	text-align: center;
 	font-size: small;
 	color: #999999;
 }
 div.copyright{
-    margin-bottom:1px;
+    position:fixed;
+	bottom: 1%;
     text-align: center;
     font-size: small;
     color: #AAAAAA;

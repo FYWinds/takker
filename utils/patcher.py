@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-10 20:20:38
-LastEditTime: 2021-08-12 13:01:23
+LastEditTime: 2021-08-15 11:58:17
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
@@ -18,8 +18,13 @@ def asyncio_setup():
     asyncio.set_event_loop(loop)
 
 
+@property
+def should_reload(self):
+    return False
+
+
 def patch():
     if platform.system() == "Windows":
-        _asyncio.asyncio_setup = asyncio_setup()
-        config.Config.should_reload = False  # type: ignore
-        logger.info("检测到当前为 Windows 系统，已自动注入猴子补丁")
+        _asyncio.asyncio_setup = asyncio_setup
+        config.Config.should_reload = should_reload  # type: ignore
+        logger.info("检测到系统为Windows系统，自动注入猴子补丁")

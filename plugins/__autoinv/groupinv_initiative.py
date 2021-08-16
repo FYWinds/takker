@@ -3,7 +3,7 @@ from nonebot_plugin_apscheduler import scheduler
 from nonebot.log import logger
 
 from api.group_manage import set_request
-from api.info import stranger_info, group_join_request, group_member_list
+from api.info import get_stranger_info, group_join_request, get_group_member_list
 
 
 @scheduler.scheduled_job("interval", seconds=3, id="handle_group_req")
@@ -85,10 +85,10 @@ async def reject_requests(reqs: dict, reason: str):
 
 
 async def check_list(user_id: str):
-    # g1 = await group_member_list(511467246)
-    g2 = await group_member_list(319152433)
-    g3 = await group_member_list(603809278)
-    g4 = await group_member_list(869202661)
+    # g1 = await get_group_member_list(511467246)
+    g2 = await get_group_member_list(319152433)
+    g3 = await get_group_member_list(603809278)
+    g4 = await get_group_member_list(869202661)
 
     # for data in g1:
     #     if user_id == str(data['user_id']):
@@ -105,7 +105,7 @@ async def check_list(user_id: str):
 
 
 async def check_level(reqs: dict):
-    r = await stranger_info(reqs["requester_uin"])
+    r = await get_stranger_info(reqs["requester_uin"])
     if r["level"] >= 5:
         return True
     else:
