@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-02 19:19:38
-LastEditTime: 2021-08-16 19:53:33
+LastEditTime: 2021-08-17 21:56:44
 LastEditors: FYWindIsland
 Description: PreProcessors before matchers
 I'm writing SHIT codes
@@ -13,12 +13,11 @@ from nonebot.message import run_preprocessor
 from nonebot.typing import T_State
 from nonebot.matcher import Matcher
 from nonebot.plugin import get_plugin, get_loaded_plugins
-from nonebot.adapters import Bot
-from nonebot.adapters.cqhttp.event import (
+from nonebot.adapters.cqhttp import (
+    Bot,
     Event,
     MessageEvent,
     GroupMessageEvent,
-    PrivateMessageEvent,
 )
 
 from utils.msg_util import at

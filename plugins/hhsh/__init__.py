@@ -1,13 +1,12 @@
 """
 Author: FYWindIsland
 Date: 2021-08-14 15:48:24
-LastEditTime: 2021-08-16 11:33:09
+LastEditTime: 2021-08-17 21:34:08
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
 """
-from nonebot.adapters.cqhttp.bot import Bot
-from nonebot.adapters.cqhttp.event import MessageEvent
+from nonebot.adapters.cqhttp import Bot, MessageEvent
 from nonebot.typing import T_State
 from nonebot.plugin import on_command
 

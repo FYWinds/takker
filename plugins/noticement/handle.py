@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-13 09:30:03
-LastEditTime: 2021-08-13 10:39:35
+LastEditTime: 2021-08-17 22:11:42
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
@@ -12,7 +12,7 @@ from asyncio import sleep
 import random
 
 from api.message import send_group_msg, send_private_msg
-from configs.config import SUPERUSERS, OWNER
+from configs.config import OWNER
 
 notice: Dict[int, Dict[int, List[str]]] = {}
 # [uid, [gid, noticements[]]]
@@ -36,7 +36,8 @@ async def handle_send(args: Namespace):
     global notice
     groups = args.groups
     if args.notice:
-        this_notice = f"=-=-=-=-公告-=-=-=-=\n{args.notice[0]}\n=-=-=-=-=-=-=-=-=-="
+        this_notice = "\n".join(args.notice)
+        this_notice = f"=-=-=-=-公告-=-=-=-=\n{this_notice}\n=-=-=-=-=-=-=-=-=-="
     else:
         return "请输入要发送的公告内容"
     if groups:

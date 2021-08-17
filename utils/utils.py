@@ -3,9 +3,7 @@ import time
 from collections import defaultdict
 
 from nonebot import require
-from nonebot.typing import T_State
-from nonebot.adapters import Bot, Event
-from nonebot.adapters.cqhttp.event import GroupMessageEvent, PrivateMessageEvent
+from nonebot.adapters.cqhttp import Event, GroupMessageEvent, PrivateMessageEvent
 
 from configs.config import MAX_PROCESS_TIME
 from service.db.utils.perm import check_perm

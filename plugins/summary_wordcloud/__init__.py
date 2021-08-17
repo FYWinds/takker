@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-16 20:21:40
-LastEditTime: 2021-08-16 21:53:04
+LastEditTime: 2021-08-17 21:37:46
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
@@ -10,10 +10,8 @@ import re
 import time
 import jieba.analyse
 
-from nonebot.adapters.cqhttp.permission import GROUP
-from nonebot.adapters.cqhttp.bot import Bot
-from nonebot.adapters.cqhttp.event import GroupMessageEvent
-from nonebot.permission import SUPERUSER
+
+from nonebot.adapters.cqhttp import Bot, GroupMessageEvent, GROUP
 from nonebot.typing import T_State
 from nonebot.plugin import on_message
 

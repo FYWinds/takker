@@ -24,9 +24,9 @@
 ### 已实现的常用功能
 - [x] 每日一签
 - [x] pixiv美图/色图 (常用(大嘘
-- [x] 问（智障回复）
 - [x] 缩写查询
 - [x] 群内消息总结（每月/每年）
+- [x] 一言
 
 ### 已实现的管理员功能
 - [x] 95%的插件功能开关 (基于[nonebot_plugin_manager](https://github.com/Jigsaw111/nonebot_plugin_manager)插件修改)
@@ -42,6 +42,8 @@
 
 ### 已实现的被动技能
 - [x] 被超级用户拉入群聊自动通过
+- [x] 复读
+- [x] 问（智障回复）
 
 ### 已实现的隐藏技能！
 - [x] 检测恶意触发命令（将被次高权限ban掉5分钟，只有最高权限(9&10级)可以进行unban）
@@ -63,6 +65,8 @@
 | 问         | 以问开头的语句自动触发| 匹配句中的x不x，多少，多久，什么时候，谁 进行人工智障的回答                                          | 1 |
 | 缩写查询    | 好好说话 [缩写]     | 返回查询到的可能代表的内容（接口[magiconch](https://lab.magiconch.com/api/nbnhhsh/guess)）       | 2  |
 | 群内消息总结 | 本群月内总结/本群年内总结| 效果见功能展示                                                                             | 消息记录权限 1 </br> 调用生成总结权限 群管理员+超级用户 |
+| 复读        | 相同的三条消息后自动触发| ?这都需要说明吗                                                                            | 2  |
+| 一言        | .h <类型>          | a 动画 b 文学 c 影视 d 诗词 e 哲学 f 网易云                                                    | 1  |
 
 ### 管理员功能
 功能         | 指令              | 说明                                                                                         | 权限
@@ -82,22 +86,72 @@
 <summary>功能实例展示</summary>
 
 ### 群内消息总结词云
-![](https://raw.githubusercontent.com/FYWinds/takker/master/readme_images/summary_wordcloud.png)
+![](https://raw.githubusercontent.com/FYWinds/takker/master/docs/img/summary_wordcloud.png)
 
 </details>
 
 ## 配置文件注解
 <details>
 <summary>各配置文件说明</summary>
+
 ./configs/config.py
 
+```python
+# Go-cq正向http地址配置(默认使用bot.call_api()的调用方式)
+USE_HTTP_API: bool = False
+CQ_HTTP_URL: str = "http://127.0.0.1:5701"
+CQ_SECRET: str = ""  # HTTP_API的secret
+
+# 身份名单
+OWNER: str = "2330705135"  # 主人
+SUPERUSERS: List[str] = ["0", "1609225832", "2330705135"]  # 超级用户名单
+
+# 各个API的Token
+ALAPI_TOKEN: str = "F71XeXpJSBzIjIim"
+
+# 各种限制
+MAX_PROCESS_TIME: int = 30  # 部分指令处理最大等待时间，单位秒，在此期间用户不能再次发起相同指令
+BAN_CHEKC_FREQ: int = 5  # 恶意触发命令检测阈值
+BAN_CHECK_PERIOD: int = 3  # 恶意触发命令检测时间
+BAN_TIME: int = 5  # 恶意触发命令后的封禁时间，单位分钟
+
+# 隐藏插件列表
+HIDDEN_PLUGINS: List[str] = [
+    "nonebot_plugin_apscheduler",
+    "nonebot_plugin_test",
+    "hook",
+    "invite_check",
+]
 ```
-待完善
+
+./configs/path_config.py
+
+```python
+# 图片路径
+IMAGE_PATH = Path("resources/img/")
+# 音频路径
+VOICE_PATH = Path("resources/voice/")
+# 文本路径
+TEXT_PATH = Path("resources/text/")
+# 模板路径
+TEMPLATE_PATH = Path("resources/templates")
+# 字体路径
+FONT_PATH = Path("resources/fonts/")
+# 日志路径
+LOG_PATH = Path("log/")
+# 数据路径
+DATA_PATH = Path("data/")
+# 临时图片路径
+TEMP_PATH = Path("resources/img/temp/")
 ```
 </details>
 
 
 ## 更新记录
+
+### 2021/8/17
+* 又是很多神奇的东西
+* Legacy的插件基本要重置完成了
 
 ### 2021/8/16
 * 很多神奇的东西（懒得写了

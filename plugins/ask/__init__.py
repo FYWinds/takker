@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-14 19:36:09
-LastEditTime: 2021-08-16 11:10:49
+LastEditTime: 2021-08-17 21:33:56
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
@@ -9,8 +9,7 @@ I'm writing SHIT codes
 import re
 
 from nonebot.plugin import on_startswith
-from nonebot.adapters.cqhttp.bot import Bot
-from nonebot.adapters.cqhttp.event import GroupMessageEvent
+from nonebot.adapters.cqhttp import Bot, GroupMessageEvent
 from nonebot.typing import T_State
 
 from .handle import how_many, what_time, how_long, hif, who, handle_pers

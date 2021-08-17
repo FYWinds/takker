@@ -6,6 +6,14 @@ from api.group_manage import set_request
 from api.info import get_stranger_info, group_join_request, get_group_member_list
 
 
+__permission__ = 0
+
+__plugin_name__ = "加群自动审核"
+
+__usage__ = """无指令
+"""
+
+
 @scheduler.scheduled_job("interval", seconds=3, id="handle_group_req")
 async def handle_group_requests():
     approve = False
@@ -16,7 +24,6 @@ async def handle_group_requests():
         "Bi",
         "li",
         "破站",
-        "视频",
         "直播",
         "投稿",
         "联合",

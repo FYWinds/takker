@@ -20,6 +20,7 @@ wordcloud = "^1.8.1"
 numpy = "^1.21.2"
 multidict = "^5.1.0"
 jieba = "^0.42.1"
+moviepy = "^1.0.3"
 
 
 [tool.poetry.dev-dependencies]
