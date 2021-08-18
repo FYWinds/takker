@@ -44,7 +44,8 @@ async def handle_group_requests():
     # * 一群 二群 三群 四群 直播通知群 测试群
 
     req = await group_join_request()
-
+    if not req:
+        return
     for reqs in req:
         if str(reqs["suspicious"]) == "True":
             continue
