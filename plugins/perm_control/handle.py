@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-14 11:47:29
-LastEditTime: 2021-08-15 10:10:55
+LastEditTime: 2021-08-18 20:46:54
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
@@ -48,14 +48,18 @@ async def get_perm(args: Namespace) -> str:
         perm = await query_perm(id=str(id), isGroup=True)
         message += f"{perm}级"
         return message
+    elif args.conv["group"]:
+        group_id = args.conv["group"][0]
+        message = f"群({group_id})的权限为: "
+        perm = await query_perm(id=str(group_id), isGroup=True)
+        message += f"{perm}级"
+        return message
     else:
-        if args.conv["group"]:
-            group_id = args.conv["group"][0]
-            message = f"群({group_id})的权限为: "
-            perm = await query_perm(id=str(group_id), isGroup=True)
-            message += f"{perm}级"
-            return message
-    return "该指令仅限群聊中使用"
+        user_id = args.conv["user"][0]
+        message = f"用户({user_id})的权限为: "
+        perm = await query_perm(id=str(user_id), isGroup=False)
+        message += f"{perm}级"
+        return message
 
 
 async def edit_perm(args: Namespace):
@@ -69,25 +73,32 @@ async def edit_perm(args: Namespace):
             args.conv.update({"group": args.group})
         else:
             return "修改指定用户/群权限等级需要超级用户权限"
-
-    user_id = args.conv["user"][0]
-    user_perm = await query_perm(id=str(user_id))
+    message = ""
     perm = int(args.perm[0])
     if (args.user or args.group) and (args.is_group):
         return f"非私聊，只能修改当前群聊权限等级"
     if args.user:
-        id = user_id
-        if user_perm > perm:
-            await set_perm(id=id, perm=perm)
-            return f"成功设置用户({id})的权限等级为 {perm} 级"
-        return f"您的权限等级({user_perm}级)过低，无法修改他人权限等级为 {perm} 级！"
+        for u in args.conv["user"]:
+            user_perm = await query_perm(id=str(u))
+            if user_perm > perm:
+                await set_perm(id=u, perm=perm)
+                message += f"成功设置用户({u})的权限等级为 {perm} 级\n"
+            else:
+                message += f"您的权限等级({user_perm}级)过低，无法修改用户({u})权限等级为 {perm} 级！\n"
+        return message
     elif args.group:
-        id = args.conv["group"][0]
-        if user_perm > perm:
-            await set_perm(id=id, perm=perm, isGroup=True)
-            return f"成功设置群({id})的权限等级为 {perm} 级"
-        return f"您的权限等级({user_perm}级)过低，无法修改群权限等级为 {perm} 级！"
+        user_id = args.conv["user"][0]
+        user_perm = await query_perm(id=str(user_id))
+        for g in args.conv["group"]:
+            if user_perm > perm:
+                await set_perm(id=g, perm=perm, isGroup=True)
+                message += f"成功设置群({g})的权限等级为 {perm} 级\n"
+            else:
+                message += f"您的权限等级({user_perm}级)过低，无法修改群({g})权限等级为 {perm} 级！\n"
+        return message
     else:
+        user_id = args.conv["user"][0]
+        user_perm = await query_perm(id=str(user_id))
         id = args.conv["group"][0]
         if user_perm > perm:
             await set_perm(id=id, perm=perm, isGroup=True)
