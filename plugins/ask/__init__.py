@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-14 19:36:09
-LastEditTime: 2021-08-17 21:33:56
+LastEditTime: 2021-08-18 20:21:39
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
@@ -27,7 +27,6 @@ ask = on_startswith("问")
 @ask.handle()
 async def _(bot: Bot, event: GroupMessageEvent, state: T_State):
     message = event.get_plaintext().strip()[1:]
-    print(list(set(re.findall(".?不.?", message))))
     if re.findall("几|多少", message):
         message = await how_many(message)
     if re.findall("什么时候|啥时候", message):
