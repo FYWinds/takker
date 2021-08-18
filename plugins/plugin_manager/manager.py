@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-05 14:46:50
-LastEditTime: 2021-08-18 20:25:34
+LastEditTime: 2021-08-18 20:38:20
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
@@ -39,24 +39,30 @@ async def ban_plugin(
     plugin_list: Dict[str, bool] = {}
     result = {}
     all_plugin_list = await get_plugin_list(conv, perm)
-    for p in plugin:
-        result[p] = False
-        if p in all_plugin_list:
-            result[p] = True
-            plugin_perm = int(get_plugin(p).module.__getattribute__("__permission__"))  # type: ignore
-            if plugin_perm > perm:
+    if conv["group"]:
+        for g in conv["group"]:
+            for p in plugin:
                 result[p] = False
-                continue
-            if conv["group"]:
-                plugin_list.update({p: False})
-                await set_plugin_status(
-                    str(conv["group"][0]), plugin_list, isGroup=True
-                )
-            else:
-                plugin_list.update({p: False})
-                await set_plugin_status(
-                    str(conv["user"][0]), plugin_list, isGroup=False
-                )
+                if p in all_plugin_list:
+                    result[p] = True
+                    plugin_perm = int(get_plugin(p).module.__getattribute__("__permission__"))  # type: ignore
+                    if plugin_perm > perm:
+                        result[p] = False
+                        continue
+                    plugin_list.update({p: False})
+                    await set_plugin_status(str(g), plugin_list, isGroup=True)
+    else:
+        for u in conv["user"]:
+            for p in plugin:
+                result[p] = False
+                if p in all_plugin_list:
+                    result[p] = True
+                    plugin_perm = int(get_plugin(p).module.__getattribute__("__permission__"))  # type: ignore
+                    if plugin_perm > perm:
+                        result[p] = False
+                        continue
+                    plugin_list.update({p: False})
+                    await set_plugin_status(str(u), plugin_list, isGroup=False)
     return result
 
 
@@ -66,22 +72,28 @@ async def unban_plugin(
     plugin_list: Dict[str, bool] = {}
     all_plugin_list = await get_plugin_list(conv, perm)
     result = {}
-    for p in plugin:
-        result[p] = False
-        if p in all_plugin_list:
-            result[p] = True
-            plugin_perm = int(get_plugin(p).module.__getattribute__("__permission__"))  # type: ignore
-            if plugin_perm > perm:
+    if conv["group"]:
+        for g in conv["group"]:
+            for p in plugin:
                 result[p] = False
-                continue
-            if conv["group"]:
-                plugin_list.update({p: True})
-                await set_plugin_status(
-                    str(conv["group"][0]), plugin_list, isGroup=True
-                )
-            else:
-                plugin_list.update({p: True})
-                await set_plugin_status(
-                    str(conv["user"][0]), plugin_list, isGroup=False
-                )
+                if p in all_plugin_list:
+                    result[p] = True
+                    plugin_perm = int(get_plugin(p).module.__getattribute__("__permission__"))  # type: ignore
+                    if plugin_perm > perm:
+                        result[p] = False
+                        continue
+                    plugin_list.update({p: True})
+                    await set_plugin_status(str(g), plugin_list, isGroup=True)
+    else:
+        for u in conv["user"]:
+            for p in plugin:
+                result[p] = False
+                if p in all_plugin_list:
+                    result[p] = True
+                    plugin_perm = int(get_plugin(p).module.__getattribute__("__permission__"))  # type: ignore
+                    if plugin_perm > perm:
+                        result[p] = False
+                        continue
+                    plugin_list.update({p: True})
+                    await set_plugin_status(str(u), plugin_list, isGroup=False)
     return result

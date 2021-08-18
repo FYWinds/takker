@@ -88,10 +88,12 @@ async def handle_unban(args: Namespace):
     result.update(await unban_plugin(args.conv, args.plugin, perm))
 
     message = ""
-    for t in args.conv:
-        if args.conv[t]:
-            message += "用户" if t == "user" else "群"
-            message += ",".join(str(i) for i in args.conv[t])
+    if args.conv["group"]:
+        message += "群"
+        message += ",".join(str(i) for i in args.conv["group"])
+    else:
+        message += "用户"
+        message += ",".join(str(i) for i in args.conv["user"])
     message += "中："
 
     for p in result:
