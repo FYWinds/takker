@@ -1,3 +1,5 @@
+[![Time](https://wakatime.com/badge/github/FYWinds/takker.svg)](https://wakatime.com/badge/github/FYWinds/takker)
+
 ![maven](https://img.shields.io/badge/python-3.9%2B-green)
 ![maven](https://img.shields.io/badge/nonebot-2.0.0a15-mint)
 ![maven](https://img.shields.io/badge/go--cqhttp-1.0.0--beta6-lime)
