@@ -40,5 +40,5 @@ requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 [[tool.poetry.source]]
-name = "douban"
-url = "https://pypi.douban.com/simple"
+name = "tsinghua"
+url = "https://pypi.tuna.tsinghua.edu.cn/simple"
