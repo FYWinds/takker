@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-01 07:48:46
-LastEditTime: 2021-08-18 11:03:24
+LastEditTime: 2021-08-18 11:44:00
 LastEditors: FYWindIsland
 Description: Takker的各项配置所在之处
 I'm writing SHIT codes
@@ -10,17 +10,17 @@ from typing import List
 
 # Go-cq正向http地址配置(默认使用bot.call_api()的调用方式)
 USE_HTTP_API: bool = False
-CQ_HTTP_URL: str = "http://127.0.0.1:5701"
+CQ_HTTP_URL: str = ""
 CQ_SECRET: str = ""  # HTTP_API的secret
 
 # 身份名单
-OWNER: str = "2330705135"  # 主人
-SUPERUSERS: List[str] = ["0", "1609225832", "2330705135"]  # 超级用户名单
+OWNER: str = ""  # 主人
+SUPERUSERS: List[str] = ["0", "", ""]  # 超级用户名单
 
 # 各个API的配置
-ALAPI_TOKEN: str = "F71XeXpJSBzIjIim"  # ALAPI
-CATAPI_TOKEN: str = "2b3a5a32-682e-4a49-84c0-ae3a44e39fa2"  # 随机猫猫API
-NETEASE_API: str = "nemapi.windis.cn"  # NodeJS版本的网易云音乐API的地址
+ALAPI_TOKEN: str = ""  # ALAPI
+CATAPI_TOKEN: str = ""  # 随机猫猫API
+NETEASE_API: str = ""  # NodeJS版本的网易云音乐API的地址
 
 # 各种限制
 MAX_PROCESS_TIME: int = 30  # 部分指令处理最大等待时间，单位秒，在此期间用户不能再次发起相同指令

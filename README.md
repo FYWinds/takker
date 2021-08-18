@@ -1,11 +1,11 @@
 ![maven](https://img.shields.io/badge/python-3.9%2B-green)
 ![maven](https://img.shields.io/badge/nonebot-2.0.0a15-mint)
-![maven](https://img.shields.io/badge/go--cqhttp-1.0.0--beta5-lime)
+![maven](https://img.shields.io/badge/go--cqhttp-1.0.0--beta6-lime)
 
 # Takker 目前还没啥功能（
 # 且没经过完整测试，一定有一堆bug
 ****
-此项目基于 Nonebot2 和 go-cqhttp 开发，以 Sqlite 作为数据库的QQ群娱乐机器人
+## 此项目基于 Nonebot2 和 go-cqhttp 开发，以 Sqlite 作为数据库的QQ群娱乐机器人
 
 ## 关于
 纯兴趣开发，部分功能借鉴了大佬们的代码，作为Q群的娱乐+功能性Bot
@@ -48,7 +48,7 @@
 ### 已实现的隐藏技能！
 - [x] 检测恶意触发命令（将被次高权限ban掉5分钟，只有最高权限(9&10级)可以进行unban）
 - [x] 群权限系统
-</details>
+  </details>
 
 ## 功能具体指令
 <details>
@@ -67,6 +67,9 @@
 | 群内消息总结 | 本群月内总结/本群年内总结| 效果见功能展示                                                                             | 消息记录权限 1 </br> 调用生成总结权限 群管理员+超级用户 |
 | 复读        | 相同的三条消息后自动触发| ?这都需要说明吗                                                                            | 2  |
 | 一言        | .h <类型>          | a 动画 b 文学 c 影视 d 诗词 e 哲学 f 网易云                                                    | 1  |
+| 亲亲GIF     | 亲@目标            | 生成一张狂亲的GIF                                                                            | 2  |
+| 摸头GIF     | 摸@目标            | 生成一张摸头的GIF                                                                            | 2  |
+| 点歌        | 点歌 歌名           | 顾名思义                                                                                    | 2  |
 
 ### 管理员功能
 功能         | 指令              | 说明                                                                                         | 权限
@@ -99,15 +102,17 @@
 ```python
 # Go-cq正向http地址配置(默认使用bot.call_api()的调用方式)
 USE_HTTP_API: bool = False
-CQ_HTTP_URL: str = "http://127.0.0.1:5701"
+CQ_HTTP_URL: str = ""
 CQ_SECRET: str = ""  # HTTP_API的secret
 
 # 身份名单
-OWNER: str = "2330705135"  # 主人
-SUPERUSERS: List[str] = ["0", "1609225832", "2330705135"]  # 超级用户名单
+OWNER: str = ""  # 主人
+SUPERUSERS: List[str] = ["0", "", ""]  # 超级用户名单
 
-# 各个API的Token
-ALAPI_TOKEN: str = "F71XeXpJSBzIjIim"
+# 各个API的配置
+ALAPI_TOKEN: str = ""  # ALAPI
+CATAPI_TOKEN: str = ""  # 随机猫猫API
+NETEASE_API: str = ""  # NodeJS版本的网易云音乐API的地址
 
 # 各种限制
 MAX_PROCESS_TIME: int = 30  # 部分指令处理最大等待时间，单位秒，在此期间用户不能再次发起相同指令
@@ -149,6 +154,11 @@ TEMP_PATH = Path("resources/img/temp/")
 
 ## 更新记录
 
+### 2021/8/18
+* 点歌、摸头GIF、狂亲GIF
+* Legacy插件重构完成
+* 配置文件更新为空配置，需手动修改
+
 ### 2021/8/17
 * 又是很多神奇的东西
 * Legacy的插件基本要重置完成了
@@ -179,7 +189,6 @@ TEMP_PATH = Path("resources/img/temp/")
 
 
 ## Todo
-- [ ] 重构原先插件
 - [ ] 争取在开学前做到能部署到生产环境中
 - [ ] 提供更多对插件的控制
 - [ ] 群管功能

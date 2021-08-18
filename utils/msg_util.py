@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-01 07:48:47
-LastEditTime: 2021-08-15 11:47:29
+LastEditTime: 2021-08-18 11:11:23
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
@@ -110,7 +110,7 @@ def poke(id_: str) -> MessageSegment:
 
 
 def music_163(id_: int) -> MessageSegment:
-    return MessageSegment.music("163", id_)
+    return MessageSegment("music", {"type": "163", "id": id_})
 
 
 def reply(id_: int) -> MessageSegment:
