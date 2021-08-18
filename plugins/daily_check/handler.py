@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-12 09:36:34
-LastEditTime: 2021-08-15 10:51:06
+LastEditTime: 2021-08-18 12:52:35
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
@@ -49,7 +49,7 @@ async def get_card(user_id: int):
 async def generate_pic(filename: str):
     browser = await get_browser()
     page = await browser.new_page()
-    await page.goto(f"{TEMPLATE_PATH}check_in/temp/{filename}.html")
+    await page.goto(f"http://{TEMPLATE_PATH}check_in/temp/{filename}.html")
     await page.set_viewport_size({"width": 1080, "height": 937})
     card = await page.query_selector("#card")
     assert card is not None
