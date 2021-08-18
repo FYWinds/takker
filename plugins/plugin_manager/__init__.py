@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-03 12:55:30
-LastEditTime: 2021-08-16 11:16:45
+LastEditTime: 2021-08-18 20:02:45
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
@@ -36,7 +36,7 @@ pm = on_shell_command("pm", parser=pm_parser, priority=1, block=True)
 async def _(bot: Bot, event: MessageEvent, state: T_State):
     args = state["args"]
     args.conv = {
-        "user": [event.user_id] if isinstance(event, PrivateMessageEvent) else [],
+        "user": [event.user_id],
         "group": [event.group_id] if isinstance(event, GroupMessageEvent) else [],
     }
     args.is_admin = (
