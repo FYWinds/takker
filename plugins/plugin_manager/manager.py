@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-05 14:46:50
-LastEditTime: 2021-08-18 20:02:44
+LastEditTime: 2021-08-18 20:25:34
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
@@ -37,11 +37,11 @@ async def ban_plugin(
     conv={"user": [], "group": []}, plugin: List[str] = [], perm: int = 0
 ) -> Dict[str, bool]:
     plugin_list: Dict[str, bool] = {}
-    pass
     result = {}
+    all_plugin_list = await get_plugin_list(conv, perm)
     for p in plugin:
         result[p] = False
-        if p in await get_plugin_list(conv, perm):
+        if p in all_plugin_list:
             result[p] = True
             plugin_perm = int(get_plugin(p).module.__getattribute__("__permission__"))  # type: ignore
             if plugin_perm > perm:
@@ -53,7 +53,6 @@ async def ban_plugin(
                     str(conv["group"][0]), plugin_list, isGroup=True
                 )
             else:
-                print(p)
                 plugin_list.update({p: False})
                 await set_plugin_status(
                     str(conv["user"][0]), plugin_list, isGroup=False
@@ -65,11 +64,11 @@ async def unban_plugin(
     conv={"user": [], "group": []}, plugin: List[str] = [], perm: int = 0
 ) -> Dict[str, bool]:
     plugin_list: Dict[str, bool] = {}
-    pass
+    all_plugin_list = await get_plugin_list(conv, perm)
     result = {}
     for p in plugin:
         result[p] = False
-        if p in await get_plugin_list(conv, perm):
+        if p in all_plugin_list:
             result[p] = True
             plugin_perm = int(get_plugin(p).module.__getattribute__("__permission__"))  # type: ignore
             if plugin_perm > perm:
