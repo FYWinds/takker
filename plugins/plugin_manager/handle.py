@@ -26,8 +26,8 @@ async def handle_ls(args: Namespace) -> str:
 
 
 async def handle_ban(args: Namespace):
-    perm = await query_perm(id=str(args.conv["user"]))
-    plugin = await get_plugin_list(args.conv, perm)
+    permission = await query_perm(id=str(args.conv["user"][0]))
+    plugin = await get_plugin_list(args.conv, permission)
     if args.all:
         args.plugin = list(p for p in plugin)
     if args.reverse:
@@ -46,7 +46,7 @@ async def handle_ban(args: Namespace):
         else:
             return "管理指定会话的插件需要超级用户权限！"
 
-    result.update(await ban_plugin(args.conv, args.plugin, perm))
+    result.update(await ban_plugin(args.conv, args.plugin, permission))
 
     message = ""
     for t in args.conv:
@@ -65,7 +65,7 @@ async def handle_ban(args: Namespace):
 
 
 async def handle_unban(args: Namespace):
-    perm = await query_perm(id=str(args.conv["user"]))
+    perm = await query_perm(id=str(args.conv["user"][0]))
     plugin = await get_plugin_list(args.conv, perm)
     if args.all:
         args.plugin = list(p for p in plugin)

@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-12 09:36:42
-LastEditTime: 2021-08-14 10:46:47
+LastEditTime: 2021-08-18 18:23:45
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
@@ -20,7 +20,10 @@ async def get_acg_image():
     params = {"token": ALAPI_TOKEN, "format": "json"}
     async with httpx.AsyncClient(headers=get_ua()) as client:
         resp = await client.get(url=url, params=params)
-    return resp.json()["data"]["url"]
+    try:
+        return resp.json()["data"]["url"]
+    except:
+        return "https://file.alapi.cn/image/comic/122514-15234207140623.jpg"
 
 
 async def get_stick(user_id: int):

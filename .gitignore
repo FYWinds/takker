@@ -115,4 +115,4 @@ dmypy.json
 
 # My Own Config
 configs/config.py
-
+data/data.db

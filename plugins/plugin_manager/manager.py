@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-05 14:46:50
-LastEditTime: 2021-08-14 13:10:15
+LastEditTime: 2021-08-18 20:02:44
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
@@ -53,6 +53,7 @@ async def ban_plugin(
                     str(conv["group"][0]), plugin_list, isGroup=True
                 )
             else:
+                print(p)
                 plugin_list.update({p: False})
                 await set_plugin_status(
                     str(conv["user"][0]), plugin_list, isGroup=False

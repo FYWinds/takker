@@ -1,3 +1,11 @@
+"""
+Author: FYWindIsland
+Date: 2021-08-16 22:22:53
+LastEditTime: 2021-08-18 20:05:26
+LastEditors: FYWindIsland
+Description: 
+I'm writing SHIT codes
+"""
 from typing import Optional
 from tortoise.query_utils import Q
 
@@ -22,12 +30,14 @@ async def query_perm(id: str, isGroup: Optional[bool] = False) -> int:
         p = await Permission.filter(Q(id="g" + id)).values("perm")
         if p:
             return p[0]["perm"]
-        return 0
+        else:
+            return 0
     else:
         p = await Permission.filter(Q(id=id)).values("perm")
         if p:
             return p[0]["perm"]
-        return 0
+        else:
+            return 0
 
 
 async def check_perm(id: str, perm: int, isGroup: Optional[bool] = False) -> bool:
