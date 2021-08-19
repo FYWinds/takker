@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-19 21:55:45
-LastEditTime: 2021-08-19 22:07:08
+LastEditTime: 2021-08-19 22:31:46
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
@@ -12,7 +12,6 @@ from nonebot.typing import T_State
 from nonebot.log import logger
 
 from api.info import get_stranger_info, get_group_member_list
-from api.group_manage import set_request
 
 gr = on_request(priority=1)
 
@@ -56,6 +55,7 @@ async def _(bot: Bot, event: GroupRequestEvent, state: T_State):
                             approve=False,
                             reason="请勿重复加群",
                         )
+                        logger.info(f"拒绝了{event.user_id}的加群请求，原因 重复加群")
                     if str(event.group_id) != "758550492":
                         if not await check_level(event.user_id):
                             await bot.set_group_add_request(
@@ -64,6 +64,7 @@ async def _(bot: Bot, event: GroupRequestEvent, state: T_State):
                                 approve=False,
                                 reason="请不要使用等级过低的QQ小号加群,若是真人请联系管理",
                             )
+                            logger.info(f"拒绝了{event.user_id}的加群请求，原因 等级过低")
                     await bot.set_group_add_request(
                         flag=event.flag, sub_type="add", approve=True
                     )
@@ -74,6 +75,7 @@ async def _(bot: Bot, event: GroupRequestEvent, state: T_State):
                         approve=False,
                         reason="请认真回答并检查是否误写,提示:视频网站",
                     )
+                    logger.info(f"拒绝了{event.user_id}的加群请求，原因 回答错误")
 
 
 async def check_list(user_id: str):
