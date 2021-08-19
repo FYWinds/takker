@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-13 15:11:57
-LastEditTime: 2021-08-18 13:06:18
+LastEditTime: 2021-08-18 21:23:40
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
@@ -49,4 +49,4 @@ async def remove_illust(a: dict):
     """
     if not a:
         return
-    await Illust.filter(Q(id=a["id"])).update(nsfw=3)
+    await Illust.filter(Q(pid=a["pid"])).update(nsfw=3)

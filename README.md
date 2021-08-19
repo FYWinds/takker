@@ -191,14 +191,14 @@ TEMP_PATH = Path("resources/img/temp/")
 
 
 ## Todo
-- [ ] 争取在开学前做到能部署到生产环境中
-- [ ] 提供更多对插件的控制
+- [ ] 功能调用统计、xp统计
 - [ ] 群管功能
 - [ ] 缓存清理功能
 - [ ] docker容器化部署
 - [ ] Web管理面板
 - [ ] 完善各种功能
 - [ ] 提供非侵入式的权限等级管理方式
+- [ ] 提供非侵入式的帮助菜单
 
 ## 感谢
 [Onebot](https://github.com/howmanybots/onebot)  

@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-13 16:10:47
-LastEditTime: 2021-08-14 14:12:31
+LastEditTime: 2021-08-18 21:26:37
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
@@ -24,6 +24,7 @@ async def get_illust(nsfw: int, keyword: Optional[str] = "") -> dict:
     async with httpx.AsyncClient(headers=get_ua()) as client:
         resp = await client.get(url=url, params=params)
     try:
+        print(resp.json())
         img_url = str(resp.json()["illust"]["image_urls"]["medium"]).replace(
             "i.pximg.net", "pixiv.windis.xyz"
         )
