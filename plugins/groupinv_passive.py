@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-19 21:55:45
-LastEditTime: 2021-08-19 22:31:46
+LastEditTime: 2021-08-19 22:37:50
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
@@ -48,7 +48,7 @@ async def _(bot: Bot, event: GroupRequestEvent, state: T_State):
         if str(event.group_id) in enabled_groups:
             for w in keywords:
                 if w in event.comment:
-                    if not await check_list(str(event.user_id)):
+                    if await check_list(str(event.user_id)):
                         await bot.set_group_add_request(
                             flag=event.flag,
                             sub_type="add",
