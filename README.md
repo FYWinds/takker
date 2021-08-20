@@ -2,7 +2,7 @@
 
 ![maven](https://img.shields.io/badge/python-3.9%2B-green)
 ![maven](https://img.shields.io/badge/nonebot-2.0.0a15-mint)
-![maven](https://img.shields.io/badge/go--cqhttp-1.0.0--beta6-lime)
+![maven](https://img.shields.io/badge/go--cqhttp-1.0.0--beta4-lime)
 
 # Takker 目前还没啥功能（
 # 且没经过完整测试，一定有一堆bug
@@ -29,6 +29,8 @@
 - [x] 缩写查询
 - [x] 群内消息总结（每月/每年）
 - [x] 一言
+- [x] 插件调用统计
+- [x] xp统计
 
 ### 已实现的管理员功能
 - [x] 95%的插件功能开关 (基于[nonebot_plugin_manager](https://github.com/Jigsaw111/nonebot_plugin_manager)插件修改)
@@ -72,6 +74,8 @@
 | 亲亲GIF     | 亲@目标            | 生成一张狂亲的GIF                                                                            | 2  |
 | 摸头GIF     | 摸@目标            | 生成一张摸头的GIF                                                                            | 2  |
 | 点歌        | 点歌 歌名           | 顾名思义                                                                                    | 2  |
+| 插件调用统计  | 插件调用统计        | 生成一张统计图片                                                                             | 2  |
+| xp统计      | xp统计             | 生成一张统计图片，数据源为illust插件搜索的关键词                                                  | 2  |
 
 ### 管理员功能
 功能         | 指令              | 说明                                                                                         | 权限
@@ -115,6 +119,7 @@ SUPERUSERS: List[str] = ["0", "", ""]  # 超级用户名单
 ALAPI_TOKEN: str = ""  # ALAPI
 CATAPI_TOKEN: str = ""  # 随机猫猫API
 NETEASE_API: str = ""  # NodeJS版本的网易云音乐API的地址
+PIXIV_IMAGE_URL: str = ""  # 反代i.pximg.net的网址
 
 # 各种限制
 MAX_PROCESS_TIME: int = 30  # 部分指令处理最大等待时间，单位秒，在此期间用户不能再次发起相同指令
@@ -155,6 +160,15 @@ TEMP_PATH = Path("resources/img/temp/")
 
 
 ## 更新记录
+
+### 2021/8/20
+* 修复一些优先级的bug
+* 加入插件统计
+* 加入xp统计
+* 修复一些绘图BUG
+* 加入所有环境下都关闭重载
+* 修复不知道哪些BUG
+* 修改pixiv美图发送的图片质量和链接内容
 
 ### 2021.8.19
 * 修了一整天的服务器，现在bot内部调用的我自建的API都正常了
@@ -199,7 +213,6 @@ TEMP_PATH = Path("resources/img/temp/")
 
 
 ## Todo
-- [ ] 功能调用统计、xp统计
 - [ ] 群管功能
 - [ ] 缓存清理功能
 - [ ] docker容器化部署

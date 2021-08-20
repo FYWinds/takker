@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-01 07:48:46
-LastEditTime: 2021-08-18 11:44:00
+LastEditTime: 2021-08-20 18:24:27
 LastEditors: FYWindIsland
 Description: Takker的各项配置所在之处
 I'm writing SHIT codes
@@ -21,6 +21,7 @@ SUPERUSERS: List[str] = ["0", "", ""]  # 超级用户名单
 ALAPI_TOKEN: str = ""  # ALAPI
 CATAPI_TOKEN: str = ""  # 随机猫猫API
 NETEASE_API: str = ""  # NodeJS版本的网易云音乐API的地址
+PIXIV_IMAGE_URL: str = ""  # 反代i.pximg.net的网址
 
 # 各种限制
 MAX_PROCESS_TIME: int = 30  # 部分指令处理最大等待时间，单位秒，在此期间用户不能再次发起相同指令

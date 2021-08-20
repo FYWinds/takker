@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-13 09:23:20
-LastEditTime: 2021-08-17 22:06:38
+LastEditTime: 2021-08-20 15:02:53
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
@@ -20,7 +20,7 @@ from .parser import n_parser
 __permission__ = 9
 
 
-n = on_shell_command("notice", parser=n_parser, priority=1, block=True)
+n = on_shell_command("notice", parser=n_parser, priority=20, block=True)
 
 
 @n.handle()

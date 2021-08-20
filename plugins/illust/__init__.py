@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-13 16:10:42
-LastEditTime: 2021-08-14 14:16:06
+LastEditTime: 2021-08-20 15:45:28
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
@@ -14,11 +14,14 @@ __plugin_name__ = "随机pixiv美图"
 __usage__ = """pix <关键词> <-l NSFW等级>
 NSFW等级: 0-全年龄 1-R15 2-R18"""
 
+from nonebot.adapters.cqhttp.event import GroupMessageEvent
 from zhconv import convert
 
 from nonebot.adapters.cqhttp import (
     Bot,
     MessageEvent,
+    GroupMessageEvent,
+    PrivateMessageEvent,
 )
 from nonebot.plugin import on_shell_command
 from nonebot.typing import T_State
@@ -28,13 +31,15 @@ from utils.msg_util import image, text, reply
 
 from .parser import pic_parser
 
-pic = on_shell_command("pix", parser=pic_parser)
+pic = on_shell_command("pix", parser=pic_parser, priority=20)
 
 
 @pic.handle()
 async def _(bot: Bot, event: MessageEvent, state: T_State):
     args = state["args"]
     args.user = event.user_id
+    if isinstance(event, GroupMessageEvent):
+        args.group = event.group_id
 
     if hasattr(args, "handle"):
         result = await args.handle(args)
@@ -51,6 +56,8 @@ async def _(bot: Bot, event: MessageEvent, state: T_State):
                         reply(event.message_id)
                         + image(bytes=r["img_bytes"])
                         + text(message)
+                        if isinstance(event, GroupMessageEvent)
+                        else image(bytes=r["img_bytes"]) + text(message)
                     ),
                 )
             else:
@@ -62,6 +69,13 @@ async def _(bot: Bot, event: MessageEvent, state: T_State):
             orig = "图片链接（请复制后使用浏览器查看）:"
             for i in r["orig_img_url"]:
                 orig += f"\n{i}"
-            await bot.send(event, message=(reply(event.message_id) + text(orig)))
+            await bot.send(
+                event,
+                message=(
+                    reply(event.message_id) + text(orig)
+                    if isinstance(event, GroupMessageEvent)
+                    else text(orig)
+                ),
+            )
         else:
             await pic.finish(reply(event.message_id) + text("未找到符合要求的图片"))
