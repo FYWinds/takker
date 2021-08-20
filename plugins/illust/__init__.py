@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-13 16:10:42
-LastEditTime: 2021-08-19 18:35:32
+LastEditTime: 2021-08-20 15:45:28
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
@@ -31,13 +31,15 @@ from utils.msg_util import image, text, reply
 
 from .parser import pic_parser
 
-pic = on_shell_command("pix", parser=pic_parser)
+pic = on_shell_command("pix", parser=pic_parser, priority=20)
 
 
 @pic.handle()
 async def _(bot: Bot, event: MessageEvent, state: T_State):
     args = state["args"]
     args.user = event.user_id
+    if isinstance(event, GroupMessageEvent):
+        args.group = event.group_id
 
     if hasattr(args, "handle"):
         result = await args.handle(args)

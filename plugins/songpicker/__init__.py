@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-18 10:34:02
-LastEditTime: 2021-08-18 11:21:48
+LastEditTime: 2021-08-20 15:03:10
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
@@ -22,7 +22,7 @@ __usage__ = "点歌 歌名"
 
 dataget = dataGet()
 
-songpicker = on_command("点歌")
+songpicker = on_command("点歌", priority=20)
 
 
 @songpicker.handle()

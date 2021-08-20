@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-13 16:10:47
-LastEditTime: 2021-08-19 18:33:21
+LastEditTime: 2021-08-20 19:15:20
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
@@ -12,6 +12,7 @@ from typing import Optional
 
 from utils.user_agent import get_ua
 from service.db.utils.illust import get_random_illust, remove_illust
+from configs.config import PIXIV_IMAGE_URL
 
 
 async def get_illust(nsfw: int, keyword: Optional[str] = "") -> dict:
@@ -24,21 +25,21 @@ async def get_illust(nsfw: int, keyword: Optional[str] = "") -> dict:
     async with httpx.AsyncClient(headers=get_ua()) as client:
         resp = await client.get(url=url, params=params)
     try:
-        img_url = str(resp.json()["illust"]["image_urls"]["medium"]).replace(
-            "i.pximg.net", "pixiv.windis.xyz"
+        img_url = str(resp.json()["illust"]["image_urls"]["large"]).replace(
+            "i.pximg.net", PIXIV_IMAGE_URL
         )
         orig_img_url = []
         if resp.json()["illust"]["meta_single_page"]:
             orig_img_url = [
-                str(resp.json()["illust"]["image_urls"]["large"]).replace(
-                    "i.pximg.net", "pixiv.windis.xyz"
-                )
+                str(
+                    resp.json()["illust"]["meta_single_page"]["original_image_url"]
+                ).replace("i.pximg.net", PIXIV_IMAGE_URL)
             ]
         else:
             for i in resp.json()["illust"]["meta_pages"]:
                 orig_img_url += [
-                    str(i["image_urls"]["large"]).replace(
-                        "i.pximg.net", "pixiv.windis.xyz"
+                    str(i["image_urls"]["original"]).replace(
+                        "i.pximg.net", PIXIV_IMAGE_URL
                     )
                 ]
         a.update({"img_url": img_url})

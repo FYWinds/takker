@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-12 09:36:04
-LastEditTime: 2021-08-16 11:09:45
+LastEditTime: 2021-08-20 15:02:34
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
@@ -32,12 +32,14 @@ check = on_command(
         "运势",
         "luck",
     },
-    priority=10,
+    priority=20,
 )
 
 
 @check.handle()
 async def _(bot: Bot, event: MessageEvent, state: T_State):
+    if event.get_plaintext() != "":
+        return
     user_id = event.user_id
     img = await get_card(user_id)
     await check.finish(image(img, "check_in"))

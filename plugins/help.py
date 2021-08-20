@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-13 13:57:24
-LastEditTime: 2021-08-17 21:38:16
+LastEditTime: 2021-08-20 15:03:27
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
@@ -33,7 +33,7 @@ __plugin_name__ = "帮助菜单"
 
 __permission__ = 0
 
-helper = on_command("/help", priority=5)
+helper = on_command("/help", priority=20)
 
 
 @helper.handle()

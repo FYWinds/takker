@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-14 19:36:09
-LastEditTime: 2021-08-18 20:21:39
+LastEditTime: 2021-08-20 15:02:25
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
@@ -21,7 +21,7 @@ __plugin_name__ = "问答"
 
 __usage__ = "问内容"
 
-ask = on_startswith("问")
+ask = on_startswith("问", priority=20)
 
 
 @ask.handle()

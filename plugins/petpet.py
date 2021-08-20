@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-18 09:31:29
-LastEditTime: 2021-08-18 10:06:52
+LastEditTime: 2021-08-20 15:04:03
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
@@ -14,7 +14,7 @@ import httpx
 from io import BytesIO
 
 from nonebot import on_command
-from nonebot.adapters.cqhttp import Bot, Event
+from nonebot.adapters.cqhttp import Bot, Event, GROUP
 from nonebot.typing import T_State
 
 from configs.path_config import IMAGE_PATH
@@ -26,7 +26,7 @@ __plugin_name__ = "摸摸"
 __usage__ = "摸@目标"
 
 
-pet = on_command("摸")
+pet = on_command("摸", priority=20, permission=GROUP)
 
 
 @pet.handle()

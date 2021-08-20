@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-19 21:55:45
-LastEditTime: 2021-08-19 22:37:50
+LastEditTime: 2021-08-19 22:46:31
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
@@ -68,14 +68,13 @@ async def _(bot: Bot, event: GroupRequestEvent, state: T_State):
                     await bot.set_group_add_request(
                         flag=event.flag, sub_type="add", approve=True
                     )
-                else:
-                    await bot.set_group_add_request(
-                        flag=event.flag,
-                        sub_type="add",
-                        approve=False,
-                        reason="请认真回答并检查是否误写,提示:视频网站",
-                    )
-                    logger.info(f"拒绝了{event.user_id}的加群请求，原因 回答错误")
+                await bot.set_group_add_request(
+                    flag=event.flag,
+                    sub_type="add",
+                    approve=False,
+                    reason="请认真回答并检查是否误写,提示:视频网站",
+                )
+                logger.info(f"拒绝了{event.user_id}的加群请求，原因 回答错误")
 
 
 async def check_list(user_id: str):
