@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-20 09:37:44
-LastEditTime: 2021-08-20 18:26:39
+LastEditTime: 2021-08-20 19:34:17
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
@@ -14,6 +14,8 @@ from service.db.model.models import Statistic
 
 async def query_status(gid: int) -> Dict[str, Dict[str, int]]:
     q = await Statistic.filter(Q(gid=gid)).values("stat")
+    if not q:
+        return {}
     if q[0]["stat"] != None:
         return json.loads(str(q[0]["stat"]).replace("'", '"'))
     else:
@@ -33,6 +35,8 @@ illust: Dict[str, int]
 
 async def query_illust_statue(gid: int) -> Dict[str, int]:
     q = await Statistic.filter(Q(gid=gid)).values("illust_stat")
+    if not q:
+        return {}
     if q[0]["illust_stat"] != None:
         return json.loads(str(q[0]["illust_stat"]).replace("'", '"'))
     else:
