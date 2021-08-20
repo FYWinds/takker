@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-14 15:48:24
-LastEditTime: 2021-08-17 21:34:08
+LastEditTime: 2021-08-20 15:02:38
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
@@ -13,7 +13,7 @@ from nonebot.plugin import on_command
 from utils.msg_util import reply, text
 from .data_source import get_sx
 
-hhsh = on_command("好好说话", priority=5, block=False)
+hhsh = on_command("好好说话", priority=20, block=False)
 
 
 @hhsh.handle()

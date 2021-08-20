@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-02 19:19:38
-LastEditTime: 2021-08-17 21:56:44
+LastEditTime: 2021-08-20 18:05:56
 LastEditors: FYWindIsland
 Description: PreProcessors before matchers
 I'm writing SHIT codes
@@ -119,7 +119,9 @@ async def ban_exploit_check(
 ):
     if not isinstance(event, GroupMessageEvent):
         return
-    if matcher.type == "message" and matcher.priority not in range(0, 9):
+    if matcher.type == "message" and (
+        matcher.priority not in range(0, 9) or matcher.priority not in range(90, 100)
+    ):
         if await isbanned(event.user_id):
             raise IgnoredException("用户正在封禁中")
         if state["_prefix"]["raw_command"]:

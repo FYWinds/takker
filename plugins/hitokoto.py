@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-17 08:50:09
-LastEditTime: 2021-08-17 22:14:51
+LastEditTime: 2021-08-20 15:03:32
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
@@ -26,7 +26,7 @@ from nonebot import on_command
 from nonebot.typing import T_State
 from nonebot.adapters.cqhttp import Bot, Event
 
-hitokoto = on_command(".h", priority=5)
+hitokoto = on_command(".h", priority=20)
 
 
 @hitokoto.handle()

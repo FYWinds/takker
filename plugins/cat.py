@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-18 10:08:18
-LastEditTime: 2021-08-18 12:29:39
+LastEditTime: 2021-08-20 15:03:21
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
@@ -18,7 +18,7 @@ __permission__ = 2
 __plugin_name__ = "随机猫猫"
 __usage__ = "来点猫猫"
 
-randomcat = on_command("来点猫猫", priority=5)
+randomcat = on_command("来点猫猫", priority=20)
 
 
 @randomcat.handle()

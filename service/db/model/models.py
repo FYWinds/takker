@@ -1,11 +1,12 @@
 """
 Author: FYWindIsland
 Date: 2021-08-01 07:48:47
-LastEditTime: 2021-08-16 21:42:08
+LastEditTime: 2021-08-20 14:52:00
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
 """
+from typing import Text
 from tortoise.models import Model
 from tortoise.fields.data import *  # type: ignore
 
@@ -51,7 +52,7 @@ class Plugin(Model):
     选择将插件数据以text形式存储"""
 
     id = TextField(pk=True)
-    status = TextField()
+    status = TextField(null=True)
 
     class Meta:
         table = "plugin_manager"
@@ -64,23 +65,12 @@ class Wordcloud(Model):
     gid = BigIntField()
     uid = BigIntField()
     time = BigIntField()
-    msg = TextField()
-    msg_seg = TextField()
+    msg = TextField(null=True)
+    msg_seg = TextField(null=True)
 
     class Meta:
         table = "wordcloud"
         table_description = "热词词云数据"
-
-
-class Cp(Model):
-    """cp生成器"""
-
-    id = IntField(pk=True)
-    story = TextField()
-
-    class Meta:
-        table = "cp"
-        table_description = "cp生成器短文数据"
 
 
 class Point(Model):
@@ -92,3 +82,15 @@ class Point(Model):
     class Meta:
         table = "point"
         table_description = "机器人积分系统数据"
+
+
+class Statistic(Model):
+    """插件调用数据"""
+
+    gid = BigIntField(pk=True)
+    stat = TextField(null=True)
+    illust_stat = TextField(null=True)
+
+    class Meta:
+        table = "statistic"
+        table_description = "插件调用数据"
