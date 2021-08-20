@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-18 09:20:31
-LastEditTime: 2021-08-18 10:07:07
+LastEditTime: 2021-08-20 15:03:44
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
@@ -26,7 +26,7 @@ __permission__ = 2
 __plugin_name__ = "亲亲"
 __usage__ = "亲@目标"
 
-kiss = on_command("亲", permission=GROUP)
+kiss = on_command("亲", permission=GROUP, priority=20)
 
 
 @kiss.handle()

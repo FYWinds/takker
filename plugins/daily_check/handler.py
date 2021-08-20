@@ -1,11 +1,12 @@
 """
 Author: FYWindIsland
 Date: 2021-08-12 09:36:34
-LastEditTime: 2021-08-18 13:04:12
+LastEditTime: 2021-08-20 18:24:58
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
 """
+import os
 import time
 
 from api.info import get_stranger_info
@@ -21,22 +22,32 @@ async def get_card(user_id: int):
     acg_url = await get_acg_image()
     user_name = (await get_stranger_info(user_id))["nickname"]
     day_time = time.strftime("%m/%d", time.localtime())
-    min_time = time.strftime("%H:%M", time.localtime())
     with open(f"{TEMPLATE_PATH}check_in/card2.html", "r", encoding="utf-8") as f:
         template = str(f.read())
-    points = await add_random_points(user_id, 20)
+
+    filename = f"card-{user_id}"
+
+    if os.path.isfile(f"{TEMPLATE_PATH}/check_in/temp/{filename}.html"):
+        modifiedTime = time.localtime(
+            os.stat(f"{TEMPLATE_PATH}/check_in/temp/{filename}.html").st_mtime
+        )
+        mtime = time.strftime(r"%Y%m%d", modifiedTime)
+        ntime = time.strftime(r"%Y%m%d", time.localtime(time.time()))
+        if mtime != ntime:
+            points = await add_random_points(user_id, 20)
+            template = template.replace("[points]", str(points))
+        else:
+            template = template.replace("[points]", "0(已经签到过啦)")
+
     template = template.replace("static/", "../static/")
     template = template.replace("[acg_url]", acg_url)
     template = template.replace("[day_time]", day_time)
-    # template = template.replace("[min_time]", min_time)
     template = template.replace("[user_name]", user_name)
-    template = template.replace("[points]", str(points))
     template = template.replace("[luck-status]", stick["FORTUNE_SUMMARY"])
     template = template.replace("[star]", stick["LUCKY_STAR"])
     template = template.replace("[comment]", stick["SIGN_TEXT"])
     template = template.replace("[resolve]", stick["UN_SIGN_TEXT"])
 
-    filename = f"card-{user_id}"
     with open(
         f"{TEMPLATE_PATH}check_in/temp/{filename}.html", "w", encoding="utf-8"
     ) as f:

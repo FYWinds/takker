@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-16 20:21:40
-LastEditTime: 2021-08-17 21:37:46
+LastEditTime: 2021-08-20 08:47:00
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
@@ -29,7 +29,7 @@ __usage__ = """本群月内/年内总结
 为防止刷屏故只有群管理可以使用"""
 
 
-word = on_message(permission=GROUP, priority=3, block=False)
+word = on_message(permission=GROUP, priority=100, block=False)
 
 
 @word.handle()
