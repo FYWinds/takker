@@ -145,7 +145,7 @@ async def set_request(
         "set_group_add_request",
         flag=flag,
         sub_type=sub_type,
-        approve=approve,
+        approve="true" if approve else "false",
         reason=reason,
     )
 

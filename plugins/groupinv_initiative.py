@@ -16,7 +16,7 @@ __usage__ = """无指令
 
 @scheduler.scheduled_job("interval", seconds=3, id="handle_group_req")
 async def handle_group_requests():
-
+    bot = get_bot()
     approve = False
     agree_keyword = [
         "b站",
@@ -70,14 +70,8 @@ async def handle_group_requests():
 
 
 async def approve_requests(reqs: dict):
-    flag = reqs["request_id"]
-    bot = get_bot()
-    await bot.call_api(
-        "set_group_add_request",
-        flag=flag,
-        sub_type="add",
-        approve="true",
-    )
+    flag = str(reqs["request_id"])
+    await set_request(flag, True)
     requester_nick = reqs["requester_nick"]
     requester_uin = reqs["requester_uin"]
     group_id = reqs["group_id"]
@@ -88,15 +82,8 @@ async def approve_requests(reqs: dict):
 
 
 async def reject_requests(reqs: dict, reason: str):
-    flag = reqs["request_id"]
-    bot = get_bot()
-    await bot.call_api(
-        "set_group_add_request",
-        flag=flag,
-        sub_type="add",
-        approve="false",
-        reason=reason,
-    )
+    flag = str(reqs["request_id"])
+    await set_request(flag, False, reason)
     requester_nick = reqs["requester_nick"]
     requester_uin = reqs["requester_uin"]
     group_id = reqs["group_id"]
