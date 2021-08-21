@@ -602,7 +602,6 @@ python-versions = ">=3.7"
 [package.dependencies]
 greenlet = ">=1.0.0"
 pyee = ">=8.0.1"
-typing-extensions = {version = "*", markers = "python_version <= \"3.8\""}
 websockets = ">=8.1"
 
 [[package]]
@@ -1028,8 +1027,8 @@ python-versions = "*"
 
 [metadata]
 lock-version = "1.1"
-python-versions = ">=3.8,<3.11"
-content-hash = "30086c031b03164a7f1fc1d745be3e6f24b3f15ede54567b4343278e7f903d8c"
+python-versions = ">=3.9,<3.11"
+content-hash = "3859f8ee6aa3b54ddf0423f263bf2f2daf763f5d0caddfd5204c37380c8eb919"
 
 [metadata.files]
 aiofiles = [
