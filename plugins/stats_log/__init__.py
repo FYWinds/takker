@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-20 08:47:13
-LastEditTime: 2021-08-20 18:21:48
+LastEditTime: 2021-08-21 15:04:39
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
@@ -15,7 +15,7 @@ from utils.msg_util import image
 from . import stat_hook
 from .draw import draw_stat, draw_xp_stat
 
-permission = 1
+__permission__ = 1
 __plugin_name__ = "插件调用统计"
 __usage__ = """插件调用统计 | 返回插件的调用情况
 xp统计 | 返回pix搜索关键词调用情况

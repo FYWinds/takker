@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-12 09:36:34
-LastEditTime: 2021-08-20 18:24:58
+LastEditTime: 2021-08-21 09:50:51
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
@@ -38,6 +38,9 @@ async def get_card(user_id: int):
             template = template.replace("[points]", str(points))
         else:
             template = template.replace("[points]", "0(已经签到过啦)")
+    else:
+        points = await add_random_points(user_id, 20)
+        template = template.replace("[points]", str(points))
 
     template = template.replace("static/", "../static/")
     template = template.replace("[acg_url]", acg_url)

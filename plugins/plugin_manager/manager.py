@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-05 14:46:50
-LastEditTime: 2021-08-18 20:38:20
+LastEditTime: 2021-08-21 15:20:19
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
@@ -27,7 +27,10 @@ async def get_plugin_list(
         if plugin:
             if plugin.name in HIDDEN_PLUGINS:
                 continue
-            plugin_perm = int(plugin.module.__getattribute__("__permission__"))
+            try:
+                plugin_perm = int(plugin.module.__getattribute__("__permission__"))
+            except:
+                plugin_perm = 5
             if plugin_perm <= perm:
                 result.update({p: bool(plugin_list[p])})
     return result
@@ -45,7 +48,10 @@ async def ban_plugin(
                 result[p] = False
                 if p in all_plugin_list:
                     result[p] = True
-                    plugin_perm = int(get_plugin(p).module.__getattribute__("__permission__"))  # type: ignore
+                    try:
+                        plugin_perm = int(get_plugin(p).module.__getattribute__("__permission__"))  # type: ignore
+                    except:
+                        plugin_perm = 5
                     if plugin_perm > perm:
                         result[p] = False
                         continue
@@ -57,7 +63,10 @@ async def ban_plugin(
                 result[p] = False
                 if p in all_plugin_list:
                     result[p] = True
-                    plugin_perm = int(get_plugin(p).module.__getattribute__("__permission__"))  # type: ignore
+                    try:
+                        plugin_perm = int(get_plugin(p).module.__getattribute__("__permission__"))  # type: ignore
+                    except:
+                        plugin_perm = 5
                     if plugin_perm > perm:
                         result[p] = False
                         continue
@@ -78,7 +87,10 @@ async def unban_plugin(
                 result[p] = False
                 if p in all_plugin_list:
                     result[p] = True
-                    plugin_perm = int(get_plugin(p).module.__getattribute__("__permission__"))  # type: ignore
+                    try:
+                        plugin_perm = int(get_plugin(p).module.__getattribute__("__permission__"))  # type: ignore
+                    except:
+                        plugin_perm = 5
                     if plugin_perm > perm:
                         result[p] = False
                         continue
@@ -90,7 +102,10 @@ async def unban_plugin(
                 result[p] = False
                 if p in all_plugin_list:
                     result[p] = True
-                    plugin_perm = int(get_plugin(p).module.__getattribute__("__permission__"))  # type: ignore
+                    try:
+                        plugin_perm = int(get_plugin(p).module.__getattribute__("__permission__"))  # type: ignore
+                    except:
+                        plugin_perm = 5
                     if plugin_perm > perm:
                         result[p] = False
                         continue

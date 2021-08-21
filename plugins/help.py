@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-13 13:57:24
-LastEditTime: 2021-08-20 15:03:27
+LastEditTime: 2021-08-21 15:19:23
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
@@ -65,7 +65,7 @@ async def get_result(bot: Bot, event: MessageEvent, state: T_State):
             try:
                 plugin_perm = plugin.module.__getattribute__("__permission__")
             except:
-                plugin_perm = 3
+                plugin_perm = 5
             if perm >= plugin_perm and enabled:
                 try:
                     name = f'{plugin.name}: {plugin.module.__getattribute__("__plugin_name__")}'
@@ -85,7 +85,7 @@ async def get_result(bot: Bot, event: MessageEvent, state: T_State):
         except AttributeError:
             plugin = None
         try:
-            result = "\n" + plugin.module.__getattribute__("__usage__")  # type: ignore
+            result = "\n指令 | 说明" + "\n" + plugin.module.__getattribute__("__usage__")  # type: ignore
         except:
             try:
                 result = plugin.module.__doc__  # type: ignore

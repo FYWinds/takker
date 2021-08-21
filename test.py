@@ -1,34 +1,19 @@
 """
 Author: FYWindIsland
 Date: 2021-08-16 22:22:53
-LastEditTime: 2021-08-20 17:42:21
+LastEditTime: 2021-08-21 14:49:56
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
 """
-from typing import *  # type: ignore
+import os
+import re
+import random
+from typing import List
+from configs.path_config import VOICE_PATH
 
-stats: Dict[int, Dict[str, int]] = {
-    1: {"test": 1, "test1": 1},
-    2: {"test": 0, "test1": 3},
-}
+voices: List[str] = os.listdir(f"{VOICE_PATH}dinggong")
+voice = random.choice(voices)
+text = re.findall("_(.*)_", voice)
 
-ex: Dict[str, int] = {"test": 123, "test1": 4523}
-
-time_today = 3
-
-
-def test(time_today):
-    if time_today in stats.keys():
-        module_name = "test7"
-        if module_name in stats[time_today].keys():
-            stats[time_today].update({module_name: stats[time_today][module_name] + 1})
-        else:
-            stats[time_today].update({module_name: 1})
-    else:
-        module_name = "test5"
-        stats.update({time_today: {module_name: 1}})
-
-
-print(list(ex.values()))
-print(stats)
+print(text)
