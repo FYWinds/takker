@@ -2,7 +2,7 @@
 
 ![maven](https://img.shields.io/badge/python-3.9%2B-green)
 ![maven](https://img.shields.io/badge/nonebot-2.0.0a15-mint)
-![maven](https://img.shields.io/badge/go--cqhttp-1.0.0--beta4-lime)
+![maven](https://img.shields.io/badge/go--cqhttp-1.0.0--beta6-lime)
 
 # Takker 目前还没啥功能（
 # 且没经过完整测试，一定有一堆bug
@@ -31,6 +31,7 @@
 - [x] 一言
 - [x] 插件调用统计
 - [x] xp统计
+- [x] 傲娇钉宫语音包
 
 ### 已实现的管理员功能
 - [x] 95%的插件功能开关 (基于[nonebot_plugin_manager](https://github.com/Jigsaw111/nonebot_plugin_manager)插件修改)
@@ -76,6 +77,7 @@
 | 点歌        | 点歌 歌名           | 顾名思义                                                                                    | 2  |
 | 插件调用统计  | 插件调用统计        | 生成一张统计图片                                                                             | 2  |
 | xp统计      | xp统计             | 生成一张统计图片，数据源为illust插件搜索的关键词                                                  | 2  |
+| 钉宫语音包   | 傲娇               | 发送一条钉宫的语音和对应的中文翻译                                                               | 3  |
 
 ### 管理员功能
 功能         | 指令              | 说明                                                                                         | 权限
@@ -160,6 +162,14 @@ TEMP_PATH = Path("resources/img/temp/")
 
 
 ## 更新记录
+
+### 2021/8/21
+* 修复每日签到积分bug
+* 修复部分插件权限问题
+* 添加了钉宫语音包功能
+* 修复插件管理器获取权限报错的问题
+* 修复了私聊bot设置自己权限时报错无反馈的问题
+
 
 ### 2021/8/20
 * 修复一些优先级的bug

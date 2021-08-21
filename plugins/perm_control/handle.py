@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-14 11:47:29
-LastEditTime: 2021-08-18 20:46:54
+LastEditTime: 2021-08-21 15:28:25
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
@@ -99,8 +99,11 @@ async def edit_perm(args: Namespace):
     else:
         user_id = args.conv["user"][0]
         user_perm = await query_perm(id=str(user_id))
-        id = args.conv["group"][0]
-        if user_perm > perm:
-            await set_perm(id=id, perm=perm, isGroup=True)
-            return f"成功设置本群权限等级为 {perm} 级"
-        return f"您的权限等级({user_perm}级)过低，无法修改本群权限等级为 {perm} 级！"
+        try:
+            id = args.conv["group"][0]
+            if user_perm > perm:
+                await set_perm(id=id, perm=perm, isGroup=True)
+                return f"成功设置本群权限等级为 {perm} 级"
+            return f"您的权限等级({user_perm}级)过低，无法修改本群权限等级为 {perm} 级！"
+        except:
+            return f"您无法设置自己的权限等级"
