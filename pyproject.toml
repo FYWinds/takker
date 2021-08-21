@@ -6,7 +6,7 @@ authors = ["风屿 <i@windis.cn>"]
 license = "AGPL-v3"
 
 [tool.poetry.dependencies]
-python = ">=3.8,<3.11"
+python = ">=3.9,<3.11"
 nonebot2 = "^2.0.0-alpha.15"
 nonebot-adapter-cqhttp = "^2.0.0-alpha.15"
 nonebot-plugin-apscheduler = "^0.1.2"
