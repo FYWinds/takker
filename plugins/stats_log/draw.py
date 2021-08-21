@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-20 17:05:54
-LastEditTime: 2021-08-21 17:26:01
+LastEditTime: 2021-08-21 17:35:07
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
@@ -59,11 +59,15 @@ async def draw_xp_stat(group_id: int):
     with open(f"{TEMPLATE_PATH}statistic/chart.html", "r", encoding="utf-8") as f:
         template = str(f.read())
     p_stat = await query_illust_statue(group_id)
-    p_stat_sorted = dict(sorted(p_stat.items(), key=lambda item: item[1]))
+    p_stat_sorted = dict(sorted(p_stat.items(), key=lambda item: item[1], reverse=True))
     p_stat_final: dict[str, int] = {}
     for i in range(0, 5):
-        key = list(p_stat_sorted.keys())[i]
-        p_stat_final.update({key: p_stat_sorted[key]})
+        try:
+            key = list(p_stat_sorted.keys())[i]
+            p_stat_final.update({key: p_stat_sorted[key]})
+        except:
+            break
+    print(p_stat_final)
     template = template.replace("本月插件调用统计", "xp统计")
     template = template.replace("[group-id]", str(group_id))
     date = time.strftime("%Y-%m", time.localtime(time.time()))
