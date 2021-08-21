@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-20 17:05:54
-LastEditTime: 2021-08-21 17:35:07
+LastEditTime: 2021-08-21 17:42:15
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
@@ -61,13 +61,12 @@ async def draw_xp_stat(group_id: int):
     p_stat = await query_illust_statue(group_id)
     p_stat_sorted = dict(sorted(p_stat.items(), key=lambda item: item[1], reverse=True))
     p_stat_final: dict[str, int] = {}
-    for i in range(0, 5):
+    for i in range(0, 7):
         try:
             key = list(p_stat_sorted.keys())[i]
             p_stat_final.update({key: p_stat_sorted[key]})
         except:
             break
-    print(p_stat_final)
     template = template.replace("本月插件调用统计", "xp统计")
     template = template.replace("[group-id]", str(group_id))
     date = time.strftime("%Y-%m", time.localtime(time.time()))
@@ -92,7 +91,7 @@ async def generate_pic(filename: str):
     browser = await get_browser()
     page = await browser.new_page()
     await page.goto(f"file://{TEMPLATE_PATH}statistic/temp/{filename}.html")
-    await page.set_viewport_size({"width": 1920, "height": 1080})
+    # await page.set_viewport_size({"width": 1920, "height": 1080})
     container = await page.query_selector("#container")
     assert container is not None
     await container.screenshot(path=f"{IMAGE_PATH}statistic/{filename}.png")
