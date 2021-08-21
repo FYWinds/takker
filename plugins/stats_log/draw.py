@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-20 17:05:54
-LastEditTime: 2021-08-21 17:23:18
+LastEditTime: 2021-08-21 17:26:01
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
@@ -68,8 +68,8 @@ async def draw_xp_stat(group_id: int):
     template = template.replace("[group-id]", str(group_id))
     date = time.strftime("%Y-%m", time.localtime(time.time()))
     template = template.replace("[date]", date)
-    template = template.replace("[plugin_list]", str(list(p_stat.keys())))
-    template = template.replace("[times]", str(list(p_stat.values())))
+    template = template.replace("[plugin_list]", str(list(p_stat_final.keys())))
+    template = template.replace("[times]", str(list(p_stat_final.values())))
 
     filename = f"chart-{group_id}-xp"
 
