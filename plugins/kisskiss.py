@@ -19,7 +19,7 @@ from nonebot.typing import T_State
 
 from configs.path_config import IMAGE_PATH
 from utils.msg_util import image
-from utils.user_agent import get_ua
+from utils.browser import get_ua
 
 # 插件信息
 __permission__ = 2

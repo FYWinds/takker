@@ -11,7 +11,7 @@ import httpx
 import random
 
 from configs.config import ALAPI_TOKEN
-from utils.user_agent import get_ua
+from utils.browser import get_ua
 from utils.data import fortune
 
 

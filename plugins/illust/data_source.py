@@ -10,7 +10,7 @@ import httpx
 import base64
 from typing import Optional
 
-from utils.user_agent import get_ua
+from utils.browser import get_ua
 from service.db.utils.illust import get_random_illust, remove_illust
 from configs.config import PIXIV_IMAGE_URL
 

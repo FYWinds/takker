@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-12 18:01:58
-LastEditTime: 2021-08-18 13:01:56
+LastEditTime: 2021-08-22 13:39:48
 LastEditors: FYWindIsland
 Description: 将加好友请求发送给bot主人用于审核，加群请求仅接收超级管理员的
 I'm writing SHIT codes
@@ -64,6 +64,8 @@ async def _ch(bot: Bot, event: PrivateMessageEvent, state: T_State):
         await checker.finish()
     assert event.reply is not None
     reply_id = str(event.reply.message_id)
+    if reply_id not in requests.keys():
+        return
     text = event.message.extract_plain_text()
     if text in ["可", "通过"]:
         await bot.set_friend_add_request(flag=requests[reply_id], approve=True)

@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-20 08:47:13
-LastEditTime: 2021-08-21 15:04:39
+LastEditTime: 2021-08-22 13:47:21
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
@@ -21,7 +21,16 @@ __usage__ = """插件调用统计 | 返回插件的调用情况
 xp统计 | 返回pix搜索关键词调用情况
 """
 
-plugin_stat = on_command("插件调用统计", priority=20, permission=GROUP, block=False)
+plugin_stat = on_command(
+    "插件调用统计",
+    aliases={
+        "功能调用统计",
+        "调用统计",
+    },
+    priority=20,
+    permission=GROUP,
+    block=False,
+)
 
 
 @plugin_stat.handle()

@@ -8,7 +8,7 @@ I'm writing SHIT codes
 """
 import httpx
 
-from utils.user_agent import get_ua
+from utils.browser import get_ua
 
 
 async def get_sx(word: str) -> str:
