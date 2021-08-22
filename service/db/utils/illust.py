@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-13 15:11:57
-LastEditTime: 2021-08-22 13:45:23
+LastEditTime: 2021-08-22 22:48:09
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
@@ -23,8 +23,6 @@ async def get_random_illust(
                 Q(tags__contains=keyword)
                 | Q(title__contains=keyword)
                 | Q(author__contains=keyword)
-                | Q(pid=keyword)
-                | Q(uid=keyword)
             )
         ).values()
         if a:
