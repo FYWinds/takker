@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-13 15:11:57
-LastEditTime: 2021-08-18 21:23:40
+LastEditTime: 2021-08-22 13:45:23
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
@@ -23,6 +23,8 @@ async def get_random_illust(
                 Q(tags__contains=keyword)
                 | Q(title__contains=keyword)
                 | Q(author__contains=keyword)
+                | Q(pid=keyword)
+                | Q(uid=keyword)
             )
         ).values()
         if a:
@@ -34,6 +36,28 @@ async def get_random_illust(
         a = await Illust.filter(Q(nsfw=nsfw)).values()
         num = len(a)
         return a[random.randint(0, num - 1)]
+
+
+async def check_illust(pid: int):
+    if await Illust.filter(Q(pid=pid)).values():
+        return True
+    else:
+        return False
+
+
+async def add_illust(a: dict):
+    pid = a["pid"]
+    if await check_illust(pid):
+        return
+    await Illust.create(
+        pid=pid,
+        uid=a["uid"],
+        nsfw=a["nsfw"],
+        title=a["title"],
+        author=a["author"],
+        tags=a["tags"],
+        url=f"https://www.pixiv.net/artworks/{pid}",
+    )
 
 
 async def remove_illust(a: dict):
