@@ -1,12 +1,13 @@
 """
 Author: FYWindIsland
 Date: 2021-08-19 21:55:45
-LastEditTime: 2021-08-22 20:32:04
+LastEditTime: 2021-08-22 20:54:21
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
 """
 from nonebot.adapters.cqhttp import Bot, GroupRequestEvent
+from nonebot.adapters.cqhttp.exception import ActionFailed
 from nonebot.plugin import on_request
 from nonebot.typing import T_State
 from nonebot.log import logger
@@ -44,37 +45,34 @@ keywords = [
 
 @gr.handle()
 async def _(bot: Bot, event: GroupRequestEvent, state: T_State):
+    user_id = event.user_id
     if event.sub_type == "add":
+        flag = str(event.flag)
         if str(event.group_id) in enabled_groups:
             for w in keywords:
                 if w in event.comment:
-                    if await check_list(str(event.user_id)):
-                        await bot.set_group_add_request(
-                            flag=str(event.flag),
-                            sub_type="add",
-                            approve=False,
-                            reason="请勿重复加群",
-                        )
-                        logger.info(f"拒绝了{event.user_id}的加群请求，原因 重复加群")
+                    if await check_list(str(user_id)):
+                        await set_request(bot, user_id, flag, False, "请勿重复添加粉丝群")
                     if str(event.group_id) != "758550492":
                         if not await check_level(event.user_id):
-                            await bot.set_group_add_request(
-                                flag=str(event.flag),
-                                sub_type="add",
-                                approve=False,
-                                reason="请不要使用等级过低的QQ小号加群,若是真人请联系管理",
+                            await set_request(
+                                bot, user_id, flag, False, "请不要使用等级过低的QQ小号加群,若是真人请联系管理"
                             )
-                            logger.info(f"拒绝了{event.user_id}的加群请求，原因 等级过低")
-                    await bot.set_group_add_request(
-                        flag=str(event.flag), sub_type="add", approve=True
-                    )
-                await bot.set_group_add_request(
-                    flag=str(event.flag),
-                    sub_type="add",
-                    approve=False,
-                    reason="请认真回答并检查是否误写,提示:视频网站",
-                )
-                logger.info(f"拒绝了{event.user_id}的加群请求，原因 回答错误")
+                    await set_request(bot, user_id, flag, True)
+            await set_request(bot, user_id, flag, False, "请认真回答并检查是否误写,提示:视频网站")
+
+
+async def set_request(
+    bot: Bot, user_id: int, flag: str, approve: bool, reason: str = ""
+):
+    try:
+        await bot.set_group_add_request(
+            flag=flag, sub_type="add", approve=approve, reason=reason
+        )
+        logger.info("通过" if approve else "拒绝" + f"了 {user_id} 的加群请求，原因 {reason}")
+    except ActionFailed as e:
+        f_reason = e.info["wording"]
+        logger.error(f"处理 {user_id} 的加群请求失败，原因 {f_reason}")
 
 
 async def check_list(user_id: str):
