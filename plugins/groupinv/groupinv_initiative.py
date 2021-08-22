@@ -1,6 +1,6 @@
-from nonebot import get_bot
 from nonebot_plugin_apscheduler import scheduler
 from nonebot.log import logger
+from nonebot.adapters.cqhttp.exception import ActionFailed
 
 from api.group_manage import set_request
 from api.info import get_stranger_info, group_join_request, get_group_member_list
@@ -16,7 +16,6 @@ __usage__ = """无指令
 
 @scheduler.scheduled_job("interval", seconds=10, id="handle_group_req")
 async def handle_group_requests():
-    bot = get_bot()
     approve = False
     agree_keyword = [
         "b站",
@@ -71,11 +70,17 @@ async def handle_group_requests():
 
 async def approve_requests(reqs: dict):
     flag = str(reqs["request_id"])
-    await set_request(flag, True)
     requester_nick = reqs["requester_nick"]
     requester_uin = reqs["requester_uin"]
     group_id = reqs["group_id"]
     group_name = reqs["group_name"]
+    try:
+        await set_request(flag, True)
+    except ActionFailed as e:
+        f_reason = e.info["wording"]
+        logger.error(
+            f"处理 {requester_nick}({requester_uin}) 加入 {group_name}({group_id}) 的加群请求，失败原因: {f_reason}"
+        )
     logger.info(
         f"通过了 {requester_nick}({requester_uin}) 加入 {group_name}({group_id}) 的加群请求"
     )
@@ -83,11 +88,17 @@ async def approve_requests(reqs: dict):
 
 async def reject_requests(reqs: dict, reason: str):
     flag = str(reqs["request_id"])
-    await set_request(flag, False, reason)
     requester_nick = reqs["requester_nick"]
     requester_uin = reqs["requester_uin"]
     group_id = reqs["group_id"]
     group_name = reqs["group_name"]
+    try:
+        await set_request(flag, False, reason)
+    except ActionFailed as e:
+        f_reason = e.info["wording"]
+        logger.error(
+            f"处理 {requester_nick}({requester_uin}) 加入 {group_name}({group_id}) 的加群请求，失败原因: {f_reason}"
+        )
     logger.info(
         f"拒绝了 {requester_nick}({requester_uin}) 加入 {group_name}({group_id}) 的加群请求\n原因：{reason}"
     )
