@@ -14,7 +14,7 @@ __usage__ = """无指令
 """
 
 
-@scheduler.scheduled_job("interval", seconds=3, id="handle_group_req")
+@scheduler.scheduled_job("interval", seconds=10, id="handle_group_req")
 async def handle_group_requests():
     bot = get_bot()
     approve = False
