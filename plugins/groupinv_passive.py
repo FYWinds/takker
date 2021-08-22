@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-19 21:55:45
-LastEditTime: 2021-08-19 22:46:31
+LastEditTime: 2021-08-22 20:32:04
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
@@ -50,7 +50,7 @@ async def _(bot: Bot, event: GroupRequestEvent, state: T_State):
                 if w in event.comment:
                     if await check_list(str(event.user_id)):
                         await bot.set_group_add_request(
-                            flag=event.flag,
+                            flag=str(event.flag),
                             sub_type="add",
                             approve=False,
                             reason="请勿重复加群",
@@ -59,17 +59,17 @@ async def _(bot: Bot, event: GroupRequestEvent, state: T_State):
                     if str(event.group_id) != "758550492":
                         if not await check_level(event.user_id):
                             await bot.set_group_add_request(
-                                flag=event.flag,
+                                flag=str(event.flag),
                                 sub_type="add",
                                 approve=False,
                                 reason="请不要使用等级过低的QQ小号加群,若是真人请联系管理",
                             )
                             logger.info(f"拒绝了{event.user_id}的加群请求，原因 等级过低")
                     await bot.set_group_add_request(
-                        flag=event.flag, sub_type="add", approve=True
+                        flag=str(event.flag), sub_type="add", approve=True
                     )
                 await bot.set_group_add_request(
-                    flag=event.flag,
+                    flag=str(event.flag),
                     sub_type="add",
                     approve=False,
                     reason="请认真回答并检查是否误写,提示:视频网站",
