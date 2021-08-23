@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-14 11:47:29
-LastEditTime: 2021-08-16 10:09:52
+LastEditTime: 2021-08-23 19:08:42
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
@@ -18,7 +18,7 @@ async def log_to_file():
     logger.add(
         LOG_PATH + "debug/{time:YYYY-MM-DD}.log",
         rotation="00:00",
-        retention="15 days",
+        retention="10 days",
         level="DEBUG",
         format=custom_format,
         encoding="utf-8",
