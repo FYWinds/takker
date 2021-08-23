@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-13 15:11:57
-LastEditTime: 2021-08-22 22:48:09
+LastEditTime: 2021-08-23 17:30:35
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
@@ -14,17 +14,15 @@ from service.db.model.illust_model import Illust
 
 
 async def get_random_illust(
-    nsfw: Optional[int] = 0, keyword: Optional[str] = ""
+    nsfw: Optional[int] = 0, keywords: Optional[list] = []
 ) -> dict:
-    if keyword:
-        a = await Illust.filter(
-            Q(nsfw=nsfw)
-            & (
-                Q(tags__contains=keyword)
-                | Q(title__contains=keyword)
-                | Q(author__contains=keyword)
+    if keywords:
+        a = Illust.filter(Q(nsfw=nsfw))
+        for k in keywords:
+            a = a.filter(
+                Q(tags__contains=k) | Q(title__contains=k) | Q(author__contains=k)
             )
-        ).values()
+        a = await a.values()
         if a:
             num = len(a)
             return a[random.randint(0, num - 1)]

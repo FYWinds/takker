@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-13 16:10:42
-LastEditTime: 2021-08-20 15:45:28
+LastEditTime: 2021-08-23 18:00:33
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
@@ -38,8 +38,7 @@ pic = on_shell_command("pix", parser=pic_parser, priority=20)
 async def _(bot: Bot, event: MessageEvent, state: T_State):
     args = state["args"]
     args.user = event.user_id
-    if isinstance(event, GroupMessageEvent):
-        args.group = event.group_id
+    args.group = event.group_id if isinstance(event, GroupMessageEvent) else None
 
     if hasattr(args, "handle"):
         result = await args.handle(args)
@@ -49,22 +48,37 @@ async def _(bot: Bot, event: MessageEvent, state: T_State):
             message = (
                 f"{r['title']}({r['pid']})\n作者: {r['author']}({r['uid']})\ntags: {tags}"
             )
-            if r["nsfw"] != 2:
+            if r["is_search"]:
                 await bot.send(
                     event,
                     message=(
-                        reply(event.message_id)
-                        + image(bytes=r["img_bytes"])
-                        + text(message)
+                        (reply(event.message_id) + text(message))
                         if isinstance(event, GroupMessageEvent)
-                        else image(bytes=r["img_bytes"]) + text(message)
+                        else (text(message))
                     ),
                 )
-            else:
+            if r["nsfw"] in [0, 1]:
+                await bot.send(
+                    event,
+                    message=(
+                        (
+                            reply(event.message_id)
+                            + image(bytes=r["img_bytes"])
+                            + text(message)
+                        )
+                        if isinstance(event, GroupMessageEvent)
+                        else (image(bytes=r["img_bytes"]) + text(message))
+                    ),
+                )
+            elif r["nsfw"] == 2:
                 message += "\nR-18的图片不直接发送，请从链接自行获取"
                 await bot.send(
                     event,
-                    message=(reply(event.message_id) + text(message)),
+                    message=(
+                        (reply(event.message_id) + text(message))
+                        if isinstance(event, GroupMessageEvent)
+                        else (text(message))
+                    ),
                 )
             orig = "图片链接（请复制后使用浏览器查看）:"
             for i in r["orig_img_url"]:
@@ -72,7 +86,7 @@ async def _(bot: Bot, event: MessageEvent, state: T_State):
             await bot.send(
                 event,
                 message=(
-                    reply(event.message_id) + text(orig)
+                    (reply(event.message_id) + text(orig))
                     if isinstance(event, GroupMessageEvent)
                     else text(orig)
                 ),
