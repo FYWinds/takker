@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-20 09:37:44
-LastEditTime: 2021-08-20 19:34:17
+LastEditTime: 2021-08-23 17:23:40
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
@@ -43,14 +43,15 @@ async def query_illust_statue(gid: int) -> Dict[str, int]:
         return {}
 
 
-async def set_illust_status(gid: int, kw: str):
+async def set_illust_status(gid: int, kw: list):
     q = await query_illust_statue(gid)
-    if q:
-        p_kw = q
-        if kw in p_kw.keys():
-            p_kw[kw] += 1
+    for k in kw:
+        if q:
+            p_kw = q
+            if k in p_kw.keys():
+                p_kw[k] += 1
+            else:
+                p_kw.update({k: 1})
+            await Statistic.filter(Q(gid=gid)).update(illust_stat=p_kw)
         else:
-            p_kw.update({kw: 1})
-        await Statistic.filter(Q(gid=gid)).update(illust_stat=p_kw)
-    else:
-        await Statistic.filter(Q(gid=gid)).update(illust_stat={kw: 1})
+            await Statistic.filter(Q(gid=gid)).update(illust_stat={k: 1})

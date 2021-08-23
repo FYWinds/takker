@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-12 09:36:04
-LastEditTime: 2021-08-20 15:02:34
+LastEditTime: 2021-08-23 17:45:26
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
@@ -30,7 +30,7 @@ check = on_command(
     aliases={
         "抽签",
         "运势",
-        "luck",
+        ".luck",
     },
     priority=20,
 )
