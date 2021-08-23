@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-01 07:48:46
-LastEditTime: 2021-08-20 18:24:27
+LastEditTime: 2021-08-23 19:44:09
 LastEditors: FYWindIsland
 Description: Takker的各项配置所在之处
 I'm writing SHIT codes
@@ -35,4 +35,5 @@ HIDDEN_PLUGINS: List[str] = [
     "nonebot_plugin_test",
     "hook",
     "invite_check",
+    "withdraw",
 ]
