@@ -117,3 +117,7 @@ dmypy.json
 configs/config.py
 data/data.db
 temp/*
+temp*.jpg
+temp*.png
+temp*.gif
+temp*.html

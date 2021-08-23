@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-18 09:31:29
-LastEditTime: 2021-08-20 15:04:03
+LastEditTime: 2021-08-23 20:04:51
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
@@ -14,7 +14,7 @@ import httpx
 from io import BytesIO
 
 from nonebot import on_command
-from nonebot.adapters.cqhttp import Bot, Event, GROUP
+from nonebot.adapters.cqhttp import Bot, MessageEvent, GROUP
 from nonebot.typing import T_State
 
 from configs.path_config import IMAGE_PATH
@@ -22,16 +22,24 @@ from utils.msg_util import image
 from utils.browser import get_ua
 
 __permission__ = 2
-__plugin_name__ = "摸摸"
+__plugin_name__ = "摸/rua!"
 __usage__ = "摸@目标"
 
 
-pet = on_command("摸", priority=20, permission=GROUP)
+pet = on_command(
+    "摸",
+    aliases={
+        "rua",
+        "摸摸",
+    },
+    priority=20,
+    permission=GROUP,
+)
 
 
 @pet.handle()
-async def handle_receive(bot: Bot, event: Event, state: T_State):
-    at = str(event.get_message()).strip("[CQ:at,qq=]")
+async def handle_receive(bot: Bot, event: MessageEvent, state: T_State):
+    at = 0
     await petpet(at)
     image_name = f"temp-{at}.gif"
     await pet.finish(image(image_name, "petpet"))
@@ -85,7 +93,7 @@ async def petpet(member_id, flip=False, squish=0, fps=20) -> None:
     gif_frames = []
     async with httpx.AsyncClient(headers=get_ua()) as client:
         resp = await client.get(url)
-    img_content = resp.read()
+    img_content = resp.content
 
     avatar = IMG.open(BytesIO(img_content))
 
