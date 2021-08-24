@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-14 19:36:09
-LastEditTime: 2021-08-21 17:48:21
+LastEditTime: 2021-08-24 11:51:16
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
@@ -37,7 +37,7 @@ async def _(bot: Bot, event: GroupMessageEvent, state: T_State):
     if re.findall("多久|多长时间", message):
         handled = True
         message = await how_long(message)
-    if re.findall(".不.", message):
+    if re.findall("(.)不\1", message):
         handled = True
         message = await hif(message)
 
