@@ -171,6 +171,9 @@ TEMP_PATH = Path("resources/img/temp/")
 
 ## 更新记录
 
+<details>
+<summary>更新记录</summary>
+
 ### 2021/8/24
 * 添加功能-亚托莉语音包(目前基于文本相似度匹配)
 
@@ -246,6 +249,7 @@ TEMP_PATH = Path("resources/img/temp/")
 * 开始重构Takker(指新建文件夹)
 * 重新封装部分API
 
+</details>
 
 ## Todo
 - [ ] 群管功能

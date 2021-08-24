@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-22 13:06:12
-LastEditTime: 2021-08-22 13:27:42
+LastEditTime: 2021-08-24 16:57:43
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
@@ -33,15 +33,18 @@ async def get_illust_info(pid: int) -> dict:
         resp = await client.get(url=url, params=params)
     resp = resp.json()
     try:
-        tags = ""
-        for i in resp["illust"]["tags"]:
-            tags += i["translated_name"]
+        tags: set[str] = set()
+        for t in resp["illust"]["tags"]:
+            if t["translated_name"] != None:
+                tags.add(t["translated_name"])
+            else:
+                tags.add(t["name"])
         a = {
             "pid": pid,
             "title": resp["illust"]["title"],
             "author": resp["illust"]["user"]["name"],
             "uid": resp["illust"]["user"]["id"],
-            "tags": tags,
+            "tags": ",".join(list(tags)),
         }
         return a
     except:
