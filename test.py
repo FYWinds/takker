@@ -1,17 +1,29 @@
 """
 Author: FYWindIsland
 Date: 2021-08-16 22:22:53
-LastEditTime: 2021-08-21 17:28:17
+LastEditTime: 2021-08-24 10:36:41
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
 """
 import os
 import re
+import json
 import random
-from configs.path_config import VOICE_PATH
+import jieba
+import jieba.analyse
+from configs.path_config import VOICE_PATH, TEXT_PATH
 
-voices: dict[str, int] = {"test": 0, "test1": 5, "test3": 1}
+v_dict: list[dict[str, str]] = []
 
-di = dict(sorted(voices.items(), key=lambda item: item[1]))
-print(di.keys())
+voices = os.listdir(f"{VOICE_PATH}atri")
+for v in voices:
+    voice = re.findall("(.*).mp3", v)[0]
+    voice_full_seg = " ".join(list(jieba.cut(voice)))
+    voice_key_seg = " ".join(list(jieba.analyse.extract_tags(voice)))
+    v_dict.append({"o": v, "s": voice, "s_f": voice_full_seg, "s_k": voice_key_seg})
+
+
+json_file = open(f"{TEXT_PATH}atri.json", mode="w", encoding="utf-8")
+
+json.dump(v_dict, json_file, indent=4, ensure_ascii=False)
