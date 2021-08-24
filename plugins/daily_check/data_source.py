@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-12 09:36:42
-LastEditTime: 2021-08-18 18:23:45
+LastEditTime: 2021-08-24 18:43:26
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
@@ -31,4 +31,7 @@ async def get_stick(user_id: int):
     seed = int(str(user_id) + str(time_day))
     random.seed(seed)
     result = fortune[random.randint(0, 1432)]
+    if "吉" not in result["FORTUNE_SUMMARY"]:
+        seed = seed + 15
+        result = fortune[random.randint(0, 1432)]
     return result
