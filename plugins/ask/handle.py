@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-14 21:34:31
-LastEditTime: 2021-08-24 11:51:07
+LastEditTime: 2021-08-24 11:54:38
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
@@ -42,8 +42,9 @@ async def how_long(message: str) -> str:
 
 
 async def hif(message: str) -> str:
-    keyword = list(set(re.findall("(.)不\1", message)))
+    keyword = list(set(re.findall(r"(.)不\1", message)))
     for k in keyword:
+        k = f"{k}不{k}"
         if random.choice([True, False]):
             message = message.replace(k, k[:1])
         else:
