@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-02 19:19:38
-LastEditTime: 2021-08-20 18:05:56
+LastEditTime: 2021-08-24 18:31:45
 LastEditors: FYWindIsland
 Description: PreProcessors before matchers
 I'm writing SHIT codes
@@ -43,6 +43,8 @@ async def handle_plugin_permission(
 ):
     if not isinstance(event, MessageEvent):
         return
+    if str(event.user_id) in SUPERUSERS or str(event.user_id) == OWNER:
+        return
     conv = {
         "user": [event.user_id],
         "group": [event.group_id] if isinstance(event, GroupMessageEvent) else [],
@@ -51,8 +53,6 @@ async def handle_plugin_permission(
     if module_name in HIDDEN_PLUGINS:
         return
 
-    # if str(conv["user"][0]) in SUPERUSERS:
-    #     return
     await __update_plugin(conv)
     if isinstance(event, MessageEvent):
         await __update_perm(event.user_id, event.sender.role)  # type: ignore

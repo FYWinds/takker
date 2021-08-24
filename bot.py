@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-01 07:48:44
-LastEditTime: 2021-08-15 11:58:35
+LastEditTime: 2021-08-24 18:26:17
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
@@ -24,7 +24,7 @@ patch()
 driver.on_startup(init_bot)
 driver.on_shutdown(db_disconnect)
 
-# nonebot.load_builtin_plugins()
+
 nonebot.load_plugins("plugins")
 nonebot.load_from_toml("pyproject.toml")
 

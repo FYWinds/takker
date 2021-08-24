@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-21 15:02:35
-LastEditTime: 2021-08-22 13:43:17
+LastEditTime: 2021-08-24 16:55:53
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
@@ -64,6 +64,7 @@ async def _c(bot: Bot, event: MessageEvent, state: T_State):
             await add_illust(info)
             await bot.send(event, f"成功将 {pics[reply_id]} 的图片添加到图库中，类型: {nsfw}")
             pics.pop(reply_id)
+            return
         else:
             await pix_check.finish(f"添加失败，若无报错则图片或许已被删除")
     await bot.send(event, f"拒绝将 {pics[reply_id]} 的图片添加到图库中")
