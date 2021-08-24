@@ -1,7 +1,7 @@
 """
 Author: FYWindIsland
 Date: 2021-08-02 18:57:39
-LastEditTime: 2021-08-17 21:34:38
+LastEditTime: 2021-08-24 11:04:16
 LastEditors: FYWindIsland
 Description: 
 I'm writing SHIT codes
@@ -28,7 +28,4 @@ __permission__ = 10
 
 @testtest.handle()
 async def handle_test(bot: Bot, event: MessageEvent, state: T_State):
-    with open(f"{TEMPLATE_PATH}check_in/card2.html", "r", encoding="utf-8") as f:
-        template = f.read()
-    print(template)
-    await testtest.finish()
+    print(event.message)

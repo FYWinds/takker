@@ -4,6 +4,8 @@
 ![maven](https://img.shields.io/badge/nonebot-2.0.0a15-mint)
 ![maven](https://img.shields.io/badge/go--cqhttp-1.0.0--beta6-lime)
 
+[![State-of-the-art Shitcode](https://img.shields.io/static/v1?label=State-of-the-art&message=Shitcode&color=7B5804)](https://github.com/trekhleb/state-of-the-art-shitcode)
+
 # Takker 目前还没啥功能（
 # 且没经过完整测试，一定有一堆bug
 ****
@@ -33,6 +35,7 @@
 - [x] xp统计
 - [x] 傲娇钉宫语音包
 - [x] pixiv图片上传
+- [x] 萝卜子语音包！(厨力++)
 
 ### 已实现的管理员功能
 - [x] 95%的插件功能开关 (基于[nonebot_plugin_manager](https://github.com/Jigsaw111/nonebot_plugin_manager)插件修改)
@@ -81,7 +84,7 @@
 | xp统计      | xp统计             | 生成一张统计图片，数据源为illust插件搜索的关键词                                                  | 2  |
 | 钉宫语音包   | 傲娇               | 发送一条钉宫的语音和对应的中文翻译                                                               | 3  |
 | pix图片上传  | pixupload [pid]   | 将该uid对应的图片交由主人审核并选择是否添加到图库中                                                | 6  |
-
+| 萝卜子语音包  | @机器人 [话]       | 随机的一句亚托莉的语音包                                                                       | 3  |
 ### 管理员功能
 功能         | 指令              | 说明                                                                                         | 权限
 |:----------:|:-----------------|:--------------------------------------------------------------------------------------------|:--:|
@@ -100,7 +103,7 @@
 <details>
 <summary>功能实例展示</summary>
 
-### 群内消息总结词云
+### 群内消息总结词云  
 ![](https://raw.githubusercontent.com/FYWinds/takker/master/docs/img/summary_wordcloud.png)
 
 </details>
@@ -167,6 +170,9 @@ TEMP_PATH = Path("resources/img/temp/")
 
 
 ## 更新记录
+
+### 2021/8/24
+* 添加功能-亚托莉语音包(目前基于文本相似度匹配)
 
 ### 2021/8/23
 * Pixiv美图添加功能-多关键词搜索
