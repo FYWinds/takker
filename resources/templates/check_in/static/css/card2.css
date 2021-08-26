@@ -4,10 +4,8 @@ body {
 	background: #eaebec;
 	font-family: "Open Sans", sans-serif; 
 	position: relative;
-    perspective: 800px;
-    width:432px;
-    height:675px;
-    transform-style: preserve-3d;
+    /* perspective: 800px; */
+    width:500px;
     position:absolute;    
     top:80px;
     left:50%;	
@@ -16,32 +14,27 @@ body {
 /* --- Card ---- */
 #card{
 	width: 100%;
-	height: 100%;
+	height:auto;
 	position:absolute;
-	overflow:hidden;
+	display:inline-block;
+	display: inline;
+	overflow:visible;
 }
 .image{
     width: 100%;
-    height: 37%;
+    height: auto;
 }
 .image img{
     width:100%;
-	height: 100%;
-}
-
-.stats{
-	width: 100%;
-	height: 63%;
 }
 
 .stats-container{
+	display: block;
 	background:#fff;	
-	position:absolute;
-	top:37%;
-	left:0;
-	width:90%;
-	height:62%;
-	padding:3% 5% 0;	
+	position:relative;
+	width:auto;
+	height:auto;
+	padding:2% 4% 0;	
 }
 .stats-container .time{
 	font-size: xxx-large;
@@ -61,6 +54,7 @@ body {
 }
 .stick{
 	padding:2% 0 0;
+	height: auto;
 }
 .stick strong{
 	font-weight:700;
@@ -80,29 +74,29 @@ body {
 	color:#393c45;
 	font-size:x-large;
 }
-div.comment{
+.stats-container .stick .comment{
 	width:100%; 
 	margin-top: 1%;	
     font-size:large;
     color: #111111;
 }
-div.resolve{
+.stats-container .stick .resolve{
 	margin-top:1%;
 	font-size:normal;
-	height: 85px;
+	height: auto;
+	padding-bottom: 8px;
 	color: #999999;
 }
-div.dnt{
-	position:fixed;
-	bottom: 4%;
-	text-align: center;
+.stats-container .dnt{
+	position:relative;
+	width: 100%;
 	font-size: small;
 	color: #999999;
 }
-div.copyright{
-    position:fixed;
-	bottom: 1%;
-    text-align: center;
+.stats-container .copyright{
+    position:relative;
+	width: 100%;
+	padding-bottom: 3%;
     font-size: small;
     color: #AAAAAA;
 }

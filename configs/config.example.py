@@ -1,4 +1,3 @@
-
 from typing import List
 
 # Go-cq正向http地址配置(默认使用bot.call_api()的调用方式)
