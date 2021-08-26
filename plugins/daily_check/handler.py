@@ -17,7 +17,7 @@ async def get_card(user_id: int):
     with open(f"{TEMPLATE_PATH}check_in/card2.html", "r", encoding="utf-8") as f:
         template = str(f.read())
 
-    filename = f"card-{user_id}"
+    filename = f"temp-card-{user_id}"
 
     if os.path.isfile(f"{TEMPLATE_PATH}/check_in/temp/{filename}.html"):
         modifiedTime = time.localtime(
