@@ -45,12 +45,15 @@ async def _(bot: Bot, event: GroupRequestEvent, state: T_State):
                 if w in event.comment:
                     if await check_list(str(user_id)):
                         await set_request(bot, user_id, flag, False, "请勿重复添加粉丝群")
+                        return
                     if str(event.group_id) != "758550492":
                         if not await check_level(event.user_id):
                             await set_request(
                                 bot, user_id, flag, False, "请不要使用等级过低的QQ小号加群,若是真人请联系管理"
                             )
+                            return
                     await set_request(bot, user_id, flag, True)
+                    return
             await set_request(bot, user_id, flag, False, "请认真回答并检查是否误写,提示:视频网站")
 
 
