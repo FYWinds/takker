@@ -1,11 +1,3 @@
-"""
-Author: FYWindIsland
-Date: 2021-08-12 09:36:04
-LastEditTime: 2021-08-23 17:45:26
-LastEditors: FYWindIsland
-Description: 
-I'm writing SHIT codes
-"""
 from nonebot.adapters.cqhttp import (
     Bot,
     MessageEvent,

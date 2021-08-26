@@ -1,11 +1,3 @@
-"""
-Author: FYWindIsland
-Date: 2021-08-19 21:55:45
-LastEditTime: 2021-08-22 20:54:21
-LastEditors: FYWindIsland
-Description: 
-I'm writing SHIT codes
-"""
 from nonebot.adapters.cqhttp import Bot, GroupRequestEvent
 from nonebot.adapters.cqhttp.exception import ActionFailed
 from nonebot.plugin import on_request

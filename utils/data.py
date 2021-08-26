@@ -1,11 +1,3 @@
-"""
-Author: FYWindIsland
-Date: 2021-08-12 10:40:00
-LastEditTime: 2021-08-24 10:26:05
-LastEditors: FYWindIsland
-Description: 
-I'm writing SHIT codes
-"""
 import json
 
 from nonebot.log import logger

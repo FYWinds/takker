@@ -1,11 +1,3 @@
-"""
-Author: FYWindIsland
-Date: 2021-08-05 14:46:50
-LastEditTime: 2021-08-21 15:20:19
-LastEditors: FYWindIsland
-Description: 
-I'm writing SHIT codes
-"""
 from typing import Dict, List, Optional
 from nonebot.log import logger
 from nonebot.plugin import get_loaded_plugins, get_plugin

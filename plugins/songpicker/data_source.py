@@ -1,11 +1,3 @@
-"""
-Author: FYWindIsland
-Date: 2021-08-18 10:34:09
-LastEditTime: 2021-08-18 11:05:06
-LastEditors: FYWindIsland
-Description: 
-I'm writing SHIT codes
-"""
 import httpx
 
 from configs.config import NETEASE_API

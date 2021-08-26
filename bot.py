@@ -1,17 +1,10 @@
-"""
-Author: FYWindIsland
-Date: 2021-08-01 07:48:44
-LastEditTime: 2021-08-24 18:26:17
-LastEditors: FYWindIsland
-Description: 
-I'm writing SHIT codes
-"""
 import nonebot
 from nonebot.adapters.cqhttp import Bot as CQHTTPBot
 
 from service.db.database_sqlite import db_disconnect
 from service.init import init_bot
 from utils.patcher import patch
+from utils.browser import close_browser
 
 
 nonebot.init()
@@ -23,6 +16,7 @@ patch()
 
 driver.on_startup(init_bot)
 driver.on_shutdown(db_disconnect)
+driver.on_shutdown(close_browser)
 
 
 nonebot.load_plugins("plugins")

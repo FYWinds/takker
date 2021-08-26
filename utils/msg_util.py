@@ -1,11 +1,3 @@
-"""
-Author: FYWindIsland
-Date: 2021-08-01 07:48:47
-LastEditTime: 2021-08-18 11:11:23
-LastEditors: FYWindIsland
-Description: 
-I'm writing SHIT codes
-"""
 ## Author HibiKier/zhenxun_bot
 ## Edit by FYWinds
 import os

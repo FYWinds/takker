@@ -1,11 +1,3 @@
-"""
-Author: FYWindIsland
-Date: 2021-08-21 15:02:35
-LastEditTime: 2021-08-24 16:55:53
-LastEditors: FYWindIsland
-Description: 
-I'm writing SHIT codes
-"""
 import re
 from nonebot.plugin import on_command, on_message
 from nonebot.adapters.cqhttp import Bot, MessageEvent, GROUP, PRIVATE_FRIEND

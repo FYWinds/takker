@@ -1,11 +1,3 @@
-"""
-Author: FYWindIsland
-Date: 2021-08-20 08:47:20
-LastEditTime: 2021-08-23 18:33:25
-LastEditors: FYWindIsland
-Description: 
-I'm writing SHIT codes
-"""
 import time
 from typing import Dict
 from nonebot import logger
@@ -32,6 +24,12 @@ async def _(matcher: Matcher, e: Exception, bot: Bot, event: Event, state: T_Sta
     if not isinstance(event, GroupMessageEvent):
         return
     if e:
+        return
+    if (
+        matcher.type != "message"
+        or matcher.priority in range(0, 11)
+        or matcher.priority in range(90, 101)
+    ):
         return
     if (
         matcher.type == "message"

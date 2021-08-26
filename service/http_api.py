@@ -1,11 +1,3 @@
-"""
-Author: FYWindIsland
-Date: 2021-08-01 07:48:47
-LastEditTime: 2021-08-12 11:54:28
-LastEditors: FYWindIsland
-Description: 
-I'm writing SHIT codes
-"""
 import httpx
 
 from configs.config import CQ_HTTP_URL, USE_HTTP_API

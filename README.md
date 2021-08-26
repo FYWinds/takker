@@ -125,10 +125,10 @@ OWNER: str = ""  # 主人
 SUPERUSERS: List[str] = ["0", "", ""]  # 超级用户名单
 
 # 各个API的配置
-ALAPI_TOKEN: str = ""  # ALAPI
-CATAPI_TOKEN: str = ""  # 随机猫猫API
-NETEASE_API: str = ""  # NodeJS版本的网易云音乐API的地址
-PIXIV_IMAGE_URL: str = ""  # 反代i.pximg.net的网址
+ALAPI_TOKEN: str = ""  # ALAPI的Token
+CATAPI_TOKEN: str = ""  # 随机猫猫API的Token
+NETEASE_API: str = "nemapi.windis.xyz"  # NodeJS版本的网易云音乐API的地址
+PIXIV_IMAGE_URL: str = "pixiv.windis.xyz"  # 反代i.pximg.net的网址
 
 # 各种限制
 MAX_PROCESS_TIME: int = 30  # 部分指令处理最大等待时间，单位秒，在此期间用户不能再次发起相同指令

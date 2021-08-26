@@ -1,11 +1,3 @@
-"""
-Author: FYWindIsland
-Date: 2021-08-14 11:47:29
-LastEditTime: 2021-08-23 19:08:42
-LastEditors: FYWindIsland
-Description: 
-I'm writing SHIT codes
-"""
 from nonebot.log import logger, default_format
 from configs.path_config import LOG_PATH
 

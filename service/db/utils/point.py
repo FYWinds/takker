@@ -1,11 +1,3 @@
-"""
-Author: FYWindIsland
-Date: 2021-08-14 11:47:29
-LastEditTime: 2021-08-15 10:55:55
-LastEditors: FYWindIsland
-Description: 
-I'm writing SHIT codes
-"""
 from tortoise.query_utils import Q
 
 from service.db.model.models import Point

@@ -1,12 +1,3 @@
-"""
-Author: FYWindIsland
-Date: 2021-08-13 16:10:42
-LastEditTime: 2021-08-23 18:00:33
-LastEditors: FYWindIsland
-Description: 
-I'm writing SHIT codes
-"""
-
 __permission__ = 6
 
 __plugin_name__ = "随机pixiv美图"

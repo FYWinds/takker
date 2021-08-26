@@ -1,11 +1,3 @@
-"""
-Author: FYWindIsland
-Date: 2021-08-10 10:04:37
-LastEditTime: 2021-08-15 16:17:38
-LastEditors: FYWindIsland
-Description: 
-I'm writing SHIT codes
-"""
 # from utils.data import load_data
 from utils.browser import install
 from utils.log import log_to_file

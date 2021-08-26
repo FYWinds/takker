@@ -1,11 +1,3 @@
-"""
-Author: FYWindIsland
-Date: 2021-08-10 20:20:38
-LastEditTime: 2021-08-20 17:59:15
-LastEditors: FYWindIsland
-Description: 
-I'm writing SHIT codes
-"""
 import asyncio
 import platform
 from uvicorn.loops import asyncio as _asyncio

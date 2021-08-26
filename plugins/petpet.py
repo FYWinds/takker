@@ -1,11 +1,3 @@
-"""
-Author: FYWindIsland
-Date: 2021-08-18 09:31:29
-LastEditTime: 2021-08-24 11:04:53
-LastEditors: FYWindIsland
-Description: 
-I'm writing SHIT codes
-"""
 from PIL import Image as IMG
 from PIL import ImageOps
 from moviepy.editor import ImageSequenceClip as imageclip
@@ -40,6 +32,8 @@ pet = on_command(
 @pet.handle()
 async def handle_receive(bot: Bot, event: MessageEvent, state: T_State):
     at = str(event.message).strip("[CQ:at,qq=]")
+    if not at.isdigit():
+        return
     await petpet(at)
     image_name = f"temp-{at}.gif"
     await pet.finish(image(image_name, "petpet"))

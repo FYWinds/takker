@@ -1,11 +1,3 @@
-"""
-Author: FYWindIsland
-Date: 2021-08-10 20:51:15
-LastEditTime: 2021-08-22 13:08:19
-LastEditors: FYWindIsland
-Description: 
-I'm writing SHIT codes
-"""
 import os
 import random
 from typing import Optional
@@ -26,6 +18,11 @@ async def init(**kwargs) -> Browser:
 
 async def get_browser(**kwargs) -> Browser:
     return _browser or await init(**kwargs)
+
+
+async def close_browser():
+    if _browser:
+        await _browser.close()
 
 
 async def install():

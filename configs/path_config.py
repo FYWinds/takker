@@ -1,11 +1,3 @@
-"""
-Author: FYWindIsland
-Date: 2021-08-01 07:48:46
-LastEditTime: 2021-08-24 17:11:57
-LastEditors: FYWindIsland
-Description: 
-I'm writing SHIT codes
-"""
 from pathlib import Path
 
 # 图片路径
