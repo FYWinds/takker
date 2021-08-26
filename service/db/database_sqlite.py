@@ -1,11 +1,3 @@
-"""
-Author: FYWindIsland
-Date: 2021-08-01 07:48:47
-LastEditTime: 2021-08-15 12:00:06
-LastEditors: FYWindIsland
-Description: 
-I'm writing SHIT codes
-"""
 from configs.path_config import DATA_PATH
 from tortoise import Tortoise
 import sqlite3

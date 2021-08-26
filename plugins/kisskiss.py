@@ -1,11 +1,3 @@
-"""
-Author: FYWindIsland
-Date: 2021-08-18 09:20:31
-LastEditTime: 2021-08-24 11:05:30
-LastEditors: FYWindIsland
-Description: 
-I'm writing SHIT codes
-"""
 from PIL import Image as IMG
 from PIL import ImageOps, ImageDraw
 from moviepy.editor import ImageSequenceClip as imageclip
@@ -32,7 +24,9 @@ kiss = on_command("亲", permission=GROUP, priority=20)
 @kiss.handle()
 async def handle_receive(bot: Bot, event: MessageEvent, state: T_State):
     at = str(event.message).strip("[CQ:at,qq=]")
-    member_id = str(event.get_user_id())
+    if not at.isdigit():
+        return
+    member_id = str(event.user_id)
     SavePic = f"tempKiss-{member_id}-{at}.gif"
     await tie(member_id, at)
     await kiss.finish(image(SavePic, "kisskiss"))

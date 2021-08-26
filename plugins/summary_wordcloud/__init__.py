@@ -1,11 +1,3 @@
-"""
-Author: FYWindIsland
-Date: 2021-08-16 20:21:40
-LastEditTime: 2021-08-20 08:47:00
-LastEditors: FYWindIsland
-Description: 
-I'm writing SHIT codes
-"""
 import re
 import time
 import jieba.analyse

@@ -1,11 +1,3 @@
-"""
-Author: FYWindIsland
-Date: 2021-08-13 09:30:03
-LastEditTime: 2021-08-17 22:11:42
-LastEditors: FYWindIsland
-Description: 
-I'm writing SHIT codes
-"""
 from argparse import Namespace
 from typing import Dict, List
 from asyncio import sleep

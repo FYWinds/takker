@@ -1,11 +1,3 @@
-"""
-Author: FYWindIsland
-Date: 2021-08-16 22:22:53
-LastEditTime: 2021-08-24 10:36:41
-LastEditors: FYWindIsland
-Description: 
-I'm writing SHIT codes
-"""
 import os
 import re
 import json

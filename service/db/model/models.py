@@ -1,11 +1,3 @@
-"""
-Author: FYWindIsland
-Date: 2021-08-01 07:48:47
-LastEditTime: 2021-08-20 14:52:00
-LastEditors: FYWindIsland
-Description: 
-I'm writing SHIT codes
-"""
 from typing import Text
 from tortoise.models import Model
 from tortoise.fields.data import *  # type: ignore

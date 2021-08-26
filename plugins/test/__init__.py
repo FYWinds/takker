@@ -1,11 +1,3 @@
-"""
-Author: FYWindIsland
-Date: 2021-08-02 18:57:39
-LastEditTime: 2021-08-24 11:04:16
-LastEditors: FYWindIsland
-Description: 
-I'm writing SHIT codes
-"""
 import random
 
 from nonebot.adapters.cqhttp import Bot, MessageEvent

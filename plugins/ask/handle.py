@@ -1,11 +1,3 @@
-"""
-Author: FYWindIsland
-Date: 2021-08-14 21:34:31
-LastEditTime: 2021-08-24 11:54:38
-LastEditors: FYWindIsland
-Description: 
-I'm writing SHIT codes
-"""
 import re
 import random
 import asyncio

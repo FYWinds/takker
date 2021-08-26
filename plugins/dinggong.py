@@ -1,11 +1,3 @@
-"""
-Author: FYWindIsland
-Date: 2021-08-21 10:45:25
-LastEditTime: 2021-08-21 14:59:28
-LastEditors: FYWindIsland
-Description: 
-I'm writing SHIT codes
-"""
 import os
 import re
 import random

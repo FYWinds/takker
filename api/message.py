@@ -1,11 +1,3 @@
-"""
-Author: FYWindIsland
-Date: 2021-08-13 09:57:25
-LastEditTime: 2021-08-13 10:39:25
-LastEditors: FYWindIsland
-Description: 
-I'm writing SHIT codes
-"""
 from typing import Optional
 
 from service.http_api import api_get

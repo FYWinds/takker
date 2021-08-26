@@ -1,11 +1,3 @@
-"""
-Author: FYWindIsland
-Date: 2021-08-17 08:50:09
-LastEditTime: 2021-08-20 15:03:32
-LastEditors: FYWindIsland
-Description: 
-I'm writing SHIT codes
-"""
 __permission__ = 1
 
 __plugin_name__ = "一言"

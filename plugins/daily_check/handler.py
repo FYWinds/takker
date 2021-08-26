@@ -1,11 +1,3 @@
-"""
-Author: FYWindIsland
-Date: 2021-08-12 09:36:34
-LastEditTime: 2021-08-21 09:50:51
-LastEditors: FYWindIsland
-Description: 
-I'm writing SHIT codes
-"""
 import os
 import time
 
@@ -68,3 +60,4 @@ async def generate_pic(filename: str):
     card = await page.query_selector("#card")
     assert card is not None
     await card.screenshot(path=f"{IMAGE_PATH}check_in/{filename}.png")
+    await page.close()

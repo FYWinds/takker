@@ -1,11 +1,3 @@
-"""
-Author: Jigsaw111
-Date: Unknown
-LastEditTime: 2021-08-13 09:31:06
-LastEditors: FYWindIsland
-Description: 
-I'm writing SHIT codes
-"""
 from nonebot.rule import ArgumentParser
 
 from .handle import handle_ls, handle_ban, handle_unban

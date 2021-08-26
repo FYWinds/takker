@@ -1,11 +1,3 @@
-"""
-Author: FYWindIsland
-Date: 2021-08-18 10:08:18
-LastEditTime: 2021-08-20 15:03:21
-LastEditors: FYWindIsland
-Description: 
-I'm writing SHIT codes
-"""
 import httpx
 from nonebot import on_command
 from nonebot.adapters.cqhttp import Bot, Event

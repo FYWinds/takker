@@ -1,11 +1,3 @@
-"""
-Author: FYWindIsland
-Date: 2021-08-20 17:05:54
-LastEditTime: 2021-08-21 17:42:15
-LastEditors: FYWindIsland
-Description: 
-I'm writing SHIT codes
-"""
 import time
 from typing import List, Dict
 from collections import Counter
@@ -95,3 +87,4 @@ async def generate_pic(filename: str):
     container = await page.query_selector("#container")
     assert container is not None
     await container.screenshot(path=f"{IMAGE_PATH}statistic/{filename}.png")
+    await page.close()

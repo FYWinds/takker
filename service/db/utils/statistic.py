@@ -1,11 +1,3 @@
-"""
-Author: FYWindIsland
-Date: 2021-08-20 09:37:44
-LastEditTime: 2021-08-23 17:23:40
-LastEditors: FYWindIsland
-Description: 
-I'm writing SHIT codes
-"""
 import json
 from typing import Dict
 from tortoise.query_utils import Q

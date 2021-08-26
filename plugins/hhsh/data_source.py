@@ -1,11 +1,3 @@
-"""
-Author: FYWindIsland
-Date: 2021-08-14 16:12:07
-LastEditTime: 2021-08-16 11:32:37
-LastEditors: FYWindIsland
-Description: 
-I'm writing SHIT codes
-"""
 import httpx
 
 from utils.browser import get_ua

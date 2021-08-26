@@ -1,11 +1,3 @@
-"""
-Author: FYWindIsland
-Date: 2021-08-14 11:47:29
-LastEditTime: 2021-08-21 15:28:25
-LastEditors: FYWindIsland
-Description: 
-I'm writing SHIT codes
-"""
 from argparse import Namespace
 
 from nonebot.log import logger

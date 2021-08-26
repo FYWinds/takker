@@ -1,11 +1,3 @@
-"""
-Author: FYWindIsland
-Date: 2021-08-14 11:31:43
-LastEditTime: 2021-08-23 18:03:47
-LastEditors: FYWindIsland
-Description: 
-I'm writing SHIT codes
-"""
 from argparse import Namespace
 
 from service.db.utils.statistic import set_illust_status

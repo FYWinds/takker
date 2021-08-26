@@ -1,11 +1,3 @@
-"""
-Author: FYWindIsland
-Date: 2021-08-24 10:15:51
-LastEditTime: 2021-08-24 11:01:56
-LastEditors: FYWindIsland
-Description: 
-I'm writing SHIT codes
-"""
 import re
 import random
 from difflib import SequenceMatcher

@@ -1,11 +1,3 @@
-"""
-Author: FYWindIsland
-Date: 2021-08-13 09:24:01
-LastEditTime: 2021-08-14 11:32:21
-LastEditors: FYWindIsland
-Description: 
-I'm writing SHIT codes
-"""
 from nonebot.rule import ArgumentParser
 
 from .handle import handle_ls, handle_send

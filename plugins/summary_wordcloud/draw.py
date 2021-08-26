@@ -1,11 +1,3 @@
-"""
-Author: FYWindIsland
-Date: 2021-08-16 17:06:41
-LastEditTime: 2021-08-16 21:25:54
-LastEditors: FYWindIsland
-Description: 
-I'm writing SHIT codes
-"""
 import numpy
 from PIL import Image
 from typing import Dict

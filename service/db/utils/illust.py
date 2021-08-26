@@ -1,11 +1,3 @@
-"""
-Author: FYWindIsland
-Date: 2021-08-13 15:11:57
-LastEditTime: 2021-08-23 17:30:35
-LastEditors: FYWindIsland
-Description: 
-I'm writing SHIT codes
-"""
 import random
 from typing import Optional
 from tortoise.query_utils import Q

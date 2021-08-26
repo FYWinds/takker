@@ -1,11 +1,3 @@
-"""
-Author: FYWindIsland
-Date: 2021-08-12 09:36:42
-LastEditTime: 2021-08-24 18:43:26
-LastEditors: FYWindIsland
-Description: 
-I'm writing SHIT codes
-"""
 import time
 import httpx
 import random
