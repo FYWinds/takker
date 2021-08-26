@@ -1,5 +1,3 @@
- writing SHIT codes
-"""
 from tortoise.models import Model
 from tortoise.fields.data import IntField, BooleanField, TextField
 

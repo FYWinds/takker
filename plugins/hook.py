@@ -1,11 +1,4 @@
-"""
-Author: FYWindIsland
-Date: 2021-08-02 19:19:38
-LastEditTime: 2021-08-24 18:31:45
-LastEditors: FYWindIsland
-Description: PreProcessors before matchers
-I'm writing SHIT codes
-"""
+
 from typing import Dict
 from nonebot import logger
 from nonebot.exception import IgnoredException
