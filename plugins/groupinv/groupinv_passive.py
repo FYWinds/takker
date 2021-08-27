@@ -67,7 +67,7 @@ async def set_request(
         logger.info("通过" if approve else "拒绝" + f"了 {user_id} 的加群请求，原因 {reason}")
     except ActionFailed as e:
         f_reason = e.info["wording"]
-        logger.error(f"处理 {user_id} 的加群请求失败，原因 {f_reason}")
+        logger.info(f"处理 {user_id} 的加群请求失败，原因 {f_reason}")
 
 
 async def check_list(user_id: str):

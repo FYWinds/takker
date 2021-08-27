@@ -78,7 +78,7 @@ async def approve_requests(reqs: dict):
         await set_request(flag, True)
     except ActionFailed as e:
         f_reason = e.info["wording"]
-        logger.error(
+        logger.info(
             f"处理 {requester_nick}({requester_uin}) 加入 {group_name}({group_id}) 的加群请求，失败原因: {f_reason}"
         )
     logger.info(
@@ -96,7 +96,7 @@ async def reject_requests(reqs: dict, reason: str):
         await set_request(flag, False, reason)
     except ActionFailed as e:
         f_reason = e.info["wording"]
-        logger.error(
+        logger.info(
             f"处理 {requester_nick}({requester_uin}) 加入 {group_name}({group_id}) 的加群请求，失败原因: {f_reason}"
         )
     logger.info(

@@ -34,4 +34,4 @@ async def _(bot: Bot, event: MessageEvent, state: T_State):
         return
     user_id = event.user_id
     img = await get_card(user_id)
-    await check.finish(image(img, "check_in"))
+    await check.finish(image(byte=img))

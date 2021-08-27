@@ -48,16 +48,15 @@ async def get_card(user_id: int):
     ) as f:
         f.write(template)
 
-    await generate_pic(filename)
-    return f"{filename}.png"
+    return await generate_pic(filename)
 
 
 async def generate_pic(filename: str):
     browser = await get_browser()
     page = await browser.new_page()
     await page.goto(f"file://{TEMPLATE_PATH}check_in/temp/{filename}.html")
-    await page.set_viewport_size({"width": 1080, "height": 937})
     card = await page.query_selector("#card")
     assert card is not None
-    await card.screenshot(path=f"{IMAGE_PATH}check_in/{filename}.png")
+    img = await card.screenshot(type="png")
     await page.close()
+    return img

@@ -43,8 +43,7 @@ async def draw_stat(group_id: int):
     ) as f:
         f.write(template)
 
-    await generate_pic(filename)
-    return filename
+    return await generate_pic(filename)
 
 
 async def draw_xp_stat(group_id: int):
@@ -75,16 +74,15 @@ async def draw_xp_stat(group_id: int):
     ) as f:
         f.write(template)
 
-    await generate_pic(filename)
-    return filename
+    return await generate_pic(filename)
 
 
 async def generate_pic(filename: str):
     browser = await get_browser()
     page = await browser.new_page()
     await page.goto(f"file://{TEMPLATE_PATH}statistic/temp/{filename}.html")
-    # await page.set_viewport_size({"width": 1920, "height": 1080})
     container = await page.query_selector("#container")
     assert container is not None
-    await container.screenshot(path=f"{IMAGE_PATH}statistic/{filename}.png")
+    img = await container.screenshot(type="png")
     await page.close()
+    return img
