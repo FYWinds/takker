@@ -1,102 +1,123 @@
 /* Generals resets and unimportant stuff */
-* { margin: 0px; padding: 0px; }
+
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
 body {
-	background: #eaebec;
-	font-family: "Open Sans", sans-serif; 
-	position: relative;
+    background: #eaebec;
+    font-family: "Open Sans", sans-serif;
+    position: relative;
     /* perspective: 800px; */
-    width:500px;
-    position:absolute;    
-    top:80px;
-    left:50%;	
-    margin-left:-25%;
+    width: 500px;
+    position: absolute;
+    top: 80px;
+    left: 50%;
+    margin-left: -25%;
 }
+
+
 /* --- Card ---- */
-#card{
-	width: 100%;
-	height:auto;
-	position:absolute;
-	display:inline-block;
-	display: inline;
-	overflow:visible;
+
+.card {
+    width: 100%;
+    height: auto;
+    position: absolute;
+    display: inline-block;
+    display: inline;
+    overflow: visible;
 }
-.image{
+
+.image {
     width: 100%;
     height: auto;
 }
-.image img{
-    width:100%;
+
+.image img {
+    width: 100%;
 }
 
-.stats-container{
-	display: block;
-	background:#fff;	
-	position:relative;
-	width:auto;
-	height:auto;
-	padding:2% 4% 0;	
+.stats-container {
+    display: block;
+    background: #fff;
+    position: relative;
+    width: auto;
+    height: auto;
+    padding: 2% 4% 0;
 }
-.stats-container .time{
-	font-size: xxx-large;
+
+.stats-container .time {
+    font-size: xxx-large;
     font-weight: 600;
-	color:#393c45;	
+    color: #393c45;
 }
-.stats-container p{
-	font-size:normal;
-	color:#b1b1b3;	
-	/* padding:2px 0 20px 0; */
+
+.stats-container p {
+    font-size: normal;
+    color: #b1b1b3;
+    /* padding:2px 0 20px 0; */
 }
-.stats-container .day-time{
-	float:right;
-	color:#48cfad;
-	font-size:xx-large;
-	font-weight:600;
+
+.stats-container .day-time {
+    float: right;
+    color: #48cfad;
+    font-size: xx-large;
+    font-weight: 600;
 }
-.stick{
-	padding:2% 0 0;
-	height: auto;
+
+.stick {
+    padding: 2% 0 0;
+    height: auto;
 }
-.stick strong{
-	font-weight:700;
-	color:#393c45;
-	font-size:x-large;
-	padding: 1% 0 0;
-	/* margin-right: 80% */
+
+.stick strong {
+    font-weight: 700;
+    color: #393c45;
+    font-size: x-large;
+    padding: 1% 0 0;
+    /* margin-right: 80% */
 }
-.stick span{	
-	color:#969699;
-	font-size:large;
-	display:block;
-	margin-bottom:1%;
+
+.stick span {
+    color: #969699;
+    font-size: large;
+    display: block;
+    margin-bottom: 1%;
 }
-.comment strong{
-    font-weight:700;
-	color:#393c45;
-	font-size:x-large;
+
+.comment strong {
+    font-weight: 700;
+    color: #393c45;
+    font-size: x-large;
 }
-.stats-container .stick .comment{
-	width:100%; 
-	margin-top: 1%;	
-    font-size:large;
+
+.stats-container .stick .comment {
+    width: 100%;
+    margin-top: 1%;
+    font-size: large;
     color: #111111;
 }
-.stats-container .stick .resolve{
-	margin-top:1%;
-	font-size:normal;
-	height: auto;
-	padding-bottom: 8px;
-	color: #999999;
+
+.stats-container .stick .resolve {
+    margin-top: 1%;
+    font-size: normal;
+    height: auto;
+    padding-bottom: 8px;
+    color: #999999;
 }
-.stats-container .dnt{
-	position:relative;
-	width: 100%;
-	font-size: small;
-	color: #999999;
+
+.stats-container .dnt {
+    position: relative;
+    width: 100%;
+    font-size: small;
+    color: #999999;
 }
-.stats-container .copyright{
-    position:relative;
-	width: 100%;
-	padding-bottom: 3%;
+
+.stats-container .copyright {
+    position: relative;
+    width: 100%;
+    padding-bottom: 3%;
     font-size: small;
     color: #AAAAAA;
 }

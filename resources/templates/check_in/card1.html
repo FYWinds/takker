@@ -1,42 +1,69 @@
-<!--
- * @Author: FYWindIsland
- * @Date: 2021-08-11 18:08:53
- * @LastEditTime: 2021-08-12 08:54:10
- * @LastEditors: FYWindIsland
- * @Description: 
- * I'm writing SHIT codes
--->
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-    <title>签到卡片样式1</title>
-    <link rel="stylesheet" type="text/css" href="static/css/card1.css">
+    <meta charset="UTF-8">
+    <title>Profile Card</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+
+
+    <link rel="stylesheet" href="static/css/card1.css">
+
+
 </head>
 
 <body>
+
     <div class="card">
-        <div class="head-image"
-            style="background-image: url(https://file.alapi.cn/image/comic/184605-15430563659a8e.jpg);"></div>
-        <div class="daytime">
-            <div class="month">OCT</div>
-            <div class="day">11</div>
-            <div class="weekday">WED</div>
+        <div id="card">
+            <div class="card__img">
+                <img src="[avatar_url]" alt="profile card">
+            </div>
+
+            <div class="card__cnt">
+                <div class="card__name">[greet], [user_name]</div>
+                <div class="card__txt">[msg_of_the_day]</div>
+                <div class="card-date">
+                    <span class="card-date__icon">
+                        <svg class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="800" width="200" height="200"><path d="M512 85.333333c235.264 0 426.666667 191.36 426.666667 426.666667 0 235.264-191.402667 426.666667-426.666667 426.666667a424.106667 424.106667 0 0 1-338.218667-166.485334 31.018667 31.018667 0 0 1 49.152-37.888A362.368 362.368 0 0 0 512 876.629333c201.045333 0 364.629333-163.541333 364.629333-364.629333 0-201.045333-163.584-364.629333-364.629333-364.629333S147.413333 310.954667 147.413333 512c0 18.688 1.365333 37.248 4.138667 55.424a31.061333 31.061333 0 0 1-61.312 9.386667A430.933333 430.933333 0 0 1 85.333333 511.957333C85.333333 276.736 276.736 85.333333 512 85.333333z m-14.506667 218.026667c17.152 0 31.061333 13.866667 31.061334 31.018667v189.696l146.090666 87.125333a31.018667 31.018667 0 0 1-31.744 53.333333l-161.28-96.213333a31.146667 31.146667 0 0 1-15.104-26.666667V334.378667c0-17.152 13.909333-31.061333 31.018667-31.061334z" fill="#000000" p-id="801"></path></svg>
+				</span>
+                    <span class="card-date__txt">[date]</span>
+                </div>
+
+                <div class="card-info">
+                    <div class="card-info__item">
+                        <div class="card-info__title">[luck-status]</div>
+                        <div class="card-info__text">今日运势</div>
+                    </div>
+
+                    <div class="card-info__item">
+                        <div class="card-info__title">[star]</div>
+                        <div class="card-info__text">运势星级</div>
+                    </div>
+
+                    <div class="card-info__item">
+                        <div class="card-info__title">[points]</div>
+                        <div class="card-info__text">获得积分</div>
+                    </div>
+
+                    <!-- <div class="card-info__item">
+                        <div class="card-info__title">Example content</div>
+                        <div class="card-info__text">Example text</div>
+                    </div> -->
+                </div>
+                <!-- <div class="card-content">
+                    <div class="card-content__item">
+                        <div class="card-content__title"></div>
+                        <div class="card-content__text">薄弱无力，孤立无摇，外祥内苦，谋事难成</div>
+                    </div>
+                    <div class="card-content__item">
+                        <div class="card-content__title"></div>
+                        <div class="card-content__text">人生路上诸事不顺，自身能力之限制，经常迫于无耐。由于性格或人际关系上的问题，难遇贵人。经常一人处理所有事情，即使有天大的能力，总会遇到不能解决的问题，而这些问题会导致事业的失败。</div>
+                    </div>
+                </div> -->
+            </div>
+
         </div>
-        <div class="luck">
-            <div class="tag">凶带吉</div>
-            <div class="star">★★★☆☆☆☆</div>
-            <div class="note">半凶半吉，浮沉多端，始凶终吉，能保成功</div>
-        </div>
-        <!-- <div class="story">
-            <div class="type">网易云音乐热评:</div>
-            <div class="content">每个人的心里，都有一个忘不记，却无法拥抱珍惜的人。</div>
-            <div class="author">青羊</div>
-        </div> -->
-        <div class="foot">
-            <div class="copyright">@Takker-bot</div>
-            <div class="from">Content from 一言</div>
-        </div>
-    </div>
 </body>
 
 </html>

@@ -174,6 +174,9 @@ TEMP_PATH = Path("resources/img/temp/")
 <details>
 <summary>更新记录</summary>
 
+### 2021/8/27
+* 签到添加了新的一个模板
+
 ### 2021/8/26
 * 添加了部署指南
 * 签到的图片模板改为自适应高度
