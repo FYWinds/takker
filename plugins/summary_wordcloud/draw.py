@@ -32,5 +32,5 @@ async def draw_word_cloud(gid: int, words: list):
     wc.recolor(color_func=image_colors)
     pyplot.imshow(wc.recolor(color_func=image_colors), interpolation="bilinear")
     pyplot.axis("off")
-    wc.to_file(f"{IMAGE_PATH}wordcloud/temp/{gid}.png")
-    return f"{IMAGE_PATH}wordcloud/temp/{gid}.png"
+    wc.to_file(f"{IMAGE_PATH}wordcloud/temp/temp-{gid}.png")
+    return f"{IMAGE_PATH}wordcloud/temp/temp-{gid}.png"
