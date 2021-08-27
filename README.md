@@ -6,8 +6,8 @@
 
 [![State-of-the-art Shitcode](https://img.shields.io/static/v1?label=State-of-the-art&message=Shitcode&color=7B5804)](https://github.com/trekhleb/state-of-the-art-shitcode)
 
-# Takker 目前还没啥功能（
-# 且没经过完整测试，一定有一堆bug
+# Takker 部署教程
+[教程地址](https://windis.cn/archives/158)
 ****
 ## 此项目基于 Nonebot2 和 go-cqhttp 开发，以 Sqlite 作为数据库的QQ群娱乐机器人
 

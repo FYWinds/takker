@@ -2,6 +2,7 @@
 ## Edit by FYWinds
 import os
 import ujson
+from io import BytesIO
 from typing import Optional, Union
 
 from nonebot.adapters.cqhttp.message import MessageSegment
@@ -14,7 +15,7 @@ def image(
     img_file: str = None,
     path: str = "",
     abspath: Optional[str] = None,
-    bytes: Optional[bytes] = None,
+    byte: Optional[bytes] = None,
     b64: Optional[str] = None,
 ) -> MessageSegment:
     if abspath:
@@ -27,8 +28,8 @@ def image(
             return MessageSegment.image(b64)
         else:
             return MessageSegment.image("base64://" + b64)
-    elif bytes:
-        return MessageSegment.image(bytes)
+    elif byte:
+        return MessageSegment.image(byte)
     else:
         img_file = str(img_file)
         if img_file.find("http") == -1:

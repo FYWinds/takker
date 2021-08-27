@@ -1,4 +1,3 @@
-
 from typing import Dict
 from nonebot import logger
 from nonebot.exception import IgnoredException
@@ -113,7 +112,7 @@ async def ban_exploit_check(
     if not isinstance(event, GroupMessageEvent):
         return
     if matcher.type == "message" and (
-        matcher.priority not in range(0, 9) or matcher.priority not in range(90, 100)
+        matcher.priority not in range(0, 11) or matcher.priority not in range(90, 101)
     ):
         if await isbanned(event.user_id):
             raise IgnoredException("用户正在封禁中")

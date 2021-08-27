@@ -28,7 +28,7 @@ plugin_stat = on_command(
 @plugin_stat.handle()
 async def _psh(bot: Bot, event: GroupMessageEvent, state: T_State):
     pic_file = await draw_stat(event.group_id)
-    await plugin_stat.finish(image(f"{pic_file}.png", "statistic"))
+    await plugin_stat.finish(image(byte=pic_file))
 
 
 xp_stat = on_command("xp统计", priority=20, permission=GROUP, block=False)
@@ -37,4 +37,4 @@ xp_stat = on_command("xp统计", priority=20, permission=GROUP, block=False)
 @xp_stat.handle()
 async def _xsh(bot: Bot, event: GroupMessageEvent, state: T_State):
     pic_file = await draw_xp_stat(event.group_id)
-    await plugin_stat.finish(image(f"{pic_file}.png", "statistic"))
+    await plugin_stat.finish(image(byte=pic_file))
