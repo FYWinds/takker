@@ -6,10 +6,10 @@
 
 [![State-of-the-art Shitcode](https://img.shields.io/static/v1?label=State-of-the-art&message=Shitcode&color=7B5804)](https://github.com/trekhleb/state-of-the-art-shitcode)
 
-# Takker 部署教程
-[教程地址](https://windis.cn/archives/158)
+# Takker - 一个普通的QQ机器人
+
 ****
-## 此项目基于 Nonebot2 和 go-cqhttp 开发，以 Sqlite 作为数据库的QQ群娱乐机器人
+## 此项目为基于 Nonebot2 和 go-cqhttp 开发，以 Sqlite 作为数据库的QQ群娱乐机器人
 
 ## 关于
 纯兴趣开发，部分功能借鉴了大佬们的代码，作为Q群的娱乐+功能性Bot
@@ -18,7 +18,7 @@
 此项目仅用于学习交流，请勿用于非法用途
 
 ## 帮助
-待完善
+### [部署教程](https://windis.cn/archives/158)
 
 
 ## 功能列表
