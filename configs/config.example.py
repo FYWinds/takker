@@ -11,7 +11,6 @@ SUPERUSERS: List[str] = ["0", "", ""]  # 超级用户名单
 
 # 各个API的配置
 ALAPI_TOKEN: str = ""  # ALAPI
-CATAPI_TOKEN: str = ""  # 随机猫猫API
 NETEASE_API: str = "nemapi.windis.xyz"  # NodeJS版本的网易云音乐API的地址
 PIXIV_IMAGE_URL: str = "pixiv.windis.xyz"  # 反代i.pximg.net的网址
 
