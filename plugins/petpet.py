@@ -31,7 +31,7 @@ pet = on_command(
 
 @pet.handle()
 async def handle_receive(bot: Bot, event: MessageEvent, state: T_State):
-    at = str(event.message).strip("[CQ:at,qq=]")
+    at = str(event.message).strip("[CQ:at,qq=] ")
     if not at.isdigit():
         return
     await petpet(at)

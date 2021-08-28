@@ -23,7 +23,7 @@ kiss = on_command("亲", permission=GROUP, priority=20)
 
 @kiss.handle()
 async def handle_receive(bot: Bot, event: MessageEvent, state: T_State):
-    at = str(event.message).strip("[CQ:at,qq=]")
+    at = str(event.message).strip("[CQ:at,qq=] ")
     if not at.isdigit():
         return
     member_id = str(event.user_id)
