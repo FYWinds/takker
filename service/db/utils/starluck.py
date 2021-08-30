@@ -19,7 +19,7 @@ async def query_star(uid: int) -> int:
     return 0
 
 
-async def set_user_star(uid: int, star: int):
+async def set_star(uid: int, star: int):
     """
     :说明: `set_user_star`
     > 绑定用户星座
@@ -30,6 +30,6 @@ async def set_user_star(uid: int, star: int):
     """
     query = Starluck.filter(Q(uid=uid))
     if await query.values("star"):
-        await query.update(uid=uid, star=star)
+        await query.update(star=star)
     else:
         await Starluck.create(uid=uid, star=star)
