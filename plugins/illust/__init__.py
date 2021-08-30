@@ -54,11 +54,11 @@ async def _(bot: Bot, event: MessageEvent, state: T_State):
                     message=(
                         (
                             reply(event.message_id)
-                            + image(bytes=r["img_bytes"])
+                            + image(byte=r["img_bytes"])
                             + text(message)
                         )
                         if isinstance(event, GroupMessageEvent)
-                        else (image(bytes=r["img_bytes"]) + text(message))
+                        else (image(byte=r["img_bytes"]) + text(message))
                     ),
                 )
             elif r["nsfw"] == 2:
