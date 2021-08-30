@@ -12,8 +12,7 @@ async def get_sx(word: str) -> str:
     resp = resp.json()
     try:
         result = f"查询到缩写 {word} 代表的实际内容:\n"
-        for trans in resp[0]["trans"]:
-            result += trans
+        result += ", ".join(resp[0]["trans"])
     except:
         result = f"未查询到相关缩写"
     return result

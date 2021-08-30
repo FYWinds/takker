@@ -16,6 +16,8 @@
 
 ## 声明
 此项目仅用于学习交流，请勿用于非法用途
+这是开发者的第一个Python项目，请不要苛求语法的规范性
+开发者还是高中生，所以受限于学业，开发时间有限，开学后会放缓更新进度
 
 ## 帮助
 ### [部署教程](https://windis.cn/archives/158)
@@ -36,6 +38,7 @@
 - [x] 傲娇钉宫语音包
 - [x] pixiv图片上传
 - [x] 萝卜子语音包！(厨力++)
+- [x] 星座运势
 
 ### 已实现的管理员功能
 - [x] 95%的插件功能开关 (基于[nonebot_plugin_manager](https://github.com/Jigsaw111/nonebot_plugin_manager)插件修改)
@@ -85,6 +88,7 @@
 | 钉宫语音包   | 傲娇               | 发送一条钉宫的语音和对应的中文翻译                                                               | 3  |
 | pix图片上传  | pixupload [pid]   | 将该uid对应的图片交由主人审核并选择是否添加到图库中                                                | 6  |
 | 萝卜子语音包  | @机器人 [话]       | 随机的一句亚托莉的语音包                                                                       | 3  |
+| 星座运势     | .sluck <要绑定的星座>| 获取绑定的星座的今日运势数据                                                                   | 1  |
 ### 管理员功能
 功能         | 指令              | 说明                                                                                         | 权限
 |:----------:|:-----------------|:--------------------------------------------------------------------------------------------|:--:|
@@ -115,19 +119,15 @@
 ./configs/config.py
 
 ```python
-# Go-cq正向http地址配置(默认使用bot.call_api()的调用方式)
-USE_HTTP_API: bool = False
-CQ_HTTP_URL: str = ""
-CQ_SECRET: str = ""  # HTTP_API的secret
-
 # 身份名单
 OWNER: str = ""  # 主人
 SUPERUSERS: List[str] = ["0", "", ""]  # 超级用户名单
 
 # 各个API的配置
-ALAPI_TOKEN: str = ""  # ALAPI的Token
+ALAPI_TOKEN: str = ""  # ALAPI
 NETEASE_API: str = "nemapi.windis.xyz"  # NodeJS版本的网易云音乐API的地址
 PIXIV_IMAGE_URL: str = "pixiv.windis.xyz"  # 反代i.pximg.net的网址
+ALI_API_TOKEN: str = ""  # 阿里云市场API的APPcode
 
 # 各种限制
 MAX_PROCESS_TIME: int = 30  # 部分指令处理最大等待时间，单位秒，在此期间用户不能再次发起相同指令
@@ -172,6 +172,10 @@ TEMP_PATH = Path("resources/img/temp/")
 
 <details>
 <summary>更新记录</summary>
+
+### 2021/8/30
+* 这应该是开学前最后一个更新了
+* 添加功能-星座运势
 
 ### 2021/8/27
 * 签到添加了新的一个模板
@@ -265,7 +269,6 @@ TEMP_PATH = Path("resources/img/temp/")
 - [ ] Web管理面板
 - [ ] 完善各种功能
 - [ ] 提供非侵入式的权限等级管理方式
-- [ ] 提供非侵入式的帮助菜单
 
 ## 感谢
 [Onebot](https://github.com/howmanybots/onebot)  
