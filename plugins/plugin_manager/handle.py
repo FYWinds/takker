@@ -46,7 +46,7 @@ async def handle_ban(args: Namespace):
         else:
             return "管理指定会话的插件需要超级用户权限！"
 
-    result.update(await ban_plugin(args.conv, args.plugin, permission))
+    result |= await ban_plugin(args.conv, args.plugin, permission)
 
     message = ""
     if args.conv["group"]:
@@ -87,7 +87,7 @@ async def handle_unban(args: Namespace):
         else:
             return "管理指定会话的插件需要超级用户权限！"
 
-    result.update(await unban_plugin(args.conv, args.plugin, perm))
+    result |= await unban_plugin(args.conv, args.plugin, perm)
 
     message = ""
     if args.conv["group"]:

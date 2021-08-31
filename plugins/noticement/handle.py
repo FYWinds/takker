@@ -44,9 +44,9 @@ async def handle_send(args: Namespace):
                         history_notice = notice[args.user][g]
                         history_notice += args.notice
             if args.user in notice:
-                notice[args.user].update({g: history_notice})
+                notice[args.user] |= {g: history_notice}
             else:
-                notice.update({args.user: {g: history_notice}})
+                notice |= {args.user: {g: history_notice}}
             if args.user not in OWNER:
                 await send_private_msg(
                     uid=int(OWNER),

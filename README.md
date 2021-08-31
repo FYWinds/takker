@@ -39,6 +39,7 @@
 - [x] pixiv图片上传
 - [x] 萝卜子语音包！(厨力++)
 - [x] 星座运势
+- [x] 天气 (基于[nonebot-plugin-heweather](https://github.com/kexue-z/nonebot-plugin-heweather/)插件修改)
 
 ### 已实现的管理员功能
 - [x] 95%的插件功能开关 (基于[nonebot_plugin_manager](https://github.com/Jigsaw111/nonebot_plugin_manager)插件修改)
@@ -89,6 +90,7 @@
 | pix图片上传  | pixupload [pid]   | 将该uid对应的图片交由主人审核并选择是否添加到图库中                                                | 6  |
 | 萝卜子语音包  | @机器人 [话]       | 随机的一句亚托莉的语音包                                                                       | 3  |
 | 星座运势     | .sluck <要绑定的星座>| 获取绑定的星座的今日运势数据                                                                   | 1  |
+| 天气        | 天气 <指定城市>     | 返回指定城市的天气信息                                                                         | 2  |
 ### 管理员功能
 功能         | 指令              | 说明                                                                                         | 权限
 |:----------:|:-----------------|:--------------------------------------------------------------------------------------------|:--:|
@@ -128,6 +130,7 @@ ALAPI_TOKEN: str = ""  # ALAPI
 NETEASE_API: str = "nemapi.windis.xyz"  # NodeJS版本的网易云音乐API的地址
 PIXIV_IMAGE_URL: str = "pixiv.windis.xyz"  # 反代i.pximg.net的网址
 ALI_API_TOKEN: str = ""  # 阿里云市场API的APPcode
+WEATHER_API_KEY: str = ""  # 和风天气API key
 
 # 各种限制
 MAX_PROCESS_TIME: int = 30  # 部分指令处理最大等待时间，单位秒，在此期间用户不能再次发起相同指令
@@ -143,6 +146,8 @@ HIDDEN_PLUGINS: List[str] = [
     "invite_check",
     "withdraw",
 ]
+
+WEATHER_DEFAULT: str = ""  # 天气插件默认城市/区
 ```
 
 ./configs/path_config.py
@@ -172,6 +177,9 @@ TEMP_PATH = Path("resources/img/temp/")
 
 <details>
 <summary>更新记录</summary>
+
+### 2021/8/31
+* 添加功能-天气
 
 ### 2021/8/30
 * 这应该是开学前最后一个更新了

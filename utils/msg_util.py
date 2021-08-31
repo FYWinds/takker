@@ -16,6 +16,7 @@ def image(
     path: str = "",
     abspath: Optional[str] = None,
     byte: Optional[bytes] = None,
+    bytesio: Optional[BytesIO] = None,
     b64: Optional[str] = None,
 ) -> MessageSegment:
     if abspath:
@@ -30,6 +31,8 @@ def image(
             return MessageSegment.image("base64://" + b64)
     elif byte:
         return MessageSegment.image(byte)
+    elif bytesio:
+        return MessageSegment.image(bytesio)
     else:
         img_file = str(img_file)
         if img_file.find("http") == -1:

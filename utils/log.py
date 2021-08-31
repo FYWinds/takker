@@ -1,4 +1,4 @@
-from nonebot.log import logger, default_format
+from nonebot.log import logger
 from configs.path_config import LOG_PATH
 
 custom_format = (

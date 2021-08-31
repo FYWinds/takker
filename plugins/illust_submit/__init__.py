@@ -30,7 +30,7 @@ async def _(bot: Bot, event: MessageEvent, state: T_State):
             message=f"{event.user_id} 上传了pid为 {pid} 的图片\n链接: {await get_illust_link(pid)}",
         )
     )["message_id"]
-    pics.update({msg_id: pid})
+    pics |= {msg_id: pid}
 
 
 pix_check = on_message(priority=100, permission=PRIVATE_FRIEND)
@@ -52,7 +52,7 @@ async def _c(bot: Bot, event: MessageEvent, state: T_State):
             await pix_check.finish(f"添加失败，若无报错则图片或许已在图库中")
         info = await get_illust_info(pics[reply_id])
         if info:
-            info.update({"nsfw": nsfw})
+            info |= {"nsfw": nsfw}
             await add_illust(info)
             await bot.send(event, f"成功将 {pics[reply_id]} 的图片添加到图库中，类型: {nsfw}")
             pics.pop(reply_id)

@@ -24,9 +24,9 @@ async def draw_stat(group_id: int):
             plugin = get_plugin(k)
             assert plugin is not None
             plugin_name = plugin.module.__getattribute__("__plugin_name__")
-            p_list_cn.update({plugin_name: p_list[k]})
+            p_list_cn|={plugin_name: p_list[k]}
         except:
-            p_list_cn.update({k: p_list[k]})
+            p_list_cn|={k: p_list[k]}
 
     template = template.replace("[group-id]", str(group_id))
     date = time.strftime("%Y-%m", time.localtime(time.time()))
@@ -55,7 +55,7 @@ async def draw_xp_stat(group_id: int):
     for i in range(0, 7):
         try:
             key = list(p_stat_sorted.keys())[i]
-            p_stat_final.update({key: p_stat_sorted[key]})
+            p_stat_final|={key: p_stat_sorted[key]}
         except:
             break
     template = template.replace("本月插件调用统计", "xp统计")
