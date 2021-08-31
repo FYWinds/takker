@@ -32,7 +32,7 @@ async def _g(bot: Bot, event: GroupMessageEvent, state: T_State):
         r1 = SequenceMatcher(None, words, text["s"]).ratio()
         r2 = SequenceMatcher(None, words, text["s_f"]).ratio()
         r3 = SequenceMatcher(None, words, text["s_k"]).ratio()
-        diff.update({text["o"]: r1 * r2 + r3})  # 完全瞎想的计算方式，没啥特殊的意义
+        diff |= {text["o"]: r1 * r2 + r3}  # 完全瞎想的计算方式，没啥特殊的意义
     diff_sorted = dict(sorted(diff.items(), key=lambda item: item[1], reverse=True))
     voice = random.choice(
         [

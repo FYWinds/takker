@@ -34,12 +34,12 @@ async def get_illust(nsfw: int, keywords: Optional[list] = []) -> dict:
                         "i.pximg.net", PIXIV_IMAGE_URL
                     )
                 ]
-        a.update({"img_url": img_url})
-        a.update({"orig_img_url": orig_img_url})
+        a |= {"img_url": img_url}
+        a |= {"orig_img_url": orig_img_url}
         async with httpx.AsyncClient(headers=get_ua()) as client:
             resp = await client.get(url=img_url)
-        a.update({"img_bytes": resp.content})
-        a.update({"is_search": False})
+        a |= {"img_bytes": resp.content}
+        a |= {"is_search": False}
         return a
     except:
         await remove_illust(a)
@@ -60,15 +60,13 @@ async def get_illust_direct(pid: str) -> dict:
                 tags.add(t["translated_name"])
             else:
                 tags.add(t["name"])
-        a.update({"tags": ",".join(list(tags))})
-        a.update(
-            {
-                "pid": pid,
-                "title": resp["illust"]["title"],
-                "author": resp["illust"]["user"]["name"],
-                "uid": resp["illust"]["user"]["id"],
-            }
-        )
+        a |= {"tags": ",".join(list(tags))}
+        a |= {
+            "pid": pid,
+            "title": resp["illust"]["title"],
+            "author": resp["illust"]["user"]["name"],
+            "uid": resp["illust"]["user"]["id"],
+        }
         orig_img_url = []
         if resp["illust"]["meta_single_page"]:
             orig_img_url = [
@@ -83,9 +81,9 @@ async def get_illust_direct(pid: str) -> dict:
                         "i.pximg.net", PIXIV_IMAGE_URL
                     )
                 ]
-        a.update({"orig_img_url": orig_img_url})
-        a.update({"is_search": True})
-        a.update({"nsfw": -1})
+        a |= {"orig_img_url": orig_img_url}
+        a |= {"is_search": True}
+        a |= {"nsfw": -1}
         return a
     except:
         raise ValueError

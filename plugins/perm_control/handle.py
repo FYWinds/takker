@@ -57,12 +57,12 @@ async def get_perm(args: Namespace) -> str:
 async def edit_perm(args: Namespace):
     if args.user:
         if args.is_superuser:
-            args.conv.update({"user": args.user})
+            args.conv|={"user": args.user}
         else:
             return "修改指定用户/群权限等级需要超级用户权限"
     if args.group:
         if args.is_superuser:
-            args.conv.update({"group": args.group})
+            args.conv|={"group": args.group}
         else:
             return "修改指定用户/群权限等级需要超级用户权限"
     message = ""

@@ -29,7 +29,7 @@ async def _frh(bot: Bot, event: FriendRequestEvent, state: T_State):
         user = OWNER
         message = f"收到来自({event.user_id})的好友请求，验证消息为：{event.comment}"
         result = await bot.send_private_msg(user_id=int(user), message=message)
-        requests.update({str(result["message_id"]): event.flag})
+        requests |= {str(result["message_id"]): event.flag}
 
 
 group_request = on_request(priority=1)

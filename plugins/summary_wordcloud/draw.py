@@ -15,7 +15,7 @@ async def draw_word_cloud(gid: int, words: list):
     for w in words:
         for k in w.split(" "):
             val = ndic.get(k, 0)
-            ndic.update({k: val + 1})
+            ndic|={k: val + 1}
     for key in ndic:
         dic.add(key, ndic[key])
     mask = numpy.array(Image.open(f"{IMAGE_PATH}wordcloud/back.jpg"))

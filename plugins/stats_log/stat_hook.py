@@ -46,10 +46,10 @@ async def _(matcher: Matcher, e: Exception, bot: Bot, event: Event, state: T_Sta
             if module_name in stats[time_today].keys():
                 stats[time_today][module_name] += 1
             else:
-                stats[time_today].update({module_name: 1})
+                stats[time_today]|={module_name: 1}
         else:
             module_name = matcher.module_name
             assert module_name is not None
-            stats.update({time_today: {module_name: 1}})
+            stats|={time_today: {module_name: 1}}
 
         await set_status(gid=event.group_id, stat=stats)
