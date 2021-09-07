@@ -36,6 +36,7 @@ async def _(bot: Bot, event: MessageEvent, state: T_State):
     )
     args.is_superuser = str(event.user_id) in SUPERUSERS
     args.is_group = isinstance(event, GroupMessageEvent)
+    args.c_user = str(event.user_id)
 
     if hasattr(args, "handle"):
         if not args.is_admin and not args.is_superuser:
