@@ -71,7 +71,7 @@ async def edit_perm(args: Namespace):
         return f"非私聊，只能修改当前群聊权限等级"
     if args.user:
         for u in args.conv["user"]:
-            user_perm = await query_perm(id=str(u))
+            user_perm = await query_perm(id=str(args.c_user))
             if user_perm > perm:
                 await set_perm(id=u, perm=perm)
                 message += f"成功设置用户({u})的权限等级为 {perm} 级\n"
@@ -79,8 +79,7 @@ async def edit_perm(args: Namespace):
                 message += f"您的权限等级({user_perm}级)过低，无法修改用户({u})权限等级为 {perm} 级！\n"
         return message
     elif args.group:
-        user_id = args.conv["user"][0]
-        user_perm = await query_perm(id=str(user_id))
+        user_perm = await query_perm(id=args.c_user)
         for g in args.conv["group"]:
             if user_perm > perm:
                 await set_perm(id=g, perm=perm, isGroup=True)
