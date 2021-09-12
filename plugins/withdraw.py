@@ -1,12 +1,10 @@
-from configs.config import OWNER, SUPERUSERS
-from typing import Optional, Dict, Any
+from typing import Any, Optional
+
 from nonebot.plugin import on_command
 from nonebot.typing import T_State
-from nonebot.adapters.cqhttp import (
-    Bot,
-    GroupMessageEvent,
-    GROUP,
-)
+from nonebot.adapters.cqhttp import GROUP, Bot, GroupMessageEvent
+
+from configs.config import OWNER, SUPERUSERS
 
 __permission__ = 0
 __plugin_name__ = "撤回"
