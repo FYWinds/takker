@@ -29,6 +29,8 @@ async def handle_plugin_permission(
 ):
     if not isinstance(event, MessageEvent):
         return
+    await _update_perm(event.user_id, event.sender.role)  # type: ignore
+    await _update_plugin(conv)
     if str(event.user_id) in SUPERUSERS or str(event.user_id) == OWNER:
         return
     conv = {
@@ -39,9 +41,6 @@ async def handle_plugin_permission(
     if module_name in HIDDEN_PLUGINS:
         return
 
-    await _update_plugin(conv)
-    if isinstance(event, MessageEvent):
-        await _update_perm(event.user_id, event.sender.role)  # type: ignore
     try:
         plugin_perm = get_plugin(module_name).module.__getattribute__("__permission__")  # type: ignore
     except:
