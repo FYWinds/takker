@@ -1,6 +1,6 @@
 from rcon import rcon
 from nonebot.plugin import on_command
-from nonebot.adapters.cqhttp import Bot, MessageEvent
+from nonebot.adapters.cqhttp import Bot, MessageEvent, GroupMessageEvent
 
 from configs.config import OWNER, SPECIAL_IP, SUPERUSERS, SPECIAL_PASS
 
@@ -14,9 +14,8 @@ command = on_command("sudo", priority=20)
 @command.handle()
 async def _(bot: Bot, event: MessageEvent):
     if (
-        event.sender.role not in ["admin", "owner"]
-        and event.sender.user_id not in SUPERUSERS
-        and event.sender.user_id != OWNER
+        not event.sender.role in ["admin", "owner"]
+        and str(event.sender.user_id) not in SUPERUSERS
     ):
         return
     c = event.get_plaintext().strip()
