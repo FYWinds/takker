@@ -68,10 +68,11 @@ async def _update_plugin(conv={"user": [], "group": []}):
         else:
             # logger.debug("Skip hidden plugin")
             pass
-    for i in list(plugin_list_stored.keys()):
-        if not i in plugin_list_current.keys():
-            plugin_list_stored.pop(i)
-    plugin_list_current |= plugin_list_stored
+    if plugin_list_stored:
+        for i in list(plugin_list_stored.keys()):
+            if not i in plugin_list_current.keys():
+                plugin_list_stored.pop(i)
+        plugin_list_current |= plugin_list_stored
     if conv["group"]:
         await set_plugin_status(
             id=str(conv["group"][0]), status=plugin_list_current, isGroup=True
