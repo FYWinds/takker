@@ -20,7 +20,7 @@ async def _(
     bot: Bot,
     exception: Optional[Exception],
     api: str,
-    data: Dict[str, Any],
+    data: dict[str, Any],
     result: Any,
 ):
     global messages

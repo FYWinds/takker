@@ -1,11 +1,10 @@
 import nonebot
 from nonebot.adapters.cqhttp import Bot as CQHTTPBot
 
-from service.db.database_sqlite import db_disconnect
 from service.init import init_bot
-from utils.patcher import patch
 from utils.browser import close_browser
-
+from utils.patcher import patch
+from service.db.db_connect import db_disconnect
 
 nonebot.init()
 driver = nonebot.get_driver()

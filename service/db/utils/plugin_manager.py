@@ -1,59 +1,53 @@
-import json
-from typing import Optional, Dict
-from tortoise.query_utils import Q
+from typing import Union
 
-from service.db.model.models import Plugin
+from service.db.models.config import UserConfig, GroupConfig
 
 
 async def query_plugin_status(
-    id: str, isGroup: Optional[bool] = False
-) -> Dict[str, bool]:
+    id: Union[int, str], isGroup: bool = False
+) -> dict[str, bool]:
     """
     :说明: `query_plugin_status`
     > 获取对象插件状态数据
 
     :参数:
-      * `id: str`: QQ号或群号
-
-    :可选参数:
-      * `isGroup: Optional[bool] = False`: 是否是群，默认不是
+      * `id: Union[int, str]`: QQ号或群号
+      * `isGroup: bool = False`: 是否是群，默认不是
 
     :返回:
       - `dict`: 插件状态数据
     """
+    if isinstance(id, str):
+        id = int(id)
     if isGroup:
-        p = await Plugin.filter(Q(id="g" + id)).values("status")
+        p = await GroupConfig.get_or_none(gid=id)
     else:
-        p = await Plugin.filter(Q(id=id)).values("status")
+        p = await UserConfig.get_or_none(uid=id)
     if p:
-        return eval(p[0]["status"].replace("'", '"'))
+        return p.plugin_status
     else:
         return {}
 
 
 async def set_plugin_status(
-    id: str, status: Dict[str, bool], isGroup: Optional[bool] = False
+    id: Union[int, str], status: dict[str, bool], isGroup: bool = False
 ):
     """
     :说明: `set_plugin_status`
     > 修改对象插件状态数据
 
     :参数:
-      * `id: str`: QQ号或群号
+      * `id: Union[int, str]`: QQ号或群号
       * `status: dict`: 插件状态数据
-
-    :可选参数:
-      * `isGroup: Optional[bool] = False`: 是否是群，默认不是
+      * `isGroup: bool = False`: 是否是群，默认不是
     """
+    if isinstance(id, str):
+        id = int(id)
     if isGroup:
-        query = Plugin.filter(Q(id="g" + id))
-        if await query.values("status"):
-            await query.update(status=str(status))
-        else:
-            await Plugin.create(id="g" + id, status=str(status))
+        await GroupConfig.update_or_create(
+            gid=id, defaults={"plugin_status": status}
+        )
     else:
-        query = Plugin.filter(Q(id=id))
-        if await query.values("status"):
-            await query.update(status=str(status))
-        else:
-            await Plugin.create(id=id, status=str(status))
+        await UserConfig.update_or_create(
+            uid=id, defaults={"plugin_status": status}
+        )

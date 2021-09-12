@@ -1,6 +1,6 @@
 from typing import Optional
 
-from service.http_api import api_get
+from .call_api import call
 
 
 async def get_login_info() -> dict:
@@ -11,7 +11,7 @@ async def get_login_info() -> dict:
     :返回:
       - `dict`: 响应数据 参考GOCQ文档
     """
-    r = await api_get("get_login_info")
+    r = await call("get_login_info")
     return r
 
 
@@ -29,7 +29,7 @@ async def get_stranger_info(uid: int, no_cache: Optional[bool] = True) -> dict:
     :返回:
       - `dict`: 响应数据 参考GOCQ文档
     """
-    r = await api_get("get_stranger_info", user_id=uid, no_cache=no_cache)
+    r = await call("get_stranger_info", user_id=uid, no_cache=no_cache)
     return r
 
 
@@ -47,7 +47,7 @@ async def get_group_info(gid: int, no_cache: Optional[bool] = True) -> dict:
     :返回:
       - `dict`: 响应数据 参考GOCQ文档
     """
-    r = await api_get("get_group_info", group_id=gid, no_cache=no_cache)
+    r = await call("get_group_info", group_id=gid, no_cache=no_cache)
     return r
 
 
@@ -59,7 +59,7 @@ async def get_friend_list() -> dict:
     :返回:
       - `dict`: 响应数据 参考GOCQ文档
     """
-    r = await api_get("get_friend_list")
+    r = await call("get_friend_list")
     return r
 
 
@@ -71,7 +71,7 @@ async def get_group_list() -> dict:
     :返回:
       - `dict`: 响应数据 参考GOCQ文档
     """
-    r = await api_get("get_group_list")
+    r = await call("get_group_list")
     return r
 
 
@@ -86,7 +86,7 @@ async def get_group_member_info(gid: int) -> dict:
     :返回:
       - `dict`: 响应数据 参考GOCQ文档
     """
-    r = await api_get("get_group_member_list", group_id=gid)
+    r = await call("get_group_member_list", group_id=gid)
     return r
 
 
@@ -101,7 +101,7 @@ async def get_group_member_list(gid: int) -> dict:
     :返回:
       - `dict`: 响应数据 参考GOCQ文档
     """
-    r = await api_get("get_group_member_list", group_id=gid)
+    r = await call("get_group_member_list", group_id=gid)
     return r
 
 
@@ -131,7 +131,7 @@ async def group_join_request() -> dict:
     :返回:
       - `dict`: 响应数据 参考GOCQ文档
     """
-    r = await api_get("get_group_system_msg")
+    r = await call("get_group_system_msg")
     return r["join_requests"]
 
 
@@ -143,7 +143,7 @@ async def group_invite_request() -> dict:
     :返回:
       - `dict`: 响应数据 参考GOCQ文档
     """
-    r = await api_get("get_group_system_msg")
+    r = await call("get_group_system_msg")
     return r["invited_requests"]
 
 
@@ -155,5 +155,5 @@ async def version_info() -> dict:
     :返回:
       - `dict`: 响应数据 参考GOCQ文档
     """
-    r = await api_get("get_version_info")
+    r = await call("get_version_info")
     return r

@@ -1,21 +1,14 @@
-from typing import Dict
 
+from configs.config import OWNER, SUPERUSERS
 from nonebot.plugin import on_message, on_request
-from nonebot.adapters.cqhttp import (
-    GroupRequestEvent,
-    FriendRequestEvent,
-    PrivateMessageEvent,
-    Bot,
-    PRIVATE_FRIEND,
-)
 from nonebot.typing import T_State
-
-from configs.config import SUPERUSERS, OWNER
+from nonebot.adapters.cqhttp import (PRIVATE_FRIEND, Bot, GroupRequestEvent,
+                                     FriendRequestEvent, PrivateMessageEvent)
 
 __permission__ = 0
 
 friend_request = on_request(priority=1)
-requests: Dict[str, str] = {}
+requests: dict[str, str] = {}
 
 
 @friend_request.handle()

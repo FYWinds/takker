@@ -1,4 +1,4 @@
-from typing import Dict
+
 from argparse import Namespace
 
 from nonebot.log import logger
@@ -34,7 +34,7 @@ async def handle_ban(args: Namespace):
         args.plugin = list(p for p in plugin)
     if args.reverse:
         args.plugin = list(filter(lambda p: p not in args.plugin, plugin))
-    result: Dict[str, bool]
+    result: dict[str, bool]
     result = {}
     if not args.is_superuser:
         for p in plugin:
@@ -77,7 +77,7 @@ async def handle_unban(args: Namespace):
         args.plugin = list(p for p in plugin)
     if args.reverse:
         args.plugin = list(filter(lambda p: p not in args.plugin, plugin))
-    result: Dict[str, bool]
+    result: dict[str, bool]
     result = {}
     if not args.is_superuser:
         for p in plugin:

@@ -63,7 +63,6 @@ class Processing:
         self.processing[key] = True
 
     def set_False(self, key):
-
         self.processing[key] = False
 
     def check(self, key):

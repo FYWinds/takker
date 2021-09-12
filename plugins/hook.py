@@ -1,30 +1,24 @@
-from typing import Dict
 from nonebot import logger
-from nonebot.exception import IgnoredException
-from nonebot.message import run_preprocessor
+from nonebot.plugin import get_plugin, get_loaded_plugins
 from nonebot.typing import T_State
 from nonebot.matcher import Matcher
-from nonebot.plugin import get_plugin, get_loaded_plugins
-from nonebot.adapters.cqhttp import (
-    Bot,
-    Event,
-    MessageEvent,
-    GroupMessageEvent,
-)
+from nonebot.message import run_preprocessor
+from nonebot.exception import IgnoredException
+from nonebot.adapters.cqhttp import Bot, Event, MessageEvent, GroupMessageEvent
 
-from utils.msg_util import at
-from service.db.utils.perm import set_perm
-from service.db.utils.ban import ban, isbanned
-from service.db.utils.plugin_manager import query_plugin_status, set_plugin_status
-from utils.utils import perm_check, enable_check, ExploitCheck
+from utils.utils import ExploitCheck, perm_check, enable_check
 from configs.config import (
     OWNER,
-    SUPERUSERS,
-    HIDDEN_PLUGINS,
     BAN_TIME,
+    SUPERUSERS,
     BAN_CHEKC_FREQ,
+    HIDDEN_PLUGINS,
     BAN_CHECK_PERIOD,
 )
+from utils.msg_util import at
+from service.db.models.ban import Ban
+from service.db.utils.perm import set_perm
+from service.db.utils.plugin_manager import set_plugin_status, query_plugin_status
 
 __permission__ = 0
 
@@ -45,9 +39,9 @@ async def handle_plugin_permission(
     if module_name in HIDDEN_PLUGINS:
         return
 
-    await __update_plugin(conv)
+    await _update_plugin(conv)
     if isinstance(event, MessageEvent):
-        await __update_perm(event.user_id, event.sender.role)  # type: ignore
+        await _update_perm(event.user_id, event.sender.role)  # type: ignore
     try:
         plugin_perm = get_plugin(module_name).module.__getattribute__("__permission__")  # type: ignore
     except:
@@ -58,8 +52,8 @@ async def handle_plugin_permission(
         raise IgnoredException("插件未启用或没有足够权限")
 
 
-async def __update_plugin(conv={"user": [], "group": []}):
-    plugin_list_current: Dict[str, bool]
+async def _update_plugin(conv={"user": [], "group": []}):
+    plugin_list_current: dict[str, bool]
     plugin_list_current = {}
     if conv["group"]:
         plugin_list_stored = await query_plugin_status(
@@ -89,7 +83,7 @@ async def __update_plugin(conv={"user": [], "group": []}):
         )
 
 
-async def __update_perm(uid: int, role: str):
+async def _update_perm(uid: int, role: str):
     id = str(uid)
     if id in SUPERUSERS:
         await set_perm(id=id, perm=9)
@@ -114,11 +108,11 @@ async def ban_exploit_check(
     if matcher.type == "message" and (
         matcher.priority not in range(0, 11) or matcher.priority not in range(90, 101)
     ):
-        if await isbanned(event.user_id):
+        if await Ban.isbanned(event.user_id):
             raise IgnoredException("用户正在封禁中")
         if state["_prefix"]["raw_command"]:
             if exploit.check(f'{event.user_id}{state["_prefix"]["raw_command"]}'):
-                if await ban(event.user_id, 9, BAN_TIME * 60):
+                if await Ban.ban(event.user_id, 9, BAN_TIME * 60):
                     logger.info(f"USER {event.user_id} 触发了恶意触发检测")
                 await bot.send_group_msg(
                     group_id=event.group_id,

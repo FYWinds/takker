@@ -5,7 +5,7 @@ from nonebot.typing import T_State
 
 from .data_source import get_illust_link, get_illust_info
 
-from service.db.utils.illust import add_illust, check_illust
+from service.db.models.illust import Illust
 from configs.config import OWNER
 
 __permission__ = 6
@@ -48,16 +48,14 @@ async def _c(bot: Bot, event: MessageEvent, state: T_State):
         return
     nsfw = int(event.message.extract_plain_text())
     if nsfw in range(0, 3):
-        if await check_illust(pics[reply_id]):
+        if await Illust.check_illust(pics[reply_id]):
             await pix_check.finish(f"添加失败，若无报错则图片或许已在图库中")
         info = await get_illust_info(pics[reply_id])
         if info:
             info |= {"nsfw": nsfw}
-            await add_illust(info)
-            await bot.send(event, f"成功将 {pics[reply_id]} 的图片添加到图库中，类型: {nsfw}")
-            pics.pop(reply_id)
+            await Illust.add_illust(info)
+            await bot.send(event, f"成功将 {pics.pop(reply_id)} 的图片添加到图库中，类型: {nsfw}")
             return
         else:
             await pix_check.finish(f"添加失败，若无报错则图片或许已被删除")
-    await bot.send(event, f"拒绝将 {pics[reply_id]} 的图片添加到图库中")
-    pics.pop(reply_id)
+    await bot.send(event, f"拒绝将 {pics.pop(reply_id)} 的图片添加到图库中")

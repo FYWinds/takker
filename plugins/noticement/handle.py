@@ -1,12 +1,11 @@
-from argparse import Namespace
-from typing import Dict, List
-from asyncio import sleep
 import random
+from asyncio import sleep
+from argparse import Namespace
 
 from api.message import send_group_msg, send_private_msg
 from configs.config import OWNER
 
-notice: Dict[int, Dict[int, List[str]]] = {}
+notice: dict[int, dict[int, list[str]]] = {}
 # [uid, [gid, noticements[]]]
 
 

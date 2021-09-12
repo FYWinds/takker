@@ -1,16 +1,17 @@
-import httpx
 from typing import Optional
 
+import httpx
+
 from utils.browser import get_ua
-from service.db.utils.illust import get_random_illust, remove_illust
 from configs.config import PIXIV_IMAGE_URL
+from service.db.models.illust import Illust
 
 
 async def get_illust(nsfw: int, keywords: Optional[list] = []) -> dict:
-    a = await get_random_illust(nsfw, keywords)
-    if a == {}:
+    data = await Illust.get_random_illust(nsfw, keywords)
+    if data == {}:
         return {}
-    pid = a["pid"]
+    pid = data["pid"]
     url = "https://hibi.windis.xyz/api/pixiv/illust"
     params = {"id": pid}
     async with httpx.AsyncClient(headers=get_ua()) as client:
@@ -34,22 +35,21 @@ async def get_illust(nsfw: int, keywords: Optional[list] = []) -> dict:
                         "i.pximg.net", PIXIV_IMAGE_URL
                     )
                 ]
-        a |= {"img_url": img_url}
-        a |= {"orig_img_url": orig_img_url}
+        data |= {"img_url": img_url}
+        data |= {"orig_img_url": orig_img_url}
         async with httpx.AsyncClient(headers=get_ua()) as client:
             resp = await client.get(url=img_url)
-        a |= {"img_bytes": resp.content}
-        a |= {"is_search": False}
-        return a
+        data |= {"img_bytes": resp.content}
+        data |= {"is_search": False}
+        return data
     except:
-        await remove_illust(a)
         return await get_illust(nsfw, keywords)
 
 
 async def get_illust_direct(pid: str) -> dict:
     url = "https://hibi.windis.xyz/api/pixiv/illust"
     params = {"id": pid}
-    a: dict = {}
+    data: dict = {}
     async with httpx.AsyncClient(headers=get_ua()) as client:
         resp = await client.get(url=url, params=params)
     try:
@@ -60,8 +60,8 @@ async def get_illust_direct(pid: str) -> dict:
                 tags.add(t["translated_name"])
             else:
                 tags.add(t["name"])
-        a |= {"tags": ",".join(list(tags))}
-        a |= {
+        data |= {"tags": ",".join(list(tags))}
+        data |= {
             "pid": pid,
             "title": resp["illust"]["title"],
             "author": resp["illust"]["user"]["name"],
@@ -81,9 +81,9 @@ async def get_illust_direct(pid: str) -> dict:
                         "i.pximg.net", PIXIV_IMAGE_URL
                     )
                 ]
-        a |= {"orig_img_url": orig_img_url}
-        a |= {"is_search": True}
-        a |= {"nsfw": -1}
-        return a
+        data |= {"orig_img_url": orig_img_url}
+        data |= {"is_search": True}
+        data |= {"nsfw": -1}
+        return data
     except:
         raise ValueError

@@ -1,6 +1,6 @@
 from typing import Optional
 
-from service.http_api import api_get
+from .call_api import call
 
 
 async def send_private_msg(
@@ -25,7 +25,7 @@ async def send_private_msg(
       - `int`: 消息id
     """
     if gid:
-        r = await api_get(
+        r = await call(
             "send_private_msg",
             user_id=uid,
             group_id=gid,
@@ -33,7 +33,7 @@ async def send_private_msg(
             auto_escape=auto_escape,
         )
     else:
-        r = await api_get(
+        r = await call(
             "send_private_msg",
             user_id=uid,
             message=message,
@@ -59,7 +59,7 @@ async def send_group_msg(
     :返回:
       - `int`: 消息id
     """
-    r = await api_get(
+    r = await call(
         "send_group_msg", group_id=gid, message=message, auto_escape=auto_escape
     )
     return r["message_id"]

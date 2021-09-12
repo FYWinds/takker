@@ -1,6 +1,5 @@
 import numpy
 from PIL import Image
-from typing import Dict
 from matplotlib import pyplot
 import multidict
 from wordcloud import WordCloud, ImageColorGenerator
@@ -11,11 +10,11 @@ from configs.path_config import IMAGE_PATH, FONT_PATH
 
 async def draw_word_cloud(gid: int, words: list):
     dic = multidict.MultiDict()
-    ndic: Dict[str, int] = {}
+    ndic: dict[str, int] = {}
     for w in words:
         for k in w.split(" "):
             val = ndic.get(k, 0)
-            ndic|={k: val + 1}
+            ndic |= {k: val + 1}
     for key in ndic:
         dic.add(key, ndic[key])
     mask = numpy.array(Image.open(f"{IMAGE_PATH}wordcloud/back.jpg"))
