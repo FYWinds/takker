@@ -1,8 +1,15 @@
-from configs.path_config import DATA_PATH
 from tortoise import Tortoise
-import sqlite3
-
 from nonebot.log import logger
+
+from configs.path_config import DATA_PATH
+
+models: list[str] = [
+    "service.db.models.config",
+    "service.db.models.ban",
+    "service.db.models.statistic",
+    "service.db.models.wordcloud",
+    "service.db.models.outdated_models",
+]
 
 
 async def db_init():
@@ -22,25 +29,22 @@ async def db_init():
                 },
                 "apps": {
                     "datadb": {
-                        "models": ["service.db.model.models"],
+                        "models": [
+                            "service.db.models.config",
+                            "service.db.models.ban",
+                            "service.db.models.statistic",
+                            "service.db.models.wordcloud",
+                            "service.db.models.outdated_models",
+                        ],
                         "default_connection": "data",
                     },
                     "illustdb": {
-                        "models": ["service.db.model.illust_model"],
+                        "models": ["service.db.models.illust"],
                         "default_connection": "illust",
                     },
                 },
             }
         )
-        # await Tortoise.init(
-        #     db_url=f"sqlite://{DATA_PATH}data.db",
-        #     modules={"models": ["service.db.model.models"]},
-        # )
-        # await Tortoise.generate_schemas()
-        # await Tortoise.init(
-        #     db_url=f"sqlite://{DATA_PATH}illust.db",
-        #     modules={"models": ["service.db.model.illust_model"]},
-        # )
         await Tortoise.generate_schemas()
         logger.info("数据库连接成功")
     except:

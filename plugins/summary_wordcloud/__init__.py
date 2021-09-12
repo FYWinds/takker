@@ -1,15 +1,13 @@
 import re
 import time
+
 import jieba.analyse
-
-
-from nonebot.adapters.cqhttp import Bot, GroupMessageEvent, GROUP
-from nonebot.typing import T_State
-from nonebot.plugin import on_message
-
-from utils.msg_util import image, text
-from service.db.utils.wordcloud import get_words, log_words
 from configs.config import SUPERUSERS
+from nonebot.plugin import on_message
+from nonebot.typing import T_State
+from utils.msg_util import text, image
+from nonebot.adapters.cqhttp import GROUP, Bot, GroupMessageEvent
+from service.db.models.wordcloud import Wordcloud
 
 from .draw import draw_word_cloud
 
@@ -45,7 +43,7 @@ async def write_chat_record(gid: int, uid: int, msg: str):
     msg = msg.replace('"', " ")
     msg_seg = " ".join(list(jieba.analyse.extract_tags(msg)))
     if not msg == "":
-        await log_words(gid, uid, msg, msg_seg)
+        await Wordcloud.log_words(gid, uid, msg, msg_seg)
 
 
 async def generate(gid: int, type: str):
@@ -53,7 +51,7 @@ async def generate(gid: int, type: str):
         ptime = int(time.time() - 60 * 60 * 24 * 30)
     else:
         ptime = int(time.time() - 60 * 60 * 24 * 365)
-    msg_seg = await get_words(gid, ptime)
+    msg_seg = await Wordcloud.get_words(gid, ptime)
     img_path = await draw_word_cloud(gid, msg_seg)
     text_ = await generate_text(ptime, len(msg_seg))
     return text(text_) + image(abspath=img_path)
@@ -63,11 +61,11 @@ async def generate_text(ptime: int, msgs: int) -> str:
     ntime = int(time.time())
     ptime_s = time.strftime("%Y年%m月%d日", time.localtime(ptime))
     ntime_s = time.strftime("%Y年%m月%d日", time.localtime(ntime))
-    text_ = f"""记录时间:
+    _text = f"""记录时间:
 {ptime_s}
 ---------至---------
 {ntime_s}
 自有记录以来，本群一共发了{msgs}条消息
 下面是本群的词云:
 """
-    return text_
+    return _text

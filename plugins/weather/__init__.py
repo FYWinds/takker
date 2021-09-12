@@ -1,4 +1,4 @@
-from nonebot import on_command
+from nonebot.plugin import on_command
 from nonebot.adapters.cqhttp import Bot, MessageEvent, MessageSegment
 from .get_weather import get_City_Weather
 from .convert_pic import Image, draw

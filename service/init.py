@@ -1,7 +1,8 @@
 # from utils.data import load_data
-from utils.browser import install
 from utils.log import log_to_file
-from service.db.database_sqlite import db_init
+from utils.browser import install
+from service.db.db_connect import db_init
+from service.db.utils.data_convert import convert
 
 
 async def init_bot():
@@ -11,11 +12,8 @@ async def init_bot():
     # 建立数据库连接
     await db_init()
 
-    # 为windows下的playwright的异步注入猴子补丁
-    # patch()  # 改框架源码了，不注入了
-
-    # # 载入只读不写的数据到内存中
-    # load_data()
-
     # 检查更新Playwright的Chromuim
     await install()
+
+    # 数据迁移
+    await convert()

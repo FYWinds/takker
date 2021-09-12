@@ -1,6 +1,6 @@
 from typing import Optional
 
-from service.http_api import api_get
+from .call_api import call
 
 
 async def kick(gid: int, uid: int, reject: Optional[bool] = False):
@@ -15,9 +15,7 @@ async def kick(gid: int, uid: int, reject: Optional[bool] = False):
     :可选参数:
       * `reject: Optional[bool] = False`:是否拒绝再次加群，默认不拒绝
     """
-    await api_get(
-        "set_group_kick", group_id=gid, user_id=uid, reject_add_request=reject
-    )
+    await call("set_group_kick", group_id=gid, user_id=uid, reject_add_request=reject)
 
 
 async def ban_personal(gid: int, uid: int, duration: int):
@@ -31,7 +29,7 @@ async def ban_personal(gid: int, uid: int, duration: int):
       * `duration: int`: 禁言时长，单位分钟
     """
     duration *= 60
-    await api_get("set_group_ban", group_id=gid, user_id=uid, duration=duration)
+    await call("set_group_ban", group_id=gid, user_id=uid, duration=duration)
 
 
 async def ban_anonymous(gid: int, flag: str, duration: int):
@@ -45,7 +43,7 @@ async def ban_anonymous(gid: int, flag: str, duration: int):
       * `duration: int`: 禁言时长，单位分钟
     """
     duration *= 60
-    await api_get(
+    await call(
         "set_group_anonymous_ban", group_id=gid, anonymous_flag=flag, duration=duration
     )
 
@@ -61,7 +59,7 @@ async def ban_all(gid: int, enable: Optional[bool] = True):
     :可选参数:
       * `enable: Optional[bool] = True`: 是否开启禁言，默认开启
     """
-    await api_get("set_group_whole_ban", group_id=gid, enable=enable)
+    await call("set_group_whole_ban", group_id=gid, enable=enable)
 
 
 async def set_group_admin(gid: int, uid: int, enable: Optional[bool] = True):
@@ -76,7 +74,7 @@ async def set_group_admin(gid: int, uid: int, enable: Optional[bool] = True):
     :可选参数:
       * `enable: Optional[bool] = True`: 是否设置，默认设置
     """
-    await api_get("set_group_admin", group_id=gid, user_id=uid, enable=enable)
+    await call("set_group_admin", group_id=gid, user_id=uid, enable=enable)
 
 
 async def set_group_anonymous(gid: int, enable: Optional[bool] = True):
@@ -90,7 +88,7 @@ async def set_group_anonymous(gid: int, enable: Optional[bool] = True):
     :可选参数:
       * `enable: Optional[bool] = True`: 是否开启，默认允许
     """
-    await api_get("set_group_anonymous", group_id=gid, enable=enable)
+    await call("set_group_anonymous", group_id=gid, enable=enable)
 
 
 async def set_group_name(gid: int, name: str):
@@ -102,7 +100,7 @@ async def set_group_name(gid: int, name: str):
       * `gid: int`: 群号
       * `name: str`: 群名称
     """
-    await api_get("set_group_name", group_id=gid, group_name=name)
+    await call("set_group_name", group_id=gid, group_name=name)
 
 
 async def set_title(gid: int, uid: int, title: Optional[str] = ""):
@@ -117,7 +115,7 @@ async def set_title(gid: int, uid: int, title: Optional[str] = ""):
     :可选参数:
       * `title: Optional[str] = ""`: 头衔内容，最多六个字，默认取消头衔
     """
-    await api_get(
+    await call(
         "set_group_special_title",
         group_id=gid,
         user_id=uid,
@@ -141,7 +139,7 @@ async def set_request(
       * `reason: Optional[str] = ""`: 拒绝加群请求的原因
     """
     sub_type: str = "add"
-    await api_get(
+    await call(
         "set_group_add_request",
         flag=flag,
         sub_type=sub_type,
@@ -161,4 +159,4 @@ async def leave(gid: int, dismiss: Optional[bool] = False):
     :可选参数:
       * `dismiss: Optional[bool] = False`: 是否解散群聊，需要Bot具有群主身份，默认不解散
     """
-    await api_get("set_group_leave", group_id=gid, is_dismiss=dismiss)
+    await call("set_group_leave", group_id=gid, is_dismiss=dismiss)

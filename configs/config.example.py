@@ -5,6 +5,7 @@ from typing import List
 # CQ_HTTP_URL: str = ""
 # CQ_SECRET: str = ""  # HTTP_API的secret
 
+
 # 身份名单
 OWNER: str = ""  # 主人
 SUPERUSERS: List[str] = ["0", "", ""]  # 超级用户名单

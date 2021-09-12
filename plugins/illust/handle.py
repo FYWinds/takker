@@ -1,6 +1,7 @@
 from argparse import Namespace
 
-from service.db.utils.statistic import set_illust_status
+from service.db.models.statistic import Statistic
+from service.db.utils.illust_config import get_illust_config, set_illust_config
 
 from .data_source import get_illust, get_illust_direct
 
@@ -17,7 +18,7 @@ async def handle_get(args: Namespace):
         except:
             pass
     if args.group:
-        await set_illust_status(args.group, keywords)
+        await Statistic.set_illust_status(args.group, keywords)
     nsfw_level = 0
     if args.level:
         if args.level[0] in [0, 1, 2]:
@@ -28,3 +29,23 @@ async def handle_get(args: Namespace):
         nsfw_level = 0
     result = await get_illust(nsfw_level, keywords)
     return result
+
+
+settings: list[str] = [
+    "send_tags",
+    "send_image",
+    "send_author",
+    "send_title",
+    "send_link",
+]
+
+
+async def handle_set(args: Namespace) -> str:
+    state = bool(args.state[0])
+    config = args.settings
+    configs: list[str] = []
+    for c in config:
+        if c in settings:
+            configs.append(c)
+    await set_illust_config(configs, state)
+    return f"配置项({', '.join(configs)})修改成功!"

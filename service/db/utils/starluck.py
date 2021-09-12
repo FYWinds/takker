@@ -1,35 +1,36 @@
-from service.db.model.models import Starluck
-from tortoise.query_utils import Q
+from typing import Union
+
+from service.db.models.config import UserConfig
 
 
-async def query_star(uid: int) -> int:
+async def query_star(uid: Union[int, str]) -> int:
     """
     :说明: `query_star`
     > 查询用户的绑定星座
 
     :参数:
-      * `uid: int`: QQ号
+      * `uid: Union[int, str]`: QQ号
 
     :返回:
       - `int`: 星座ID
     """
-    p = await Starluck.filter(Q(uid=uid)).values("star")
+    if isinstance(uid, str):
+        uid = int(uid)
+    p = await UserConfig.get_or_none(uid=uid)
     if p:
-        return p[0]["star"]
+        return p.constellation
     return 0
 
 
-async def set_star(uid: int, star: int):
+async def set_star(uid: Union[int, str], constellation: int) -> None:
     """
     :说明: `set_user_star`
     > 绑定用户星座
 
     :参数:
-      * `uid: int`: QQ号
+      * `uid: Union[int, str]`: QQ号
       * `star: int`: 星座ID
     """
-    query = Starluck.filter(Q(uid=uid))
-    if await query.values("star"):
-        await query.update(star=star)
-    else:
-        await Starluck.create(uid=uid, star=star)
+    if isinstance(uid, str):
+        uid = int(uid)
+    await UserConfig.update_or_create(uid=uid, defaults={"constellation":constellation})
