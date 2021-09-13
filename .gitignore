@@ -121,3 +121,4 @@ temp*.jpg
 temp*.png
 temp*.gif
 temp*.html
+data/*.db-*
