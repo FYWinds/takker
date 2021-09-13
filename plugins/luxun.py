@@ -15,7 +15,7 @@ __plugin_name__ = "鲁迅说"
 __usage__ = "用法：鲁迅说 [消息]"
 
 
-luxun = on_command("鲁迅说过", aliases={"鲁迅说"}, priority=5, block=True)
+luxun = on_command("鲁迅说过", aliases={"鲁迅说"}, priority=20)
 
 
 @luxun.handle()
