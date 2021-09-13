@@ -54,12 +54,12 @@ async def _(bot: Bot, event: MessageEvent, state: T_State):
                     message=(
                         (
                             reply(event.message_id)
-                            + (image(byte=r["img_bytes"]) if c["send_image"] else None)
+                            + (image(c=r["img_bytes"]) if c["send_image"] else None)
                             + text(message)
                         )
                         if isinstance(event, GroupMessageEvent)
                         else (
-                            (image(byte=r["img_bytes"]) if c["send_image"] else None)
+                            (image(c=r["img_bytes"]) if c["send_image"] else None)
                             + text(message)
                         )
                     ),

@@ -1,12 +1,12 @@
 ## Author HibiKier/zhenxun_bot
 ## Edit by FYWinds
 import os
-import ujson
 from io import BytesIO
-from typing import Optional, Union
+from typing import Union, Optional
 
-from nonebot.adapters.cqhttp.message import MessageSegment
+import ujson
 from nonebot.log import logger
+from nonebot.adapters.cqhttp.message import MessageSegment
 
 from configs.path_config import IMAGE_PATH, VOICE_PATH
 
@@ -15,24 +15,21 @@ def image(
     img_file: str = None,
     path: str = "",
     abspath: Optional[str] = None,
-    byte: Optional[bytes] = None,
-    bytesio: Optional[BytesIO] = None,
-    b64: Optional[str] = None,
+    c: Optional[Union[str, bytes, BytesIO]] = None,
 ) -> MessageSegment:
     if abspath:
         if os.path.exists(abspath):
             return MessageSegment.image("file:///" + abspath)
         else:
             return text("")
-    elif b64:
-        if b64.find("base64://") != -1:
-            return MessageSegment.image(b64)
+    elif c:
+        if isinstance(c, str):
+            if c.find("base64://") != -1:
+                return MessageSegment.image(c)
+            else:
+                return MessageSegment.image("base64://" + c)
         else:
-            return MessageSegment.image("base64://" + b64)
-    elif byte:
-        return MessageSegment.image(byte)
-    elif bytesio:
-        return MessageSegment.image(bytesio)
+            return MessageSegment.image(c)
     else:
         img_file = str(img_file)
         if img_file.find("http") == -1:

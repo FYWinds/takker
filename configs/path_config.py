@@ -29,14 +29,14 @@ def init_path():
     DATA_PATH.mkdir(parents=True, exist_ok=True)
     TEMP_PATH.mkdir(parents=True, exist_ok=True)
 
-    IMAGE_PATH = str(IMAGE_PATH.absolute()) + "/"
-    VOICE_PATH = str(VOICE_PATH.absolute()) + "/"
-    TEXT_PATH = str(TEXT_PATH.absolute()) + "/"
-    TEMPLATE_PATH = str(TEMPLATE_PATH.absolute()) + "/"
-    FONT_PATH = str(FONT_PATH.absolute()) + "/"
-    LOG_PATH = str(LOG_PATH.absolute()) + "/"
-    DATA_PATH = str(DATA_PATH.absolute()) + "/"
-    TEMP_PATH = str(TEMP_PATH.absolute()) + "/"
+    IMAGE_PATH = str(IMAGE_PATH.absolute()) + "/"  # type: ignore
+    VOICE_PATH = str(VOICE_PATH.absolute()) + "/"  # type: ignore
+    TEXT_PATH = str(TEXT_PATH.absolute()) + "/"  # type: ignore
+    TEMPLATE_PATH = str(TEMPLATE_PATH.absolute()) + "/"  # type: ignore
+    FONT_PATH = str(FONT_PATH.absolute()) + "/"  # type: ignore
+    LOG_PATH = str(LOG_PATH.absolute()) + "/"  # type: ignore
+    DATA_PATH = str(DATA_PATH.absolute()) + "/"  # type: ignore
+    TEMP_PATH = str(TEMP_PATH.absolute()) + "/"  # type: ignore
 
 
 init_path()
