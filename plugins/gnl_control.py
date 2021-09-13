@@ -1,8 +1,8 @@
 from rcon import rcon
 from nonebot.plugin import on_command
-from nonebot.adapters.cqhttp import Bot, MessageEvent, GroupMessageEvent
+from nonebot.adapters.cqhttp import Bot, MessageEvent
 
-from configs.config import OWNER, SPECIAL_IP, SUPERUSERS, SPECIAL_PASS
+from configs.config import SPECIAL_IP, SUPERUSERS, SPECIAL_PASS
 
 __permission__ = 9
 __plugin_name__ = "远程执行mc指令-jpgnl专用"
