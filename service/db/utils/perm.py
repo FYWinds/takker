@@ -21,16 +21,13 @@ async def query_perm(id: Union[int, str], isGroup: Optional[bool] = False) -> in
     """
     if isGroup:
         p = await GroupConfig.get_or_none(gid=int(id))
-        if p:
-            return p.perm
-        else:
-            return 0
     else:
         p = await UserConfig.get_or_none(uid=int(id))
-        if p:
-            return p.perm
-        else:
-            return 0
+
+    if p and p.perm:
+        return p.perm
+    else:
+        return 0
 
 
 async def check_perm(

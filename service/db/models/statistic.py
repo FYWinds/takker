@@ -20,9 +20,7 @@ class Statistic(Model):
     @classmethod
     async def query_status(cls, gid: Union[int, str]) -> dict[str, dict[str, int]]:
         q = await cls.get_or_none(gid=int(gid))
-        if not q:
-            return {}
-        if q.stat != None:
+        if q and q.stat:
             return json.loads(str(q.stat).replace("'", '"'))
         else:
             return {}
@@ -34,9 +32,7 @@ class Statistic(Model):
     @classmethod
     async def query_illust_statue(cls, gid: Union[int, str]) -> dict[str, int]:
         q = await cls.get_or_none(gid=int(gid))
-        if not q:
-            return {}
-        if q.illust_stat != None:
+        if q and q.illust_stat:
             return json.loads(str(q.illust_stat).replace("'", '"'))
         else:
             return {}
@@ -52,6 +48,6 @@ class Statistic(Model):
                     p_kw[k] += 1
                 else:
                     p_kw.update({k: 1})
-                await cls.update_or_create(gid=gid, defaults={"illust_stat":p_kw})
+                await cls.update_or_create(gid=gid, defaults={"illust_stat": p_kw})
             else:
-                await cls.update_or_create(gid=gid, defaults={"illust_stat":{k: 1}})
+                await cls.update_or_create(gid=gid, defaults={"illust_stat": {k: 1}})

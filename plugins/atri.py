@@ -2,12 +2,13 @@ import re
 import random
 from difflib import SequenceMatcher
 
-from utils.data import atri_text
 from nonebot.rule import to_me
 from nonebot.plugin import on_command
 from nonebot.typing import T_State
-from utils.msg_util import record
 from nonebot.adapters.cqhttp import GROUP, Bot, GroupMessageEvent
+
+from utils.data import atri_text
+from utils.msg_util import record
 
 __permission__ = 3
 __plugin_name__ = "高性能萝卜子"
@@ -16,7 +17,6 @@ __usage__ = "@Bot 想说的话"
 atri = on_command(
     "atri",
     aliases={
-        "萝卜子",
         "亚托莉",
     },
     permission=GROUP,

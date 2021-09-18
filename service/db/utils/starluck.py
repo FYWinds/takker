@@ -17,7 +17,7 @@ async def query_star(uid: Union[int, str]) -> int:
     if isinstance(uid, str):
         uid = int(uid)
     p = await UserConfig.get_or_none(uid=uid)
-    if p:
+    if p and p.constellation:
         return p.constellation
     return 0
 
@@ -33,4 +33,6 @@ async def set_star(uid: Union[int, str], constellation: int) -> None:
     """
     if isinstance(uid, str):
         uid = int(uid)
-    await UserConfig.update_or_create(uid=uid, defaults={"constellation":constellation})
+    await UserConfig.update_or_create(
+        uid=uid, defaults={"constellation": constellation}
+    )

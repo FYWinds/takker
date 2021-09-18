@@ -5,7 +5,6 @@ from typing import Optional
 from nonebot.log import logger
 from playwright.async_api import Browser, async_playwright
 
-
 _browser: Optional[Browser] = None
 
 
@@ -26,8 +25,9 @@ async def close_browser():
 
 
 async def install():
-    logger.info("正在检查/安装Chormium更新")
+    logger.info("正在检查/安装Chormium更新，如卡死请考虑使用国外服务器或者使用代理")
     os.system("python -m playwright install chromium")
+    os.system("python -m playwright install-deps chromium")
 
 
 user_agent = [

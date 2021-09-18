@@ -1,6 +1,6 @@
 import time
 
-from tortoise.fields import BigIntField, IntField
+from tortoise.fields import IntField, BigIntField
 from tortoise.models import Model
 from tortoise.query_utils import Q
 
@@ -49,10 +49,11 @@ class Ban(Model):
         - `str`: 剩余时间
         """
         query = await cls.get_or_none(uid=uid)
-        if not query:
+        if query and query.ban_time and query.ban_level:
+            ban_time = query.ban_time
+            duration = query.duration
+        else:
             return ""
-        ban_time = query.ban_time
-        duration = query.duration
         if duration == -1:
             return "∞"
         if time.time() - (ban_time + duration) > 0 and duration != -1:

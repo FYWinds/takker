@@ -19,7 +19,7 @@ async def query_points(uid: Union[int, str]) -> int:
     if isinstance(uid, str):
         uid = int(uid)
     q = await UserConfig.get_or_none(uid=uid)
-    if q:
+    if q and q.points:
         return q.points
     else:
         return 0

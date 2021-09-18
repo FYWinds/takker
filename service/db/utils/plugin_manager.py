@@ -23,7 +23,7 @@ async def query_plugin_status(
         p = await GroupConfig.get_or_none(gid=id)
     else:
         p = await UserConfig.get_or_none(uid=id)
-    if p:
+    if p and p.plugin_status:
         return p.plugin_status
     else:
         return {}
@@ -44,10 +44,6 @@ async def set_plugin_status(
     if isinstance(id, str):
         id = int(id)
     if isGroup:
-        await GroupConfig.update_or_create(
-            gid=id, defaults={"plugin_status": status}
-        )
+        await GroupConfig.update_or_create(gid=id, defaults={"plugin_status": status})
     else:
-        await UserConfig.update_or_create(
-            uid=id, defaults={"plugin_status": status}
-        )
+        await UserConfig.update_or_create(uid=id, defaults={"plugin_status": status})
