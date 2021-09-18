@@ -1,12 +1,25 @@
-from nonebot.adapters.cqhttp import Bot, GroupRequestEvent
-from nonebot.adapters.cqhttp.exception import ActionFailed
+from nonebot.log import logger
 from nonebot.plugin import on_request
 from nonebot.typing import T_State
-from nonebot.log import logger
+from nonebot.adapters.cqhttp import Bot, GroupRequestEvent
+from nonebot.adapters.cqhttp.exception import ActionFailed
 
 from api.info import get_stranger_info, get_group_member_list
+from utils.rule import limit_group
 
-gr = on_request(priority=1)
+gr = on_request(
+    priority=1,
+    rule=limit_group(
+        [
+            "511467246",
+            "319152433",
+            "603809278",
+            "869202661",
+            "758550492",
+            "521656488",
+        ]
+    ),
+)
 
 enabled_groups = [
     "511467246",

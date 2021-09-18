@@ -1,8 +1,9 @@
-from nonebot.adapters.cqhttp import Bot, MessageEvent
-from nonebot.typing import T_State
 from nonebot.plugin import on_command
+from nonebot.typing import T_State
+from nonebot.adapters.cqhttp import Bot, MessageEvent
 
-from utils.msg_util import reply, text
+from utils.msg_util import text, reply
+
 from .data_source import get_sx
 
 hhsh = on_command("好好说话", priority=20, block=False)

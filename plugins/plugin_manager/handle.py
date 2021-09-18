@@ -1,11 +1,11 @@
-
 from argparse import Namespace
 
 from nonebot.log import logger
-from service.db.utils.perm import query_perm
-from service.db.utils.plugin_manager import query_plugin_status, set_plugin_status
 
-from .manager import ban_plugin, get_plugin_list, unban_plugin
+from service.db.utils.perm import query_perm
+from service.db.utils.plugin_manager import set_plugin_status, query_plugin_status
+
+from .manager import ban_plugin, unban_plugin, get_plugin_list
 
 
 async def handle_ls(args: Namespace) -> str:

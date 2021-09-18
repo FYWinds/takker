@@ -4,6 +4,7 @@ from nonebot.plugin import on_command
 from nonebot.typing import T_State
 from nonebot.adapters.cqhttp import GROUP, Bot, GroupMessageEvent
 
+from utils.rule import admin
 from configs.config import OWNER, SUPERUSERS
 
 __permission__ = 0
@@ -30,18 +31,12 @@ async def _(
     messages.append(message_id)
 
 
-withdraw = on_command("撤回", priority=20, permission=GROUP)
+withdraw = on_command("撤回", priority=20, permission=GROUP, rule=admin())
 
 
 @withdraw.handle()
 async def _wdh(bot: Bot, event: GroupMessageEvent, state: T_State):
     global messages
-    if (
-        str(event.user_id) not in SUPERUSERS
-        and str(event.user_id) != OWNER
-        and event.sender.role not in ["admin", "owner"]
-    ):
-        return
     if event.reply == None:
         return
     message_id = event.reply.message_id

@@ -3,26 +3,24 @@ from rcon import rcon
 from nonebot.plugin import on_notice, on_command
 from nonebot.adapters.cqhttp import Bot, MessageEvent, GroupUploadNoticeEvent
 
+from utils.rule import admin, limit_group
 from utils.browser import get_ua
-from configs.config import MC_PATH, SPECIAL_IP, SUPERUSERS, SPECIAL_PASS
+from configs.config import MC_PATH, SPECIAL_IP, SPECIAL_PASS
 
 __permission__ = 9
 __plugin_name__ = "远程执行mc指令-jpgnl专用"
 __usage__ = "sudo <指令>"
 
-command = on_command("sudo", priority=20)
+command = on_command(
+    "sudo", priority=20, rule=admin() & limit_group(["521656488", "669041320"])
+)
 
 
 @command.handle()
 async def _(bot: Bot, event: MessageEvent):
-    if (
-        not event.sender.role in ["admin", "owner"]
-        and str(event.sender.user_id) not in SUPERUSERS
-    ):
-        return
     c = event.get_plaintext().strip()
-    result = await rcon(c, host=SPECIAL_IP, port=25575, passwd=SPECIAL_PASS)
-    await format(result)
+    result = str(await rcon(c, host=SPECIAL_IP, port=25575, passwd=SPECIAL_PASS))
+    result = await format(result)
     await command.finish(result)
 
 
@@ -52,10 +50,10 @@ async def format(text: str) -> str:
         "italic": "o",
     }
     index = 0
-    while index < len(text) - 1 and type(text) == str:
+    while index < len(text) - 1 and isinstance(text, str):
         if text[index] == CHAR:
             form = text[index + 1]
-            if form in NAME_MAP:
+            if form in NAME_MAP.values():
                 text = text.replace(CHAR + form, "")
                 index = index - 1
                 continue
@@ -63,13 +61,11 @@ async def format(text: str) -> str:
     return text
 
 
-schem = on_notice(priority=20)
+schem = on_notice(priority=20, rule=limit_group(["521656488", "669041320"]))
 
 
 @schem.handle()
 async def _s(bot: Bot, event: GroupUploadNoticeEvent):
-    if event.group_id != 669041320 and event.group_id != 521656488:
-        return
     if ".schematic" not in event.file.name:
         return
     try:
