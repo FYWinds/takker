@@ -160,7 +160,7 @@ async def remove(args: Namespace) -> str:
                         message += f"UP {bid} 删除失败，请检查是否误写或错将直播房间号当作用户ID\n"
                     else:
                         name = await DB.get_user_name(bid)
-                        message += f"  UP {name}({bid}) 删除失败\n"
+                        message += f"  UP {name}({bid}) 删除成功\n"
         # 私聊控制其他用户
         if args.user:
             message += "用户"
@@ -171,7 +171,7 @@ async def remove(args: Namespace) -> str:
                         message += f"UP {bid} 删除失败，请检查是否误写或错将直播房间号当作用户ID\n"
                     else:
                         name = await DB.get_user_name(bid)
-                        message += f"  UP {name}({bid}) 删除失败\n"
+                        message += f"  UP {name}({bid}) 删除成功\n"
         # 私聊控制当前私聊
         if not args.user and not args.group:
             message += "用户"
@@ -182,7 +182,7 @@ async def remove(args: Namespace) -> str:
                     message += f"UP {bid} 删除失败，请检查是否误写或错将直播房间号当作用户ID\n"
                 else:
                     name = await DB.get_user_name(bid)
-                    message += f"  UP {name}({bid}) 删除失败\n"
+                    message += f"  UP {name}({bid}) 删除成功\n"
 
     # 群聊仅控制当前群聊
     elif args.is_group:
@@ -194,7 +194,7 @@ async def remove(args: Namespace) -> str:
                 message += f"UP {bid} 删除失败，请检查是否误写或错将直播房间号当作用户ID\n"
             else:
                 name = await DB.get_user_name(bid)
-                message += f"  UP {name}({bid}) 删除失败\n"
+                message += f"  UP {name}({bid}) 删除成功\n"
     return message
 
 
