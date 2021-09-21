@@ -3,7 +3,7 @@
 import string
 
 
-async def cut_text(str, cut):
+def cut_text(str, cut):
     """
     :说明: `get_cut_str`
     > 长文本自动换行切分
