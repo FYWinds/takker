@@ -22,6 +22,9 @@ multidict = "^5.1.0"
 jieba = "^0.42.1"
 moviepy = "^1.0.3"
 pypinyin = "^0.42.0"
+ImageHash = "^4.2.1"
+opencv-python = "^4.5.3"
+qrcode = "^7.3"
 
 
 [tool.poetry.dev-dependencies]
