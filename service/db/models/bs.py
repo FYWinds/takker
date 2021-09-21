@@ -180,7 +180,7 @@ class Bili_sub(Model):
 
     @classmethod
     async def get_user_name(cls, bid: Union[str, int]) -> str:
-        data = await cls.get_or_none(bid=int(bid))
+        data = await cls.filter(bid=int(bid)).first()
         if data and data.name:
             return data.name
         else:
