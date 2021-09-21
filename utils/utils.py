@@ -5,7 +5,7 @@ from collections import defaultdict
 from nonebot import require
 from nonebot.adapters.cqhttp import Event, GroupMessageEvent, PrivateMessageEvent
 
-from configs.config import MAX_PROCESS_TIME
+from configs.config import HIDDEN_PLUGINS, MAX_PROCESS_TIME
 from service.db.utils.perm import check_perm
 from service.db.utils.plugin_manager import query_plugin_status
 
@@ -40,6 +40,8 @@ async def enable_check(plugin: str, event: "Event") -> bool:
     :参数:
       * ``plugin: str``: 插件名
     """
+    if plugin in HIDDEN_PLUGINS:
+        return True
     user_id = getattr(event, "user_id", None)
     group_id = getattr(event, "group_id", None)
     if group_id is not None:
