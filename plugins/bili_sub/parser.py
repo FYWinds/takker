@@ -10,13 +10,15 @@ bs_subparsers = bs_parser.add_subparsers()
 list_parser = bs_subparsers.add_parser(
     "list", aliases=["主播列表", "列表", "主播", "up", "UP", "up主", "UP主"]
 )
-list_group = list_parser.add_mutually_exclusive_group()
-list_group.add_argument("-u", "--user", action="store", nargs="+", default=[], type=int)
-list_group.add_argument(
+list_parser.add_argument(
+    "-u", "--user", action="store", nargs="+", default=[], type=int
+)
+list_parser.add_argument(
     "-g", "--group", action="store", nargs="+", default=[], type=int
 )
 list_parser.add_argument("-a", "--all", action="store_true")
 list_parser.set_defaults(handle=ls)
+
 
 add_parser = bs_subparsers.add_parser("add", aliases=["添加主播", "关注", "添加"])
 add_parser.add_argument("bid", nargs="*")

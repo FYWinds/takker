@@ -64,20 +64,22 @@ class Bili_sub(Model):
             for sub in data:
                 bid = sub["bid"]
                 name = sub["name"]
-                if sub["type"] == "user":
+                type = sub["type"]
+                type_id = sub["type_id"]
+                if type == "user":
                     try:
-                        prev_sub_list = sub_list["user"][sub["type_id"]]
+                        prev_sub_list = sub_list["user"][type_id]
                     except:
                         prev_sub_list = {}
                     prev_sub_list |= {bid: name}
-                    sub_list["user"] |= {sub["type_id"]: prev_sub_list}
-                if sub["type"] == "group":
+                    sub_list["user"] |= {type_id: prev_sub_list}
+                if type == "group":
                     try:
-                        prev_sub_list = sub_list["group"][sub["type_id"]]
+                        prev_sub_list = sub_list["group"][type_id]
                     except:
                         prev_sub_list = {}
                     prev_sub_list |= {bid: name}
-                    sub_list["group"] |= {sub["type_id"]: prev_sub_list}
+                    sub_list["group"] |= {type_id: prev_sub_list}
         return sub_list
 
     @classmethod

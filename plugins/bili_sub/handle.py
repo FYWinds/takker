@@ -8,8 +8,22 @@ DB = Bili_sub()
 async def ls(args: Namespace) -> str:
     sub_list: dict[str, dict[int, dict[int, str]]] = {"group": {}, "user": {}}
 
+    # 获取所有会话的订阅列表
+    if args.all:
+        data = await DB.get_all_sub()
+        for group in data["group"]:
+            sub_list["group"] |= {group: {}}
+            sub = data["group"][group]
+            for s in sub:
+                sub_list["group"][group] |= {s: sub[s]}
+        for user in data["user"]:
+            sub_list["user"] |= {user: {}}
+            sub = data["user"][user]
+            for s in sub:
+                sub_list["user"][user] |= {s: sub[s]}
+
     # 私聊会话
-    if args.is_user:
+    elif args.is_user:
         # 私聊控制其他群组
         if args.group:
             for group in args.group:
@@ -42,20 +56,6 @@ async def ls(args: Namespace) -> str:
         for s in sub:
             sub_list["group"][group] |= {s: sub[s]}
 
-    # 获取所有会话的订阅列表
-    elif args.all:
-        data = await DB.get_all_sub()
-        for group in data["group"]:
-            sub_list["group"] |= {group: {}}
-            sub = data["group"][group]
-            for s in sub:
-                sub_list["group"][group] |= {s: sub[s]}
-        for user in data["user"]:
-            sub_list["user"] |= {user: {}}
-            sub = data["user"][user]
-            for s in sub:
-                sub_list["user"][user] |= {s: sub[s]}
-
     # 构造消息内容
     """
     订阅列表
@@ -78,8 +78,8 @@ async def ls(args: Namespace) -> str:
                 message += f"  {sub_name}({sub})\n"
                 sub_info = await DB.get_settings(id=group, bid=sub, isGroup=True)
                 settings = convert_settings(sub_info)
-                message += f"    {settings}"
-    elif sub_list["user"]:
+                message += f"    {settings}\n"
+    if sub_list["user"]:
         for user in sub_list["user"]:
             message += f"用户 {user} 中:\n"
             if not sub_list["user"][user]:
