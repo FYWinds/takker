@@ -105,9 +105,10 @@ async def add(args: Namespace) -> str:
                 for bid in args.bid:
                     message += f" {group} 中:\n"
                     if not await DB.add_record(id=group, bid=bid, isGroup=True):
-                        return message + f"UP {bid} 添加失败，请检查是否重复添加或错将直播房间号当作用户ID"
-                    name = await DB.get_user_name(bid)
-                    message += f"  UP {name}({bid}) 添加成功\n"
+                        message += f"UP {bid} 添加失败，请检查是否重复添加或错将直播房间号当作用户ID\n"
+                    else:
+                        name = await DB.get_user_name(bid)
+                        message += f"  UP {name}({bid}) 添加成功\n"
         # 私聊控制其他用户
         if args.user:
             message += "用户"
@@ -115,9 +116,10 @@ async def add(args: Namespace) -> str:
                 for bid in args.bid:
                     message += f" {user} 中:\n"
                     if not await DB.add_record(id=user, bid=bid):
-                        return message + f"UP {bid} 添加失败，请检查是否重复添加或错将直播房间号当作用户ID"
-                    name = await DB.get_user_name(bid)
-                    message += f"  UP {name}({bid}) 添加成功\n"
+                        message += f"UP {bid} 添加失败，请检查是否重复添加或错将直播房间号当作用户ID\n"
+                    else:
+                        name = await DB.get_user_name(bid)
+                        message += f"  UP {name}({bid}) 添加成功\n"
         # 私聊控制当前私聊
         if not args.user and not args.group:
             message += "用户"
@@ -125,9 +127,10 @@ async def add(args: Namespace) -> str:
             message += f" {user} 中:\n"
             for bid in args.bid:
                 if not await DB.add_record(id=user, bid=bid):
-                    return message + f"UP {bid} 添加失败，请检查是否重复添加或错将直播房间号当作用户ID"
-                name = await DB.get_user_name(bid)
-                message += f"  UP {name}({bid}) 添加成功\n"
+                    message += f"UP {bid} 添加失败，请检查是否重复添加或错将直播房间号当作用户ID\n"
+                else:
+                    name = await DB.get_user_name(bid)
+                    message += f"  UP {name}({bid}) 添加成功\n"
 
     # 群聊仅控制当前群聊
     elif args.is_group:
@@ -136,9 +139,10 @@ async def add(args: Namespace) -> str:
         group = args.conv["group"]
         for bid in args.bid:
             if not await DB.add_record(id=group, bid=bid, isGroup=True):
-                return message + f"UP {bid} 添加失败，请检查是否重复添加或错将直播房间号当作用户ID"
-            name = await DB.get_user_name(bid)
-            message += f"  UP {name}({bid}) 添加成功\n"
+                message += f"UP {bid} 添加失败，请检查是否重复添加或错将直播房间号当作用户ID\n"
+            else:
+                name = await DB.get_user_name(bid)
+                message += f"  UP {name}({bid}) 添加成功\n"
     return message
 
 
@@ -153,9 +157,10 @@ async def remove(args: Namespace) -> str:
                 for bid in args.bid:
                     message += f" {group} 中:\n"
                     if not await DB.remove_record(id=group, bid=bid, isGroup=True):
-                        return message + f"UP {bid} 删除失败，请检查是否误写或错将直播房间号当作用户ID"
-                    name = await DB.get_user_name(bid)
-                    message += f"  UP {name}({bid}) 删除成功\n"
+                        message += f"UP {bid} 删除失败，请检查是否误写或错将直播房间号当作用户ID\n"
+                    else:
+                        name = await DB.get_user_name(bid)
+                        message += f"  UP {name}({bid}) 删除失败\n"
         # 私聊控制其他用户
         if args.user:
             message += "用户"
@@ -163,9 +168,10 @@ async def remove(args: Namespace) -> str:
                 for bid in args.bid:
                     message += f" {user} 中:\n"
                     if not await DB.remove_record(id=user, bid=bid):
-                        return message + f"UP {bid} 删除失败，请检查是否误写或错将直播房间号当作用户ID"
-                    name = await DB.get_user_name(bid)
-                    message += f"  UP {name}({bid}) 删除成功\n"
+                        message += f"UP {bid} 删除失败，请检查是否误写或错将直播房间号当作用户ID\n"
+                    else:
+                        name = await DB.get_user_name(bid)
+                        message += f"  UP {name}({bid}) 删除失败\n"
         # 私聊控制当前私聊
         if not args.user and not args.group:
             message += "用户"
@@ -173,9 +179,10 @@ async def remove(args: Namespace) -> str:
             message += f" {user} 中:\n"
             for bid in args.bid:
                 if not await DB.remove_record(id=user, bid=bid):
-                    return message + f"UP {bid} 删除失败，请检查是否误写或错将直播房间号当作用户ID"
-                name = await DB.get_user_name(bid)
-                message += f"  UP {name}({bid}) 删除成功\n"
+                    message += f"UP {bid} 删除失败，请检查是否误写或错将直播房间号当作用户ID\n"
+                else:
+                    name = await DB.get_user_name(bid)
+                    message += f"  UP {name}({bid}) 删除失败\n"
 
     # 群聊仅控制当前群聊
     elif args.is_group:
@@ -184,9 +191,10 @@ async def remove(args: Namespace) -> str:
         group = args.conv["group"]
         for bid in args.bid:
             if not await DB.remove_record(id=group, bid=bid, isGroup=True):
-                return message + f"UP {bid} 删除失败，请检查是否误写或错将直播房间号当作用户ID"
-            name = await DB.get_user_name(bid)
-            message += f"  UP {name}({bid}) 删除成功\n"
+                message += f"UP {bid} 删除失败，请检查是否误写或错将直播房间号当作用户ID\n"
+            else:
+                name = await DB.get_user_name(bid)
+                message += f"  UP {name}({bid}) 删除失败\n"
     return message
 
 
