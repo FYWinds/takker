@@ -1,19 +1,20 @@
 import nonebot
 from nonebot.adapters.cqhttp import Bot as CQHTTPBot
 
-from service.init import init_bot
+import utils.patcher
+from service.init import init_bot_startup, update_plugin_list
 from utils.browser import close_browser
-from utils.patcher import patch
 from service.db.db_connect import db_disconnect
 
 nonebot.init()
+
 driver = nonebot.get_driver()
 driver.register_adapter("cqhttp", CQHTTPBot)
 config = driver.config
 
-patch()
+update_plugin_list(driver)
 
-driver.on_startup(init_bot)
+driver.on_startup(init_bot_startup)
 driver.on_shutdown(db_disconnect)
 driver.on_shutdown(close_browser)
 

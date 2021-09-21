@@ -16,9 +16,7 @@ async def query_points(uid: Union[int, str]) -> int:
     :返回:
       - `int`: 积分
     """
-    if isinstance(uid, str):
-        uid = int(uid)
-    q = await UserConfig.get_or_none(uid=uid)
+    q = await UserConfig.get_or_none(uid=int(uid))
     if q and q.points:
         return q.points
     else:
@@ -34,9 +32,7 @@ async def set_points(uid: Union[int, str], points: int) -> None:
       * `uid: Union[int, str]`: QQ号
       * `points: int`: 积分
     """
-    if isinstance(uid, str):
-        uid = int(uid)
-    await UserConfig.update_or_create(uid=uid, defaults={"points": points})
+    await UserConfig.update_or_create(uid=int(uid), defaults={"points": points})
 
 
 async def add_points(uid: Union[int, str], num: int) -> None:

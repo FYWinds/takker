@@ -14,9 +14,7 @@ async def query_star(uid: Union[int, str]) -> int:
     :返回:
       - `int`: 星座ID
     """
-    if isinstance(uid, str):
-        uid = int(uid)
-    p = await UserConfig.get_or_none(uid=uid)
+    p = await UserConfig.get_or_none(uid=int(uid))
     if p and p.constellation:
         return p.constellation
     return 0
@@ -31,8 +29,6 @@ async def set_star(uid: Union[int, str], constellation: int) -> None:
       * `uid: Union[int, str]`: QQ号
       * `star: int`: 星座ID
     """
-    if isinstance(uid, str):
-        uid = int(uid)
     await UserConfig.update_or_create(
-        uid=uid, defaults={"constellation": constellation}
+        uid=int(uid), defaults={"constellation": constellation}
     )

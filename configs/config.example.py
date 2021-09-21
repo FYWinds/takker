@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Union
 
 # Go-cq正向http地址配置(默认使用bot.call_api()的调用方式)
 # USE_HTTP_API: bool = False
@@ -8,7 +8,7 @@ from typing import List
 
 # 身份名单
 OWNER: str = ""  # 主人
-SUPERUSERS: List[str] = ["0", "", ""]  # 超级用户名单
+SUPERUSERS: List[Union[int, str]] = ["0", "1", "2"]  # 超级用户名单
 
 # 各个API的配置
 ALAPI_TOKEN: str = ""  # ALAPI
@@ -33,3 +33,5 @@ HIDDEN_PLUGINS: List[str] = [
 ]
 
 WEATHER_DEFAULT: str = ""  # 天气插件默认城市/区
+
+SUPERUSERS += list(map(int, SUPERUSERS))

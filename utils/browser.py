@@ -26,8 +26,24 @@ async def close_browser():
 
 async def install():
     logger.info("正在检查/安装Chormium更新，如卡死请考虑使用国外服务器或者使用代理")
-    os.system("python -m playwright install chromium")
-    os.system("python -m playwright install-deps chromium")
+    import sys
+
+    from playwright.__main__ import main
+
+    sys.argv = ["", "install", "chromium"]
+    try:
+        main()
+    except SystemExit:
+        pass
+    logger.info(
+        "Chromium安装完毕，如使用浏览器依旧有报错请尝试以管理员权限运行 python -m playwright install-deps chromium"
+    )
+    # sys.argv = ['', 'install-deps', 'chromium']
+    # try:
+    #     main()
+    # except SystemExit:
+    #     pass
+    # 安装必备依赖
 
 
 user_agent = [
