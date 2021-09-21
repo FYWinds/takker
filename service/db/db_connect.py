@@ -6,6 +6,7 @@ from configs.path_config import DATA_PATH
 models: list[str] = [
     "service.db.models.config",
     "service.db.models.ban",
+    "service.db.models.bs",
     "service.db.models.statistic",
     "service.db.models.wordcloud",
     "service.db.models.outdated_models",
@@ -29,13 +30,7 @@ async def db_init():
                 },
                 "apps": {
                     "datadb": {
-                        "models": [
-                            "service.db.models.config",
-                            "service.db.models.ban",
-                            "service.db.models.statistic",
-                            "service.db.models.wordcloud",
-                            "service.db.models.outdated_models",
-                        ],
+                        "models": models,
                         "default_connection": "data",
                     },
                     "illustdb": {

@@ -1,14 +1,8 @@
 from nonebot.plugin import on_shell_command
 from nonebot.typing import T_State
 from nonebot.exception import IgnoredException
-from nonebot.adapters.cqhttp import (
-    Bot,
-    MessageEvent,
-    GroupMessageEvent,
-    PrivateMessageEvent,
-)
+from nonebot.adapters.cqhttp import Bot, MessageEvent, GroupMessageEvent
 
-from utils.rule import admin
 from configs.config import SUPERUSERS
 
 from .parser import pm_parser

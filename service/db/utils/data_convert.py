@@ -24,7 +24,7 @@ async def convert() -> None:
                 await convert_pstatus()
                 await BotConfig.filter(Q(id=1)).update(version="1.1.0")
                 await convert()
-        logger.success("数据转换完成")
+            logger.success("数据转换完成")
     else:
         await BotConfig.create(version="1.0.0")
         await convert()

@@ -9,7 +9,6 @@ from configs.config import MAX_PROCESS_TIME
 from service.db.utils.perm import check_perm
 from service.db.utils.plugin_manager import query_plugin_status
 
-
 scheduler = require("nonebot_plugin_apscheduler").scheduler  # type: ignore
 
 
@@ -21,12 +20,14 @@ async def perm_check(perm: int, event: "Event") -> bool:
     :参数:
       * ``perm: int``: 权限等级
     """
-    if isinstance(event, GroupMessageEvent):
-        u_perm = await check_perm(id=str(event.user_id), perm=perm)
-        g_perm = await check_perm(id=str(event.group_id), perm=perm, isGroup=True)
+    user_id = getattr(event, "user_id", None)
+    group_id = getattr(event, "group_id", None)
+    if group_id is not None and user_id is not None:
+        u_perm = await check_perm(id=user_id, perm=perm)
+        g_perm = await check_perm(id=group_id, perm=perm, isGroup=True)
         return u_perm or g_perm
-    elif isinstance(event, PrivateMessageEvent):
-        u_perm = await check_perm(id=str(event.user_id), perm=perm)
+    elif user_id is not None:
+        u_perm = await check_perm(id=user_id, perm=perm)
         return u_perm
     return False
 
@@ -39,11 +40,13 @@ async def enable_check(plugin: str, event: "Event") -> bool:
     :参数:
       * ``plugin: str``: 插件名
     """
-    if isinstance(event, GroupMessageEvent):
-        p = await query_plugin_status(id=str(event.group_id), isGroup=True)
+    user_id = getattr(event, "user_id", None)
+    group_id = getattr(event, "group_id", None)
+    if group_id is not None:
+        p = await query_plugin_status(id=group_id, isGroup=True)
         return p[plugin]
-    elif isinstance(event, PrivateMessageEvent):
-        p = await query_plugin_status(str(event.user_id))
+    elif user_id is not None:
+        p = await query_plugin_status(user_id)
         return p[plugin]
     return False
 

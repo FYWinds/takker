@@ -16,6 +16,9 @@
 		"python.sortImports.args": [
 			"--ls"
 		],
+		"python.analysis.diagnosticSeverityOverrides": {
+			"reportPrivateImportUsage": "none",
+		},
 		"[python]": {
 			"editor.codeActionsOnSave": {
 				"source.fixAll": true,

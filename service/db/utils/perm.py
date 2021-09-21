@@ -84,8 +84,7 @@ async def remove_perm(id: Union[int, str], isGroup: Optional[bool] = False) -> N
     :可选参数:
       * `isGroup: Optional[bool] = False`: 是否是群，默认不是
     """
-    id = int(id) if isinstance(id, str) else id
     if isGroup:
-        await GroupConfig.filter(Q(id=id)).delete()
+        await GroupConfig.filter(Q(id=int(id))).delete()
     else:
-        await UserConfig.filter(Q(id=id)).delete()
+        await UserConfig.filter(Q(id=int(id))).delete()

@@ -2,7 +2,7 @@
 
 ![maven](https://img.shields.io/badge/python-3.9%2B-green)
 ![maven](https://img.shields.io/badge/nonebot-2.0.0a15-mint)
-![maven](https://img.shields.io/badge/go--cqhttp-1.0.0--beta6-lime)
+![maven](https://img.shields.io/badge/go--cqhttp-1.0.0--beta7.fix2-lime)
 
 [![State-of-the-art Shitcode](https://img.shields.io/static/v1?label=State-of-the-art&message=Shitcode&color=7B5804)](https://github.com/trekhleb/state-of-the-art-shitcode)
 
@@ -44,6 +44,7 @@
 
 ### 已实现的管理员功能
 - [x] 95%的插件功能开关 (基于[nonebot_plugin_manager](https://github.com/Jigsaw111/nonebot_plugin_manager)插件修改)
+- [x] Bili_Sub 订阅插件 (基于[haruka_bot](https://github.com/SK-415/HarukaBot)修改优化而来)
 
 ### 已实现的超级用户功能
 - [x] 添加/删除管理（实际上就是设置用户权限）
@@ -98,6 +99,7 @@
 |:----------:|:-----------------|:--------------------------------------------------------------------------------------------|:--:|
 | 插件管理器   | pm list/ban/unban| pm list获取当前会话插件列表</br>pm ban/unban [插件1] <插件x> 禁用/启用当前会话的指定插件             | 群管+超级用户|
 | 撤回Bot消息 | 回复Bot消息 撤回   | 让Bot撤回自己发过的指定消息                                                                      | 群管+超级用户|
+| Bili_sub   | 见文档(目前还没写)  | 订阅b站主播的直播&动态                                                                          | 群管+超级用户|
 
 ### 超级用户功能
 功能         | 指令              | 说明                                                                                         | 权限
@@ -289,3 +291,4 @@ TEMP_PATH = Path("resources/img/temp/")
 [nonebot_plugin_manager](https://github.com/Jigsaw111/nonebot_plugin_manager)  
 [saya_plugin_collection](https://github.com/SAGIRI-kawaii/saya_plugins_collection)  
 [nonebot_plugin_help](https://github.com/XZhouQD/nonebot-plugin-help)  
+[Haruka_bot](https://github.com/SK-415/HarukaBot)

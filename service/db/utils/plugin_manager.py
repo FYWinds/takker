@@ -17,12 +17,10 @@ async def query_plugin_status(
     :返回:
       - `dict`: 插件状态数据
     """
-    if isinstance(id, str):
-        id = int(id)
     if isGroup:
-        p = await GroupConfig.get_or_none(gid=id)
+        p = await GroupConfig.get_or_none(gid=int(id))
     else:
-        p = await UserConfig.get_or_none(uid=id)
+        p = await UserConfig.get_or_none(uid=int(id))
     if p and p.plugin_status:
         return p.plugin_status
     else:
@@ -41,9 +39,11 @@ async def set_plugin_status(
       * `status: dict`: 插件状态数据
       * `isGroup: bool = False`: 是否是群，默认不是
     """
-    if isinstance(id, str):
-        id = int(id)
     if isGroup:
-        await GroupConfig.update_or_create(gid=id, defaults={"plugin_status": status})
+        await GroupConfig.update_or_create(
+            gid=int(id), defaults={"plugin_status": status}
+        )
     else:
-        await UserConfig.update_or_create(uid=id, defaults={"plugin_status": status})
+        await UserConfig.update_or_create(
+            uid=int(id), defaults={"plugin_status": status}
+        )
