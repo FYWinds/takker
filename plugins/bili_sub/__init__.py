@@ -13,6 +13,8 @@ from . import live_pusher, dynamic_pusher
 from .parser import bs_parser
 
 __permission__ = 0
+__plugin_name = "UP主订阅"
+__usage__ = "见文档"
 __author__ = "SK-415"
 
 bs = on_shell_command("bs", parser=bs_parser, priority=20, rule=admin())
