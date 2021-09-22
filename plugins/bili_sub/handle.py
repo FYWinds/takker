@@ -4,6 +4,8 @@ from service.db.models.bs import Bili_sub
 
 DB = Bili_sub()
 
+_blank = "    "
+
 
 async def ls(args: Namespace) -> str:
     sub_list: dict[str, dict[int, dict[int, str]]] = {"group": {}, "user": {}}
@@ -66,32 +68,33 @@ async def ls(args: Namespace) -> str:
     萝卜吃米洛(5007752)
         动态: 开  直播: 开  全体: 关
     """
-    message = "订阅列表\n"
+    message: list = ["订阅列表"]
     if sub_list["group"]:
         for group in sub_list["group"]:
-            message += f"群 {group} 中:\n"
+            message.append(f"群 {group} 中:")
             if not sub_list["group"][group]:
-                message += "暂无订阅\n"
+                message.append("暂无订阅")
                 continue
             for sub in sub_list["group"][group]:
                 sub_name = sub_list["group"][group][sub]
-                message += f"  {sub_name}({sub})\n"
+                message.append(f"{_blank}{sub_name}({sub})")
                 sub_info = await DB.get_settings(id=group, bid=sub, isGroup=True)
                 settings = convert_settings(sub_info)
-                message += f"    {settings}\n"
+                message.append(f"{_blank}{_blank}{settings}")
     if sub_list["user"]:
         for user in sub_list["user"]:
-            message += f"用户 {user} 中:\n"
+            message.append(f"用户 {user} 中:")
             if not sub_list["user"][user]:
-                message += "暂无订阅\n"
+                message.append("暂无订阅")
                 continue
             for sub in sub_list["user"][user]:
                 sub_name = sub_list["user"][user][sub]
-                message += f"  {sub_name}({sub})\n"
+                message.append(f"{_blank}{sub_name}({sub})")
                 sub_info = await DB.get_settings(id=user, bid=sub)
                 settings = convert_settings(sub_info)
-                message += f"    {settings}\n"
-    return message
+                message.append(f"{_blank}{_blank}{settings}")
+    message_s: str = "\n".join(message)
+    return message_s
 
 
 async def add(args: Namespace) -> str:
