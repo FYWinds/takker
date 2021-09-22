@@ -19,6 +19,7 @@ from nonebot_plugin_apscheduler import scheduler
 
 @scheduler.scheduled_job("interval", seconds=10, id="live_sched")
 async def live_sched():
+    global status
     """直播推送"""
     uids = await DB.get_live_bid()
 

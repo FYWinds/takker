@@ -10,6 +10,7 @@ from PIL import Image, ImageDraw, ImageFile, ImageFont
 from imagehash import ImageHash
 from matplotlib import pyplot as plt
 
+from utils.text_util import cut_text
 from configs.path_config import FONT_PATH, IMAGE_PATH
 
 ImageFile.LOAD_TRUNCATED_IMAGES = True
@@ -489,3 +490,18 @@ class CreateImg:
     #
     def getchannel(self, itype):
         self.markImg = self.markImg.getchannel(itype)
+
+
+# 从Abot抄来的文字快速转图片
+font_file = f"{FONT_PATH}sarasa-mono-sc-semibold.ttf"
+font = ImageFont.truetype(font_file, 22)
+
+
+async def create_image_from_text(text: str, cut=64) -> str:
+    cut_str = "\n".join(cut_text(text, cut))
+    textx, texty = font.getsize_multiline(cut_str)
+    image = Image.new("RGB", (textx + 50, texty + 50), (242, 242, 242))
+    draw = ImageDraw.Draw(image)
+    draw.text((20, 20), cut_str, font=font, fill=(31, 31, 33))
+    imageb64 = pic2b64(image)
+    return imageb64

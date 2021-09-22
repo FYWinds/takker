@@ -8,12 +8,14 @@ from nonebot.adapters.cqhttp import (
 )
 
 from utils.rule import admin
+from utils.img_util import create_image_from_text
+from utils.msg_util import image
 
 from . import live_pusher, dynamic_pusher
 from .parser import bs_parser
 
 __permission__ = 0
-__plugin_name = "UP主订阅"
+__plugin_name__ = "UP主订阅"
 __usage__ = "见文档"
 __author__ = "SK-415"
 
@@ -32,4 +34,5 @@ async def _(bot: Bot, event: MessageEvent, state: T_State):
 
     if hasattr(args, "handle"):
         message = await args.handle(args)
-        await bot.send(event, message)
+        img = await create_image_from_text(message, cut=100)
+        await bot.send(event, image(c=img))
