@@ -68,3 +68,4 @@ async def live_sched():
                     **{"message": live_msg, "user_id": u},
                 )
                 asyncio.sleep(random.random())
+        status[uid] = new_status
