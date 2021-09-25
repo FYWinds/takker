@@ -794,17 +794,6 @@ pil = ["pillow"]
 test = ["pytest", "pytest-cov"]
 
 [[package]]
-name = "rcon"
-version = "1.3.6"
-description = "A RCON client library library."
-category = "dev"
-optional = false
-python-versions = ">=3.8"
-
-[package.extras]
-gui = ["pygobject", "pygtk"]
-
-[[package]]
 name = "regex"
 version = "2021.8.28"
 description = "Alternative regular expression module, to replace re."
@@ -1075,7 +1064,7 @@ python-versions = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.9,<3.11"
-content-hash = "5e4c9a50392e95e96a6e6544dd55ad5326c2593cddc2230aaa4a392b32ca3f52"
+content-hash = "4a4ad913ac3d2f095722f9197a04d944c51c346d591b4331c0eda40015ce5d55"
 
 [metadata.files]
 aiofiles = [
@@ -1730,10 +1719,6 @@ pyyaml = [
 ]
 qrcode = [
     {file = "qrcode-7.3.tar.gz", hash = "sha256:d72861b65e26b611609f0547f0febe58aed8ae229d6bf4e675834f40742915b3"},
-]
-rcon = [
-    {file = "rcon-1.3.6-py3-none-any.whl", hash = "sha256:0bf3b6e02f8ba549610e901435c7977a133edd29329d1829a5ee9fd53f92e3f8"},
-    {file = "rcon-1.3.6.tar.gz", hash = "sha256:9d0cc7b1d8f9c17223bd1b4aeeda864a22ceac6bc7cf5aabf45b664e3bc37bc7"},
 ]
 regex = [
     {file = "regex-2021.8.28-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:9d05ad5367c90814099000442b2125535e9d77581855b9bee8780f1b41f2b1a2"},
