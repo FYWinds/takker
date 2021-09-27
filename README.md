@@ -1,5 +1,7 @@
 [![Time](https://wakatime.com/badge/github/FYWinds/takker.svg)](https://wakatime.com/badge/github/FYWinds/takker)
 
+[![Codeac](https://static.codeac.io/badges/2-395259589.svg "Codeac")](https://app.codeac.io/github/FYWinds/takker)
+
 ![maven](https://img.shields.io/badge/python-3.9%2B-green)
 ![maven](https://img.shields.io/badge/nonebot-2.0.0a15-mint)
 ![maven](https://img.shields.io/badge/go--cqhttp-1.0.0--beta7.fix2-lime)
