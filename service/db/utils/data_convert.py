@@ -1,10 +1,11 @@
 import json
+import shutil
 
 from nonebot.log import logger
 from tortoise.query_utils import Q
 
+from configs.path_config import DATA_PATH
 from service.db.models.config import VERSION_TAG, BotConfig, UserConfig, GroupConfig
-from service.db.models.statistic import Statistic
 from service.db.models.outdated_models import Point, Plugin, Starluck, Permission
 
 
@@ -17,6 +18,8 @@ async def convert() -> None:
         ).version  # type: ignore
         if data_version != VERSION_TAG:
             logger.info(f"检测到旧版({data_version})数据，正在转换中")
+            logger.info("如数据出现问题请回滚版本并用data/data.db.old覆盖data/data.db，并向开发者提Issue")
+            shutil.copyfile(f"{DATA_PATH}data.db", f"{DATA_PATH}data.db.old")
             if data_version == "1.0.0":
                 await convert_perm()
                 await convert_star()
@@ -24,7 +27,9 @@ async def convert() -> None:
                 await convert_pstatus()
                 await BotConfig.filter(Q(id=1)).update(version="1.1.0")
                 await convert()
-            logger.success("数据转换完成")
+            logger.success("数据转换完成，请人工确认数据是否有丢失情况")
+            return
+        return
     else:
         await BotConfig.create(version="1.0.0")
         await convert()
