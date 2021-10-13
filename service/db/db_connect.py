@@ -1,5 +1,7 @@
 from tortoise import Tortoise
 from nonebot.log import logger
+from nonebot.exception import NoneBotException
+from tortoise.exceptions import DBConnectionError
 
 from configs.path_config import DATA_PATH
 
@@ -42,8 +44,9 @@ async def db_init():
         )
         await Tortoise.generate_schemas()
         logger.info("数据库连接成功")
-    except:
+    except DBConnectionError as e:
         logger.warning("数据库连接失败，请尝试删除data目录下的data.db文件")
+        raise e
 
 
 async def db_disconnect():

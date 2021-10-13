@@ -27,7 +27,7 @@ async def dy_sched():
         return
     try:
         bot = get_bot()
-    except:
+    except (KeyError, ValueError):
         return
     for uid in uids:
         asyncio.sleep(2)
@@ -36,8 +36,6 @@ async def dy_sched():
         logger.debug(f"爬取动态 {name}（{uid}）")
         br = BiliReq()
         dynamics = (await br.get_user_dynamics(uid)).get("cards", [])  # 获取最近十二条动态
-        # config['uid'][uid]['name'] = dynamics[0]['desc']['user_profile']['info']['uname']
-        # await update_config(config)
 
         if len(dynamics) == 0:  # 没有发过动态的直接结束
             continue

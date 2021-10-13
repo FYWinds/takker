@@ -14,7 +14,7 @@ async def get_illust_link(pid: int) -> str:
             "i.pximg.net", PIXIV_IMAGE_URL
         )
         return img_url
-    except:
+    except KeyError:
         return "图片已经失效或不存在"
 
 
@@ -27,7 +27,7 @@ async def get_illust_info(pid: int) -> dict:
     try:
         tags: set[str] = set()
         for t in resp["illust"]["tags"]:
-            if t["translated_name"] != None:
+            if t["translated_name"] is not None:
                 tags.add(t["translated_name"])
             else:
                 tags.add(t["name"])
@@ -39,5 +39,5 @@ async def get_illust_info(pid: int) -> dict:
             "tags": ",".join(list(tags)),
         }
         return a
-    except:
+    except KeyError:
         return {}

@@ -4,6 +4,7 @@ import asyncio
 from nonebot import get_bot
 from nonebot.log import logger
 from nonebot.plugin import require
+from nonebot_plugin_apscheduler import scheduler
 from nonebot.adapters.cqhttp.message import Message, MessageSegment
 
 from service.db.models.bs import Bili_sub
@@ -14,8 +15,6 @@ DB = Bili_sub()
 
 status = {}
 
-from nonebot_plugin_apscheduler import scheduler
-
 
 @scheduler.scheduled_job("interval", seconds=10, id="live_sched")
 async def live_sched():
@@ -25,7 +24,7 @@ async def live_sched():
 
     try:
         bot = get_bot()
-    except:
+    except (KeyError, ValueError):
         return
     if not uids:
         return

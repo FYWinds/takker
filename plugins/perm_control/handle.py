@@ -3,7 +3,7 @@ from argparse import Namespace
 from nonebot.log import logger
 
 from api.info import get_group_list
-from service.db.utils.perm import query_perm, set_perm
+from service.db.utils.perm import set_perm, query_perm
 
 
 async def list_perm(args: Namespace) -> str:
@@ -57,18 +57,18 @@ async def get_perm(args: Namespace) -> str:
 async def edit_perm(args: Namespace):
     if args.user:
         if args.is_superuser:
-            args.conv|={"user": args.user}
+            args.conv |= {"user": args.user}
         else:
             return "修改指定用户/群权限等级需要超级用户权限"
     if args.group:
         if args.is_superuser:
-            args.conv|={"group": args.group}
+            args.conv |= {"group": args.group}
         else:
             return "修改指定用户/群权限等级需要超级用户权限"
     message = ""
     perm = int(args.perm[0])
     if (args.user or args.group) and (args.is_group):
-        return f"非私聊，只能修改当前群聊权限等级"
+        return "非私聊，只能修改当前群聊权限等级"
     if args.user:
         for u in args.conv["user"]:
             user_perm = await query_perm(id=str(args.c_user))
@@ -96,5 +96,5 @@ async def edit_perm(args: Namespace):
                 await set_perm(id=id, perm=perm, isGroup=True)
                 return f"成功设置本群权限等级为 {perm} 级"
             return f"您的权限等级({user_perm}级)过低，无法修改本群权限等级为 {perm} 级！"
-        except:
-            return f"您无法设置自己的权限等级"
+        except IndexError:
+            return "您无法设置自己的权限等级"

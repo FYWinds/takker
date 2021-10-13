@@ -1,12 +1,13 @@
 import re
+
 from nonebot.plugin import on_command, on_message
-from nonebot.adapters.cqhttp import Bot, MessageEvent, GROUP, PRIVATE_FRIEND
 from nonebot.typing import T_State
+from nonebot.adapters.cqhttp import GROUP, PRIVATE_FRIEND, Bot, MessageEvent
 
-from .data_source import get_illust_link, get_illust_info
-
-from service.db.models.illust import Illust
 from configs.config import OWNER
+from service.db.models.illust import Illust
+
+from .data_source import get_illust_info, get_illust_link
 
 __permission__ = 6
 __plugin_name__ = "pixiv美图上传"
@@ -20,16 +21,13 @@ pics: dict[int, int] = {}
 @pix_uplaod.handle()
 async def _(bot: Bot, event: MessageEvent, state: T_State):
     global pics
-    try:
-        pid = int(event.get_plaintext().strip())
-    except:
+    pid = str(event.get_plaintext().strip())
+    if not pid.isdigit():
         return
-    msg_id = (
-        await bot.send_private_msg(
-            user_id=int(OWNER),
-            message=f"{event.user_id} 上传了pid为 {pid} 的图片\n链接: {await get_illust_link(pid)}",
-        )
-    )["message_id"]
+    pid = int(pid)
+    message = f"{event.user_id} 上传了pid为 {pid} 的图片\n链接: {await get_illust_link(pid)}"
+    data = await bot.send_private_msg(user_id=int(OWNER), message=message)
+    msg_id = data["message_id"]
     pics |= {msg_id: pid}
 
 
@@ -49,7 +47,7 @@ async def _c(bot: Bot, event: MessageEvent, state: T_State):
     nsfw = int(event.message.extract_plain_text())
     if nsfw in range(0, 3):
         if await Illust.check_illust(pics[reply_id]):
-            await pix_check.finish(f"添加失败，若无报错则图片或许已在图库中")
+            await pix_check.finish("添加失败，若无报错则图片或许已在图库中")
         info = await get_illust_info(pics[reply_id])
         if info:
             info |= {"nsfw": nsfw}
@@ -57,5 +55,5 @@ async def _c(bot: Bot, event: MessageEvent, state: T_State):
             await bot.send(event, f"成功将 {pics.pop(reply_id)} 的图片添加到图库中，类型: {nsfw}")
             return
         else:
-            await pix_check.finish(f"添加失败，若无报错则图片或许已被删除")
+            await pix_check.finish("添加失败，若无报错则图片或许已被删除")
     await bot.send(event, f"拒绝将 {pics.pop(reply_id)} 的图片添加到图库中")

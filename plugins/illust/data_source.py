@@ -42,7 +42,7 @@ async def get_illust(nsfw: int, keywords: Optional[list] = []) -> dict:
         data |= {"img_bytes": resp.content}
         data |= {"is_search": False}
         return data
-    except:
+    except (KeyError, IndexError):
         return await get_illust(nsfw, keywords)
 
 
@@ -56,7 +56,7 @@ async def get_illust_direct(pid: str) -> dict:
         resp = resp.json()
         tags: set[str] = set()
         for t in resp["illust"]["tags"]:
-            if t["translated_name"] != None:
+            if t["translated_name"] is not None:
                 tags.add(t["translated_name"])
             else:
                 tags.add(t["name"])
@@ -85,5 +85,5 @@ async def get_illust_direct(pid: str) -> dict:
         data |= {"is_search": True}
         data |= {"nsfw": -1}
         return data
-    except:
+    except (KeyError, IndexError):
         raise ValueError

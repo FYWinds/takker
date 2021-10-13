@@ -1,6 +1,7 @@
 from nonebot.log import logger
-from configs.config import HIDDEN_PLUGINS
 from nonebot.plugin import get_plugin, get_loaded_plugins
+
+from configs.config import HIDDEN_PLUGINS
 from service.db.utils.plugin_manager import set_plugin_status, query_plugin_status
 
 
@@ -17,30 +18,29 @@ async def get_plugin_list(
         if plugin:
             if plugin.name in HIDDEN_PLUGINS:
                 continue
-            try:
-                plugin_perm = int(plugin.module.__getattribute__("__permission__"))
-            except:
-                plugin_perm = 5
+            plugin_perm = getattr(plugin.module, "__permission__", 5)
             if plugin_perm <= perm:
                 result |= {p: bool(plugin_list[p])}
     return result
 
 
 async def ban_plugin(
-    conv={"user": [], "group": []}, plugin: list[str] = [], perm: int = 0
+    conv={"user": [], "group": []}, plugins: list[str] = [], perm: int = 0
 ) -> dict[str, bool]:
     plugin_list: dict[str, bool] = {}
     result = {}
     all_plugin_list = await get_plugin_list(conv, perm)
     if conv["group"]:
         for g in conv["group"]:
-            for p in plugin:
+            for p in plugins:
                 result[p] = False
                 if p in all_plugin_list:
                     result[p] = True
                     try:
-                        plugin_perm = int(get_plugin(p).module.__getattribute__("__permission__"))  # type: ignore
-                    except:
+                        plugin = get_plugin(p)
+                        assert plugin is not None
+                        plugin_perm = getattr(plugin.module, "__permission__", 5)
+                    except AssertionError:
                         plugin_perm = 5
                     if plugin_perm > perm:
                         result[p] = False
@@ -49,13 +49,15 @@ async def ban_plugin(
                     await set_plugin_status(str(g), plugin_list, isGroup=True)
     else:
         for u in conv["user"]:
-            for p in plugin:
+            for p in plugins:
                 result[p] = False
                 if p in all_plugin_list:
                     result[p] = True
                     try:
-                        plugin_perm = int(get_plugin(p).module.__getattribute__("__permission__"))  # type: ignore
-                    except:
+                        plugin = get_plugin(p)
+                        assert plugin is not None
+                        plugin_perm = getattr(plugin.module, "__permission__", 5)
+                    except AssertionError:
                         plugin_perm = 5
                     if plugin_perm > perm:
                         result[p] = False
@@ -66,20 +68,22 @@ async def ban_plugin(
 
 
 async def unban_plugin(
-    conv={"user": [], "group": []}, plugin: list[str] = [], perm: int = 0
+    conv={"user": [], "group": []}, plugins: list[str] = [], perm: int = 0
 ) -> dict[str, bool]:
     plugin_list: dict[str, bool] = {}
     all_plugin_list = await get_plugin_list(conv, perm)
     result = {}
     if conv["group"]:
         for g in conv["group"]:
-            for p in plugin:
+            for p in plugins:
                 result[p] = False
                 if p in all_plugin_list:
                     result[p] = True
                     try:
-                        plugin_perm = int(get_plugin(p).module.__getattribute__("__permission__"))  # type: ignore
-                    except:
+                        plugin = get_plugin(p)
+                        assert plugin is not None
+                        plugin_perm = getattr(plugin.module, "__permission__", 5)
+                    except AssertionError:
                         plugin_perm = 5
                     if plugin_perm > perm:
                         result[p] = False
@@ -88,13 +92,15 @@ async def unban_plugin(
                     await set_plugin_status(str(g), plugin_list, isGroup=True)
     else:
         for u in conv["user"]:
-            for p in plugin:
+            for p in plugins:
                 result[p] = False
                 if p in all_plugin_list:
                     result[p] = True
                     try:
-                        plugin_perm = int(get_plugin(p).module.__getattribute__("__permission__"))  # type: ignore
-                    except:
+                        plugin = get_plugin(p)
+                        assert plugin is not None
+                        plugin_perm = getattr(plugin.module, "__permission__", 5)
+                    except AssertionError:
                         plugin_perm = 5
                     if plugin_perm > perm:
                         result[p] = False
