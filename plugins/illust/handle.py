@@ -15,7 +15,7 @@ async def handle_get(args: Namespace):
         try:
             result = await get_illust_direct(keywords[0])
             return result
-        except:
+        except ValueError:
             pass
     if args.group:
         await Statistic.set_illust_status(args.group, keywords)

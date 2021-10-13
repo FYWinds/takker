@@ -13,6 +13,6 @@ async def get_sx(word: str) -> str:
     try:
         result = f"查询到缩写 {word} 代表的实际内容:\n"
         result += ", ".join(resp[0]["trans"])
-    except:
-        result = f"未查询到相关缩写"
+    except (IndexError, KeyError):
+        result = "未查询到相关缩写"
     return result

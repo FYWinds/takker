@@ -26,7 +26,6 @@ class Dynamic:
         self.name = dynamic["desc"]["user_profile"]["info"].get("uname")
         if self.type == 8:
             self.bvid = dynamic["desc"]["bvid"]
-        # self.name = dynamic['desc']['user_profile']['info'].get('uname', Config.get_name(self.uid))
 
     async def format(self, img):
         type_msg = {
@@ -139,7 +138,7 @@ class Dynamic:
             # 视频数据
             icon_font = ImageFont.truetype(f"{FONT_PATH}vanfont.ttf", 46)
             icon_color = (247, 145, 185)
-            info_font = ImageFont.truetype(f"{FONT_PATH}sarasa-mono-sc-bold.ttf", 26)
+            # info_font = ImageFont.truetype(f"{FONT_PATH}sarasa-mono-sc-bold.ttf", 26)
 
             # view = numf(video_info["data"]["stat"]["view"])  # 播放 \uE6E6
             # danmaku = numf(video_info["data"]["stat"]["danmaku"])  # 弹幕 \uE6E7
@@ -211,11 +210,11 @@ class Dynamic:
             face_size = (80, 80)
             mask = Image.new("RGBA", face_size, color=(0, 0, 0, 0))
             mask_draw = ImageDraw.Draw(mask)
-            mask_draw.ellipse((0, 0, face_size[0], face_size[1]), fill=(0, 0, 0, 255))  # type: ignore
-            name_font = ImageFont.truetype(f"{FONT_PATH}sarasa-mono-sc-bold.ttf", 24)
-            up_title_font = ImageFont.truetype(
-                f"{FONT_PATH}sarasa-mono-sc-bold.ttf", 20
+            mask_draw.ellipse(
+                (0, 0, face_size[0], face_size[1]), fill=(0, 0, 0, 255)  # type: ignore
             )
+            name_font = ImageFont.truetype(f"{FONT_PATH}sarasa-mono-sc-bold.ttf", 24)
+            up_title_font = ImageFont.truetype(f"{FONT_PATH}sarasa-mono-sc-bold.ttf", 20)
             follower_font = ImageFont.truetype(
                 f"{FONT_PATH}sarasa-mono-sc-semibold.ttf", 22
             )
@@ -275,9 +274,7 @@ class Dynamic:
                     icon_color,
                     3,
                 )
-                draw.text(
-                    (67, 13 + (i * 120)), up["up_title"], icon_color, up_title_font
-                )
+                draw.text((67, 13 + (i * 120)), up["up_title"], icon_color, up_title_font)
                 # 粉丝量
                 draw.text(
                     (162, 66 + (i * 120)),

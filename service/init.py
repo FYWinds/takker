@@ -82,7 +82,7 @@ def update_plugin_list(driver):
             # 更新插件列表至当前加载的插件列表
             if plugin_list_stored:
                 for i in list(plugin_list_stored.keys()):
-                    if not i in plugin_list_current.keys():
+                    if i not in plugin_list_current.keys():
                         plugin_list_stored.pop(i)
                 plugin_list_current |= plugin_list_stored
             await set_plugin_status(
@@ -98,7 +98,7 @@ def update_plugin_list(driver):
             # 更新插件列表至当前加载的插件列表
             if plugin_list_stored:
                 for i in list(plugin_list_stored.keys()):
-                    if not i in plugin_list_current.keys():
+                    if i not in plugin_list_current.keys():
                         plugin_list_stored.pop(i)
                 plugin_list_current |= plugin_list_stored
             await set_plugin_status(

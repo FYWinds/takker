@@ -19,15 +19,16 @@ TEMP_PATH = Path("resources/img/temp/")
 
 
 def init_path():
-    global IMAGE_PATH, VOICE_PATH, TEXT_PATH, LOG_PATH, FONT_PATH, DATA_PATH, TEMP_PATH, TEMPLATE_PATH
-    IMAGE_PATH.mkdir(parents=True, exist_ok=True)
-    VOICE_PATH.mkdir(parents=True, exist_ok=True)
-    TEXT_PATH.mkdir(parents=True, exist_ok=True)
-    TEMPLATE_PATH.mkdir(parents=True, exist_ok=True)
-    FONT_PATH.mkdir(parents=True, exist_ok=True)
-    LOG_PATH.mkdir(parents=True, exist_ok=True)
-    DATA_PATH.mkdir(parents=True, exist_ok=True)
-    TEMP_PATH.mkdir(parents=True, exist_ok=True)
+    global IMAGE_PATH, VOICE_PATH, TEXT_PATH
+    global LOG_PATH, FONT_PATH, DATA_PATH, TEMP_PATH, TEMPLATE_PATH
+    IMAGE_PATH.mkdir(parents=True, exist_ok=True)  # type: ignore
+    VOICE_PATH.mkdir(parents=True, exist_ok=True)  # type: ignore
+    TEXT_PATH.mkdir(parents=True, exist_ok=True)  # type: ignore
+    TEMPLATE_PATH.mkdir(parents=True, exist_ok=True)  # type: ignore
+    FONT_PATH.mkdir(parents=True, exist_ok=True)  # type: ignore
+    LOG_PATH.mkdir(parents=True, exist_ok=True)  # type: ignore
+    DATA_PATH.mkdir(parents=True, exist_ok=True)  # type: ignore
+    TEMP_PATH.mkdir(parents=True, exist_ok=True)  # type: ignore
 
     IMAGE_PATH = str(IMAGE_PATH.absolute()) + "/"  # type: ignore
     VOICE_PATH = str(VOICE_PATH.absolute()) + "/"  # type: ignore

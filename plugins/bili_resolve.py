@@ -1,10 +1,18 @@
 # 从ABot-Graia抄来的
 import re
+import base64
+from io import BytesIO
 
+import httpx
+import qrcode
+from PIL import Image, ImageDraw, ImageFont
 from nonebot.plugin import on_regex
+from qrcode.image.pil import PilImage
 from nonebot.adapters.cqhttp import Bot, GroupMessageEvent
 
 from utils.msg_util import image as send_image
+from utils.text_util import cut_text
+from configs.path_config import FONT_PATH
 
 __permission__ = 3
 __plugin_name__ = "b站视频解析"
@@ -43,7 +51,7 @@ async def b23_extract(text):
     try:
         assert b23 is not None
         url = f"https://b23.tv/{b23[1]}"
-    except:
+    except AssertionError:
         await bili_resolve.finish()
         return ""
     resp = httpx.get(url)
@@ -58,25 +66,11 @@ async def video_info_get(id):
         )
         video_info = video_info.json()
     elif id[:2] == "BV":
-        video_info = httpx.get(
-            f"http://api.bilibili.com/x/web-interface/view?bvid={id}"
-        )
+        video_info = httpx.get(f"http://api.bilibili.com/x/web-interface/view?bvid={id}")
         video_info = video_info.json()
     else:
         return
     return video_info
-
-
-import base64
-from io import BytesIO
-
-import httpx
-import qrcode
-from PIL import Image, ImageDraw, ImageFont
-from qrcode.image.pil import PilImage
-
-from utils.text_util import cut_text
-from configs.path_config import FONT_PATH
 
 
 def numf(num: int):
@@ -214,7 +208,9 @@ def binfo_image_create(video_info: dict):
     face_size = (80, 80)
     mask = Image.new("RGBA", face_size, color=(0, 0, 0, 0))
     mask_draw = ImageDraw.Draw(mask)
-    mask_draw.ellipse((0, 0, face_size[0], face_size[1]), fill=(0, 0, 0, 255))  # type: ignore
+    mask_draw.ellipse(
+        (0, 0, face_size[0], face_size[1]), fill=(0, 0, 0, 255)  # type: ignore
+    )
     name_font = ImageFont.truetype(f"{FONT_PATH}sarasa-mono-sc-bold.ttf", 24)
     up_title_font = ImageFont.truetype(f"{FONT_PATH}sarasa-mono-sc-bold.ttf", 20)
     follower_font = ImageFont.truetype(f"{FONT_PATH}sarasa-mono-sc-semibold.ttf", 22)

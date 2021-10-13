@@ -1,10 +1,11 @@
 import time
-import httpx
 import random
 
-from configs.config import ALAPI_TOKEN
-from utils.browser import get_ua
+import httpx
+
 from utils.data import fortune, msg_of_day
+from utils.browser import get_ua
+from configs.config import ALAPI_TOKEN
 
 
 async def get_acg_image():
@@ -14,7 +15,7 @@ async def get_acg_image():
         resp = await client.get(url=url, params=params)
     try:
         return resp.json()["data"]["url"]
-    except:
+    except KeyError:
         return "https://file.alapi.cn/image/comic/122514-15234207140623.jpg"
 
 
@@ -40,11 +41,11 @@ async def get_msg(user_id: int):
 async def get_greet():
     hour = int(time.strftime("%H", time.localtime()))
     if hour in range(0, 6):
-        return f"凌晨好"
+        return "凌晨好"
     if hour in range(6, 12):
-        return f"早上好"
+        return "早上好"
     if hour in range(12, 18):
-        return f"下午好"
+        return "下午好"
     if hour in range(18, 25):
-        return f"晚上好"
-    return f""
+        return "晚上好"
+    return ""
