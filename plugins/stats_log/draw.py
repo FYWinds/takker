@@ -81,7 +81,7 @@ async def draw_xp_stat(group_id: int):
 
 async def generate_pic(filename: str):
     browser = await get_browser()
-    page = await browser.new_page()
+    page = await browser.new_page(device_scale_factor=2)
     await page.goto(f"file://{TEMPLATE_PATH}statistic/temp/{filename}.html")
     container = await page.query_selector("#container")
     assert container is not None

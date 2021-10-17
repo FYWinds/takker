@@ -3,11 +3,11 @@ import time
 import random
 
 from api.info import get_stranger_info
-
-from service.db.utils.point import add_random_points
-from .data_source import get_acg_image, get_stick, get_greet, get_msg
-from configs.path_config import TEMPLATE_PATH, IMAGE_PATH
 from utils.browser import get_browser
+from configs.path_config import IMAGE_PATH, TEMPLATE_PATH
+from service.db.utils.point import add_random_points
+
+from .data_source import get_msg, get_greet, get_stick, get_acg_image
 
 
 async def get_card(user_id: int):
@@ -41,9 +41,7 @@ async def get_card(user_id: int):
     template = template.replace("static/", "../static/")
     template = template.replace("[acg_url]", acg_url)
     template = template.replace("[greet]", await get_greet())
-    template = template.replace(
-        "[msg_of_the_day]", (await get_msg(user_id))["SENTENCE"]
-    )
+    template = template.replace("[msg_of_the_day]", (await get_msg(user_id))["SENTENCE"])
     template = template.replace(
         "[avatar_url]", f"http://q1.qlogo.cn/g?b=qq&nk={user_id}&s=640"
     )
@@ -65,7 +63,7 @@ async def get_card(user_id: int):
 
 async def generate_pic(filename: str):
     browser = await get_browser()
-    page = await browser.new_page()
+    page = await browser.new_page(device_scale_factor=2)
     await page.goto(f"file://{TEMPLATE_PATH}check_in/temp/{filename}.html")
     card = await page.query_selector(".card")
     assert card is not None
