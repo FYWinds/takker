@@ -87,7 +87,7 @@ async def get_dynamic_screenshot(url):
     browser = await get_browser()
     page = None
     try:
-        page = await browser.new_page()
+        page = await browser.new_page(device_scale_factor=2)
         await page.goto(url, wait_until="networkidle", timeout=10000)
         await page.set_viewport_size({"width": 2560, "height": 1080})
         card = await page.query_selector(".card")
