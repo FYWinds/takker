@@ -1,11 +1,5 @@
 from typing import List, Union
 
-# Go-cq正向http地址配置(默认使用bot.call_api()的调用方式)
-# USE_HTTP_API: bool = False
-# CQ_HTTP_URL: str = ""
-# CQ_SECRET: str = ""  # HTTP_API的secret
-
-
 # 身份名单
 OWNER: str = ""  # 主人
 SUPERUSERS: List[Union[int, str]] = ["0", "1", "2"]  # 超级用户名单
@@ -14,8 +8,8 @@ SUPERUSERS: List[Union[int, str]] = ["0", "1", "2"]  # 超级用户名单
 ALAPI_TOKEN: str = ""  # ALAPI
 NETEASE_API: str = "nemapi.windis.xyz"  # NodeJS版本的网易云音乐API的地址
 PIXIV_IMAGE_URL: str = "pixiv.windis.xyz"  # 反代i.pximg.net的网址
-ALI_API_TOKEN: str = ""  # 阿里云市场API的APPcode
-WEATHER_API_KEY: str = ""  # 和风天气API key
+ALI_API_TOKEN: str = ""  # 阿里云市场API的APPcode 星座运势功能
+WEATHER_API_KEY: str = ""  # 和风天气API key 天气功能
 
 # 各种限制
 MAX_PROCESS_TIME: int = 30  # 部分指令处理最大等待时间，单位秒，在此期间用户不能再次发起相同指令
@@ -35,3 +29,4 @@ HIDDEN_PLUGINS: List[str] = [
 WEATHER_DEFAULT: str = ""  # 天气插件默认城市/区
 
 SUPERUSERS += list(map(int, SUPERUSERS))
+SUPERUSERS = list(set(SUPERUSERS))

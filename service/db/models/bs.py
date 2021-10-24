@@ -21,9 +21,7 @@ class Bili_sub(Model):
         indexes = ("type_id", "bid")
 
     @classmethod
-    async def get_sub(
-        cls, id: Union[str, int], isGroup: bool = False
-    ) -> dict[int, str]:
+    async def get_sub(cls, id: Union[str, int], isGroup: bool = False) -> dict[int, str]:
         """
         :说明: `get_sub`
         > 获取指定会话的订阅列表
@@ -69,14 +67,14 @@ class Bili_sub(Model):
                 if type == "user":
                     try:
                         prev_sub_list = sub_list["user"][type_id]
-                    except:
+                    except KeyError:
                         prev_sub_list = {}
                     prev_sub_list |= {bid: name}
                     sub_list["user"] |= {type_id: prev_sub_list}
                 if type == "group":
                     try:
                         prev_sub_list = sub_list["group"][type_id]
-                    except:
+                    except KeyError:
                         prev_sub_list = {}
                     prev_sub_list |= {bid: name}
                     sub_list["group"] |= {type_id: prev_sub_list}
@@ -88,7 +86,7 @@ class Bili_sub(Model):
     ) -> bool:
         try:
             name = await cls.get_user_name(bid)
-        except:
+        except KeyError:
             return False
         if isGroup:
             if await cls.get_or_none(type="group", type_id=int(id), bid=int(bid)):
@@ -128,12 +126,10 @@ class Bili_sub(Model):
                     return False
                 await cls.filter(type="group", type_id=int(id), bid=int(bid)).delete()
             else:
-                if not await cls.get_or_none(
-                    type="user", type_id=int(id), bid=int(bid)
-                ):
+                if not await cls.get_or_none(type="user", type_id=int(id), bid=int(bid)):
                     return False
                 await cls.filter(type="user", type_id=int(id), bid=int(bid)).delete()
-        except:
+        except KeyError:
             return False
         return True
 
