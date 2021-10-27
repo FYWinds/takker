@@ -4,5 +4,7 @@
 			"path": "."
 		}
 	],
-	"settings": {}
+	"settings": {
+		"autoDocstring.customTemplatePath": ".vscode/docstring.mustache",
+	}
 }

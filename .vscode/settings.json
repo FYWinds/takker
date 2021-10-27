@@ -12,7 +12,6 @@
             "source.fixAll": true
         }
     },
-    "autoDocstring.customTemplatePath": ".vscode/docstring.mustache",
     "editor.formatOnSave": true,
     "files.watcherExclude": {
         "**/.git/objects/**": true,

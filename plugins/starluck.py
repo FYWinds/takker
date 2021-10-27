@@ -1,19 +1,20 @@
+import os
 import json
 import time
-import pypinyin
-import httpx
-import os
 import textwrap
-from PIL import Image, ImageFont, ImageDraw
-from nonebot import on_command
-from nonebot.adapters.cqhttp import Bot, MessageEvent, GroupMessageEvent
-from nonebot.typing import T_State
-from nonebot.log import logger
 
-from service.db.utils.starluck import set_star, query_star
-from utils.msg_util import reply, image, text
+import httpx
+import pypinyin
+from PIL import Image, ImageDraw, ImageFont
+from nonebot import on_command
+from nonebot.log import logger
+from nonebot.typing import T_State
+from nonebot.adapters.cqhttp import Bot, MessageEvent, GroupMessageEvent
+
 from configs.config import ALI_API_TOKEN
-from configs.path_config import IMAGE_PATH, FONT_PATH
+from utils.msg_util import text, image, reply
+from configs.path_config import FONT_PATH, IMAGE_PATH
+from service.db.utils.starluck import set_star, query_star
 
 __permission__ = 1
 __plugin_name__ = "星座运势"
@@ -58,7 +59,7 @@ async def handle_starluck_receive(bot: Bot, event: MessageEvent, state: T_State)
             star_pinyin += "".join(i)
 
         # 判断是否合法
-        if not star_pinyin in stars:
+        if star_pinyin not in stars:
             message = (
                 (reply(user_id) + text("请输入正确的星座名称"))
                 if isinstance(event, GroupMessageEvent)
