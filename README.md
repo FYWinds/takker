@@ -41,6 +41,7 @@
 - [x] 星座运势
 - [x] 天气 (基于[nonebot-plugin-heweather](https://github.com/kexue-z/nonebot-plugin-heweather/)插件修改)
 - [x] 鲁迅说 (抄的[zhenxun_bot](https://github.com/HibiKier/zhenxun_bot))
+- [x] 我有个朋友说
 
 ### 已实现的管理员功能
 - [x] 95%的插件功能开关 (基于[nonebot_plugin_manager](https://github.com/Jigsaw111/nonebot_plugin_manager)插件修改)
@@ -96,6 +97,7 @@
 | 天气        | 天气 <指定城市>     | 返回指定城市的天气信息                                                                         | 2  |
 | 鲁迅说      | 鲁迅说，内容         | 生成一张鲁迅说的草图                                                                          | 3  |
 | B站视频解析  | BV av b23.tv       | 生成解析图片                                                                                 | 3  |
+| 我有个朋友   | 我有个朋友@朋友 <要说的话>| 生成一张朋友发来消息的图片                                                                 |  3  |
 ### 管理员功能
 功能         | 指令              | 说明                                                                                         | 权限
 |:----------:|:-----------------|:--------------------------------------------------------------------------------------------|:--:|
@@ -183,6 +185,11 @@ TEMP_PATH = Path("resources/img/temp/")
 
 <details>
 <summary>更新记录</summary>
+
+### 2021/10/30
+* 新增图片类ImageUtil
+* 添加功能-我有个朋友生成器
+* 修复部分Bug
 
 ### 2021/10/17
 * 提升截图的清晰度
