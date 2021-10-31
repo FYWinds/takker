@@ -377,8 +377,8 @@ class ImageUtil:
     def toB64(self) -> str:
         """
         :说明: `toB64`
-        > 返回Base64编码的图片 
-        
+        > 返回Base64编码的图片
+
         :返回:
           - `str`: Base64编码的图片
         """

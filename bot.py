@@ -2,7 +2,7 @@ import nonebot
 from nonebot.adapters.cqhttp import Bot as CQHTTPBot
 
 import utils.patcher  # type: ignore
-from service.init import init_bot_startup, update_plugin_list
+from utils.init import init_bot_startup, update_plugin_list
 from utils.browser import close_browser
 from service.db.db_connect import db_disconnect
 
