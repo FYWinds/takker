@@ -4,7 +4,7 @@ from nonebot.adapters.cqhttp import Bot, MessageEvent
 
 from utils.rule import limit_group
 from configs.config import SPECIAL_URL, SPECIAL_TOKEN
-from utils.img_util import create_image_from_text
+from utils.img_util import textToImage
 from utils.msg_util import image
 
 __permission__ = 9
@@ -39,5 +39,5 @@ async def _(bot: Bot, event: MessageEvent):
             for k, v in data["data"][exam][course].items():
                 message.append(f"        {k}: {v}")
     msg = "\n".join(message)
-    img = await create_image_from_text(msg, cut=100)
+    img = await textToImage(msg, cut=100)
     await command.finish(image(c=img))

@@ -26,7 +26,7 @@ class Statistic(Model):
             return {}
 
     @classmethod
-    async def set_status(cls, gid: Union[int, str], stat: dict[str, dict[str, int]]):
+    async def set_status(cls, gid: Union[int, str], stat: dict[str, dict[str, int]]) -> None:
         await cls.update_or_create(gid=int(gid), defaults={"stat": stat})
 
     @classmethod
@@ -38,7 +38,7 @@ class Statistic(Model):
             return {}
 
     @classmethod
-    async def set_illust_status(cls, gid: Union[int, str], kw: list):
+    async def set_illust_status(cls, gid: Union[int, str], kw: list) -> None:
         gid = int(gid)
         q = await cls.query_illust_statue(gid)
         for k in kw:

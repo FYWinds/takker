@@ -28,7 +28,7 @@ class Wordcloud(Model):
             for i in q:
                 msg_seg += [i["msg_seg"]]
             return msg_seg
-        except:
+        except KeyError:
             return []
 
     @classmethod

@@ -1,9 +1,7 @@
-from typing import Text
-
 from tortoise.models import Model
-from tortoise.fields.data import *  # type: ignore
+from tortoise.fields.data import IntField, CharField, JSONField, BigIntField
 
-#! 机器人版本号 请勿随意修改，否则造成数据混乱甚至丢失概不负责
+#! 机器人数据库结构版本号 请勿随意修改，否则造成数据混乱甚至丢失概不负责
 VERSION_TAG: str = "1.1.0"  #! 在机器人更新版本，重启后自动检测并更新
 #! 自动检测更新需要确保config.example.py为最新版且存在于configs目录下
 

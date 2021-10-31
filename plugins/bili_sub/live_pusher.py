@@ -7,11 +7,9 @@ from nonebot.plugin import require
 from nonebot_plugin_apscheduler import scheduler
 from nonebot.adapters.cqhttp.message import Message, MessageSegment
 
-from service.db.models.bs import Bili_sub
+from service.db.models.bs import BiliSub as DB
 
 from .bilireq import BiliReq
-
-DB = Bili_sub()
 
 status = {}
 

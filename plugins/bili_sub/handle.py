@@ -1,8 +1,6 @@
 from argparse import Namespace
 
-from service.db.models.bs import Bili_sub
-
-DB = Bili_sub()
+from service.db.models.bs import BiliSub as DB
 
 _blank = "    "
 

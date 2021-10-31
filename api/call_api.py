@@ -1,9 +1,10 @@
 from typing import Any
 
 from nonebot import get_bot
+from nonebot.log import logger
 
 
-async def call(api: str, **kwargs) -> dict[Any, Any]:
+async def call(api: str, **kwargs: Any) -> dict[Any, Any]:
     """
     :说明: `call`
     > 请求指定的GOCQ API
@@ -15,7 +16,8 @@ async def call(api: str, **kwargs) -> dict[Any, Any]:
       - `dict`: 请求返回数据
     """
     try:
-        data = await get_bot().call_api(api=api, **kwargs)
-    except ValueError:
-        data = {}
-    return data
+        data: dict[Any, Any] = await get_bot().call_api(api=api, **kwargs)
+        return data
+    except ValueError as e:
+        logger.error("请求API失败，未连接Bot")
+        raise e

@@ -16,7 +16,7 @@ from configs.path_config import FONT_PATH
 
 __permission__ = 3
 __plugin_name__ = "b站视频解析"
-__usage__ = ""
+__usage__ = "被动功能"
 __author__ = "djkcyl"
 
 bili_resolve = on_regex(

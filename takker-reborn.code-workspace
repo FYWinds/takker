@@ -5,6 +5,6 @@
 		}
 	],
 	"settings": {
-		"liveServer.settings.port": 5855
+		"autoDocstring.customTemplatePath": ".vscode/docstring.mustache",
 	}
 }
