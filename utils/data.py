@@ -18,5 +18,5 @@ with open(f"{TEXT_PATH}msg_of_day.json", "r", encoding="utf-8") as file:
 with open(f"{TEXT_PATH}atri.json", "r", encoding="utf-8") as file:
     atri_text = json.load(file)
 
-with open(f"{TEXT_PATH}book_of_answers") as file:
+with open(f"{TEXT_PATH}book_of_answers.json", "r") as file:
     book_of_answers = json.load(file)
