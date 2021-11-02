@@ -2,7 +2,7 @@ from typing import List, Union
 
 # 身份名单
 OWNER: str = ""  # 主人
-SUPERUSERS: List[Union[int, str]] = ["0", "1", "2"]  # 超级用户名单
+SUPERUSERS: List[Union[int, str]] = ["12345678", "0", "0", 12345678]  # 超级用户名单
 
 # 各个API的配置
 ALAPI_TOKEN: str = ""  # ALAPI
@@ -16,6 +16,11 @@ MAX_PROCESS_TIME: int = 30  # 部分指令处理最大等待时间，单位秒�
 BAN_CHEKC_FREQ: int = 5  # 恶意触发命令检测阈值
 BAN_CHECK_PERIOD: int = 3  # 恶意触发命令检测时间
 BAN_TIME: int = 5  # 恶意触发命令后的封禁时间，单位分钟
+
+# 日志记录时长
+DEBUG_LOG_TIME: int = 5  # 调试日志记录时长，单位天
+INFO_LOG_TIME: int = 60  # 普通日志记录时长，单位天
+ERROR_LOG_TIME: int = 90  # 错误日志记录时长，单位天
 
 # 隐藏插件列表
 HIDDEN_PLUGINS: List[str] = [
