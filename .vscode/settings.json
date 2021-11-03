@@ -26,7 +26,7 @@
     "git.enableSmartCommit": true,
     "python.analysis.diagnosticMode": "workspace",
     "jupyter.jupyterServerType": "local",
-    "python.analysis.autoImportCompletions": true,
+    "python.analysis.autoImportCompletions": false,
     "python.sortImports.args": [
         "--ls"
     ],
