@@ -65,51 +65,11 @@ def update_plugin_list(driver):
     from service.db.utils.plugin_perm import PluginPerm
     from service.db.utils.plugin_manager import set_plugin_status, query_plugin_status
 
-    # @driver.on_bot_connect
-    # async def _update_plugin_list(bot: Bot) -> None:
-    #     logger.info("更新插件列表")
-    #     plugin_list_current: dict[str, bool] = {}
-    #     group_list = await get_group_list()
-    #     user_list = await get_friend_list()
-    #     plugin_list = get_loaded_plugins()
-    #     for group in group_list:
-    #         group_id = group["group_id"]
-    #         plugin_list_stored = await query_plugin_status(id=group_id, isGroup=True)
-    #         # 获取当前存储的插件列表
-    #         for p in plugin_list:
-    #             if str(p.name) not in HIDDEN_PLUGINS:
-    #                 plugin_list_current |= {str(p.name): True}
-    #         # 更新插件列表至当前加载的插件列表
-    #         if plugin_list_stored:
-    #             for i in list(plugin_list_stored.keys()):
-    #                 if i not in plugin_list_current.keys():
-    #                     plugin_list_stored.pop(i)
-    #             plugin_list_current |= plugin_list_stored
-    #         await set_plugin_status(
-    #             id=group_id, status=plugin_list_current, isGroup=True
-    #         )
-    #     for user in user_list:
-    #         user_id = user["user_id"]
-    #         plugin_list_stored = await query_plugin_status(id=user_id, isGroup=False)
-    #         # 获取当前存储的插件列表
-    #         for p in plugin_list:
-    #             if str(p.name) not in HIDDEN_PLUGINS:
-    #                 plugin_list_current |= {str(p.name): True}
-    #         # 更新插件列表至当前加载的插件列表
-    #         if plugin_list_stored:
-    #             for i in list(plugin_list_stored):
-    #                 if i not in plugin_list_current:
-    #                     del plugin_list_stored[i]
-    #             plugin_list_current |= plugin_list_stored
-    #         await set_plugin_status(
-    #             id=user_id, status=plugin_list_current, isGroup=False
-    #         )
 
     @driver.on_bot_connect
     async def _update_plugin_list(bot: Bot) -> None:
         logger.info("更新插件列表中...")
         current_plugin_list: set[Plugin] = get_loaded_plugins()
-        # current_plugin_name_list: list[str] = [plugin.name for plugin in get_loaded_plugins()]
         current_plugin_status: dict[str, bool] = {}
         group_list = await bot.get_group_list()
         user_list = await bot.get_friend_list()
@@ -158,8 +118,7 @@ def update_plugin_list(driver):
                     else:
                         current_plugin_perms[plugin.name] = plugin_perms[plugin.name]
         else:
-            current_plugin_perms = {
-                plugin.name: getattr(plugin.module, "__permission__", 5)
-                for plugin in current_plugin_list
-            }
+            for plugin in current_plugin_list:
+                if plugin.name not in HIDDEN_PLUGINS:
+                    current_plugin_perms={plugin.name: getattr(plugin.module, "__permission__", 5)}
         await PluginPerm.group_set_plugin_perm(current_plugin_perms)
