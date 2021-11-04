@@ -21,7 +21,9 @@ async def handle_ls(args: Namespace) -> str:
             message = f"{'用户' if t == 'user' else '群'}({i}) 的插件列表：\n"
             perm = await query_perm(id=str(i), isGroup=True if t == "group" else False)
             plugin_list = await get_plugin_list(args.conv, perm)
-    message += "\n".join(f"[{'o' if plugin_list[p] else 'x'}] {p}" for p in plugin_list)
+    message += "\n".join(
+        f"[{'o' if plugin_list[p] else 'x'}] {p:24s}" for p in plugin_list
+    )
     return message
 
 

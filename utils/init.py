@@ -1,3 +1,5 @@
+import subprocess
+
 from nonebot.log import logger
 
 from utils.browser import install
@@ -45,6 +47,9 @@ async def init_bot_startup():
     await install()
 
     # *数据迁移
+    subprocess.Popen(
+        "aerich upgrade", shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT
+    )
     await convert()
 
     # *更新权限
@@ -65,11 +70,12 @@ def update_plugin_list(driver):
     from service.db.utils.plugin_perm import PluginPerm
     from service.db.utils.plugin_manager import set_plugin_status, query_plugin_status
 
-
     @driver.on_bot_connect
     async def _update_plugin_list(bot: Bot) -> None:
         logger.info("更新插件列表中...")
-        current_plugin_list: set[Plugin] = get_loaded_plugins()
+        current_plugin_list: list[Plugin] = sorted(
+            list(get_loaded_plugins()), key=lambda p: p.name
+        )
         current_plugin_status: dict[str, bool] = {}
         group_list = await bot.get_group_list()
         user_list = await bot.get_friend_list()
@@ -120,5 +126,7 @@ def update_plugin_list(driver):
         else:
             for plugin in current_plugin_list:
                 if plugin.name not in HIDDEN_PLUGINS:
-                    current_plugin_perms={plugin.name: getattr(plugin.module, "__permission__", 5)}
+                    current_plugin_perms = {
+                        plugin.name: getattr(plugin.module, "__permission__", 5)
+                    }
         await PluginPerm.group_set_plugin_perm(current_plugin_perms)

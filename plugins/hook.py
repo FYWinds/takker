@@ -1,19 +1,10 @@
 from nonebot import logger
-from nonebot.plugin import get_plugin, get_loaded_plugins
+from nonebot.plugin import get_plugin
 from nonebot.typing import T_State
 from nonebot.matcher import Matcher
 from nonebot.message import run_preprocessor
 from nonebot.exception import IgnoredException
-from nonebot.adapters.cqhttp import (
-    Bot,
-    Event,
-    NoticeEvent,
-    NotifyEvent,
-    MessageEvent,
-    RequestEvent,
-    GroupMessageEvent,
-)
-from nonebot.adapters.cqhttp.event import NoticeEvent
+from nonebot.adapters.cqhttp import Bot, Event, MessageEvent, GroupMessageEvent
 
 from utils.utils import ExploitCheck, perm_check, enable_check
 from configs.config import (
@@ -26,8 +17,7 @@ from configs.config import (
 )
 from utils.msg_util import at
 from service.db.models.ban import Ban
-from service.db.utils.perm import set_perm
-from service.db.utils.plugin_manager import set_plugin_status, query_plugin_status
+from service.db.utils.plugin_perm import PluginPerm
 
 __permission__ = 0
 
@@ -38,7 +28,7 @@ async def handle_plugin_permission(
 ):
     user_id = getattr(event, "user_id", None)
     group_id = getattr(event, "group_id", None)
-    if user_id == None or group_id == None:
+    if user_id is None or group_id is None:
         return
 
     # *超级用户和主人不做权限判断
@@ -50,7 +40,7 @@ async def handle_plugin_permission(
         return
     plugin = get_plugin(module_name)
     if plugin:
-        plugin_perm = getattr(plugin.module, "__permission__", 5)
+        plugin_perm = await PluginPerm.get_plugin_perm(plugin.name)
     else:
         plugin_perm = 5
     enabled = await enable_check(plugin=module_name, event=event)
@@ -73,9 +63,14 @@ async def ban_exploit_check(
 ):
     if not isinstance(event, GroupMessageEvent):
         return
-    if matcher.type == "message" and (
-        matcher.priority not in range(0, 11) or matcher.priority not in range(90, 101)
-    ) and matcher.module_name not in HIDDEN_PLUGINS:
+    if (
+        matcher.type == "message"
+        and (
+            matcher.priority not in range(0, 11)
+            or matcher.priority not in range(90, 101)
+        )
+        and matcher.module_name not in HIDDEN_PLUGINS
+    ):
         if await Ban.isbanned(event.user_id):
             raise IgnoredException("用户正在封禁中")
         if state["_prefix"]["raw_command"]:

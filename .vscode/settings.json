@@ -42,4 +42,5 @@
         "poetry.lock": true,
         "LICENSE": true,
     },
+    "files.trimFinalNewlines": true,
 }
