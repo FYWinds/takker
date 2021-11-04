@@ -47,9 +47,11 @@ async def init_bot_startup():
     await install()
 
     # *数据迁移
+    logger.debug("Starting Migration...")
     subprocess.Popen(
         "aerich upgrade", shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT
     )
+    logger.debug("Migration Complete...")
     await convert()
 
     # *更新权限
