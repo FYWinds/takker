@@ -1,23 +1,36 @@
 from argparse import Namespace
 
-from nonebot.log import logger
+from nonebot.plugin import get_plugin
 
 from api.info import get_group_list
 from service.db.utils.perm import set_perm, query_perm
+from service.db.utils.plugin_perm import PluginPerm
+
+dash = "-"
 
 
 async def list_perm(args: Namespace) -> str:
     if args.is_superuser:
         pass
     else:
-        return "获取群权限等级列表需要超级用户权限"
-
-    message = "群权限等级列表："
-    g_list = await get_group_list()
-    for group in g_list:
-        group_id = group["group_id"]
-        perm = await query_perm(id=str(group_id), isGroup=True)
-        message = message + "\n" + f"{group_id}: {perm}级"
+        return "获取权限等级列表需要超级用户权限"
+    if args.group:
+        message = f"群权限等级列表：\n{dash*16}"
+        g_list = await get_group_list()
+        for group in g_list:
+            group_id = group["group_id"]
+            perm = await query_perm(id=str(group_id), isGroup=True)
+            message = message + "\n" + f"{str(group_id):10s}: {str(perm):2s}级"
+            message = message + "\n" + f"{dash*16}"
+    elif args.plugin:
+        message = f"插件权限等级列表：\n{dash*30}"
+        p_list = await PluginPerm.get_all_plugin_perm()
+        if p_list:
+            for plugin in p_list:
+                message = message + "\n" + f"{plugin:24s}: {str(p_list[plugin]):2s}级"
+                message = message + "\n" + f"{dash*30}"
+    else:
+        message = "参数错误"
     return message
 
 
@@ -54,7 +67,7 @@ async def get_perm(args: Namespace) -> str:
         return message
 
 
-async def edit_perm(args: Namespace):
+async def edit_perm(args: Namespace) -> str:
     if args.user:
         if args.is_superuser:
             args.conv |= {"user": args.user}
@@ -86,7 +99,7 @@ async def edit_perm(args: Namespace):
                 message += f"成功设置群({g})的权限等级为 {perm} 级\n"
             else:
                 message += f"您的权限等级({user_perm}级)过低，无法修改群({g})权限等级为 {perm} 级！\n"
-        return message
+        return message.strip()
     else:
         user_id = args.conv["user"][0]
         user_perm = await query_perm(id=str(user_id))
@@ -98,3 +111,49 @@ async def edit_perm(args: Namespace):
             return f"您的权限等级({user_perm}级)过低，无法修改本群权限等级为 {perm} 级！"
         except IndexError:
             return "您无法设置自己的权限等级"
+
+
+async def edit_plugin_perm(args: Namespace) -> str:
+    plugins: list = args.plugins
+    edited_plugins: list = []
+    perm = args.perm
+    if not plugins or not perm:
+        return "参数错误"
+    perm = int(perm[0])
+    current_perms = await PluginPerm.get_all_plugin_perm()
+    if current_perms:
+        for plugin in current_perms:
+            if plugin in plugins:
+                current_perms[plugin] = perm
+                edited_plugins.append(plugin)
+        await PluginPerm.group_set_plugin_perm(current_perms)
+    message = f"插件 {', '.join(edited_plugins)} 的权限成功修改为 {perm} 级"
+    return message
+
+
+async def reset_perm(args: Namespace) -> str:
+    if args.is_superuser:
+        if args.user:
+            for u in args.user:
+                await set_perm(id=u, perm=0)
+            return f"成功重置用户 {', '.join(args.user)} 的权限等级为 0 级"
+        elif args.group:
+            for g in args.group:
+                await set_perm(id=g, perm=0, isGroup=True)
+            return f"成功重置群 {', '.join(args.group)} 的权限等级为 0 级"
+        elif args.plugin:
+            plugin_perms = await PluginPerm.get_all_plugin_perm()
+            reseted_plugins = []
+            if plugin_perms:
+                for p in args.plugin:
+                    if p in plugin_perms:
+                        plugin = get_plugin(p)
+                        assert plugin is not None
+                        plugin_perms[p] = getattr(plugin.module, "__permission__", 5)
+                        reseted_plugins.append(p)
+                await PluginPerm.group_set_plugin_perm(plugin_perms)
+            return f"成功重置插件 {', '.join(reseted_plugins)} 的权限等级为其默认等级"
+        else:
+            return "请指定用户或群或插件"
+    else:
+        return "重置权限等级需要超级用户权限"

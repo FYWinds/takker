@@ -4,6 +4,8 @@ from nonebot.exception import IgnoredException
 from nonebot.adapters.cqhttp import Bot, MessageEvent, GroupMessageEvent
 
 from configs.config import SUPERUSERS
+from utils.img_util import textToImage
+from utils.msg_util import image
 
 from .parser import perm_parser
 
@@ -39,4 +41,4 @@ async def _(bot: Bot, event: MessageEvent, state: T_State):
             raise IgnoredException("权限不足")
         message = await args.handle(args)
         if message:
-            await bot.send(event, message)
+            await bot.send(event, image(c=await textToImage(message)))
