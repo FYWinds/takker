@@ -4,6 +4,7 @@ from nonebot.log import logger
 
 from api.info import get_group_list
 from service.db.utils.perm import set_perm, query_perm
+from service.db.utils.plugin_perm import PluginPerm
 
 
 async def list_perm(args: Namespace) -> str:
@@ -54,7 +55,7 @@ async def get_perm(args: Namespace) -> str:
         return message
 
 
-async def edit_perm(args: Namespace):
+async def edit_perm(args: Namespace) -> str:
     if args.user:
         if args.is_superuser:
             args.conv |= {"user": args.user}
@@ -98,3 +99,21 @@ async def edit_perm(args: Namespace):
             return f"您的权限等级({user_perm}级)过低，无法修改本群权限等级为 {perm} 级！"
         except IndexError:
             return "您无法设置自己的权限等级"
+
+
+async def edit_plugin_perm(args: Namespace) -> str:
+    plugins = args.plugins
+    perm = args.perm
+    if args.is_group:
+        return "请在私聊中修改插件权限"
+    if not plugins or not perm:
+        return "参数错误"
+    current_perms = await PluginPerm.get_all_plugin_perm()
+    for plugin in current_perms:
+        if plugin in plugins:
+            current_perms[plugin] = perm
+        else:
+            del plugins[plugin]
+    await PluginPerm.group_set_plugin_perm(current_perms)
+
+    message = f"插件 {', '.join(plugins)} 的权限成功修改为 {perm} 级"
