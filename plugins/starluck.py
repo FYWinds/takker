@@ -1,5 +1,4 @@
 import os
-import json
 import time
 import textwrap
 
@@ -13,8 +12,8 @@ from nonebot.adapters.cqhttp import Bot, MessageEvent, GroupMessageEvent
 
 from configs.config import ALI_API_TOKEN
 from utils.msg_util import text, image, reply
+from db.utils.starluck import Starluck
 from configs.path_config import FONT_PATH, IMAGE_PATH
-from service.db.utils.starluck import set_star, query_star
 
 __permission__ = 1
 __plugin_name__ = "星座运势"
@@ -68,7 +67,7 @@ async def handle_starluck_receive(bot: Bot, event: MessageEvent, state: T_State)
             await starluck.finish(message)
 
         num = stars.index(star_pinyin) + 1
-        await set_star(user_id, num)
+        await Starluck.set_star(user_id, num)
         message = (
             (reply(user_id) + text("绑定成功"))
             if isinstance(event, GroupMessageEvent)
@@ -76,7 +75,7 @@ async def handle_starluck_receive(bot: Bot, event: MessageEvent, state: T_State)
         )
         await starluck.send(message)
 
-    if not await query_star(user_id):
+    if not await Starluck.query_star(user_id):
         message = (
             (reply(user_id) + text("请使用\n.sluck 星座\n绑定星座"))
             if isinstance(event, GroupMessageEvent)
@@ -84,8 +83,8 @@ async def handle_starluck_receive(bot: Bot, event: MessageEvent, state: T_State)
         )
         await starluck.finish(message)
 
-    star_pinyin = stars[await query_star(user_id) - 1]
-    star = stars_cn[await query_star(user_id) - 1]
+    star_pinyin = stars[await Starluck.query_star(user_id) - 1]
+    star = stars_cn[await Starluck.query_star(user_id) - 1]
 
     # 从缓存读取图片
 

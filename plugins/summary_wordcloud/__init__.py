@@ -2,12 +2,13 @@ import re
 import time
 
 import jieba.analyse
-from configs.config import SUPERUSERS
 from nonebot.plugin import on_message
 from nonebot.typing import T_State
-from utils.msg_util import text, image
 from nonebot.adapters.cqhttp import GROUP, Bot, GroupMessageEvent
-from service.db.models.wordcloud import Wordcloud
+
+from configs.config import SUPERUSERS
+from utils.msg_util import text, image
+from db.models.wordcloud import Wordcloud
 
 from .draw import draw_word_cloud
 

@@ -1,9 +1,6 @@
 from argparse import Namespace
 
-from nonebot.log import logger
-
-from service.db.utils.perm import query_perm
-from service.db.utils.plugin_manager import set_plugin_status, query_plugin_status
+from db.utils.perm import Perm
 
 from .manager import ban_plugin, unban_plugin, get_plugin_list
 
@@ -19,7 +16,9 @@ async def handle_ls(args: Namespace) -> str:
     for t in args.conv:
         for i in args.conv[t]:
             message = f"{'用户' if t == 'user' else '群'}({i}) 的插件列表：\n"
-            perm = await query_perm(id=str(i), isGroup=True if t == "group" else False)
+            perm = await Perm.query_perm(
+                id=str(i), isGroup=True if t == "group" else False
+            )
             plugin_list = await get_plugin_list(args.conv, perm)
     message += "\n".join(
         f"[{'o' if plugin_list[p] else 'x'}] {p:24s}" for p in plugin_list
@@ -28,7 +27,7 @@ async def handle_ls(args: Namespace) -> str:
 
 
 async def handle_ban(args: Namespace):
-    perm = await query_perm(id=str(args.conv["user"][0]))
+    perm = await Perm.query_perm(id=str(args.conv["user"][0]))
     if args.is_admin:
         perm = 9
     plugin = await get_plugin_list(args.conv, perm)
@@ -71,7 +70,7 @@ async def handle_ban(args: Namespace):
 
 
 async def handle_unban(args: Namespace):
-    perm = await query_perm(id=str(args.conv["user"][0]))
+    perm = await Perm.query_perm(id=str(args.conv["user"][0]))
     if args.is_admin:
         perm = 9
     plugin = await get_plugin_list(args.conv, perm)

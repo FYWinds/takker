@@ -2,11 +2,11 @@ import subprocess
 
 from nonebot.log import logger
 
+from db.db_connect import db_init
 from utils.browser import install
 from configs.config import INFO_LOG_TIME, DEBUG_LOG_TIME, ERROR_LOG_TIME
 from configs.path_config import LOG_PATH
-from service.db.db_connect import db_init
-from service.db.utils.data_convert import convert
+from db.utils.data_convert import convert
 
 
 async def init_bot_startup():
@@ -53,12 +53,12 @@ async def init_bot_startup():
     await convert()
 
     # *更新权限
+    from db.utils.perm import Perm
     from configs.config import OWNER, SUPERUSERS
-    from service.db.utils.perm import set_perm
 
     for id in SUPERUSERS:
-        await set_perm(id=id, perm=9)
-    await set_perm(id=OWNER, perm=10)
+        await Perm.set_perm(id=id, perm=9)
+    await Perm.set_perm(id=OWNER, perm=10)
 
 
 def update_plugin_list(driver):
@@ -67,8 +67,8 @@ def update_plugin_list(driver):
     from nonebot.adapters import Bot
 
     from configs.config import HIDDEN_PLUGINS
-    from service.db.utils.plugin_perm import PluginPerm
-    from service.db.utils.plugin_manager import set_plugin_status, query_plugin_status
+    from db.utils.plugin_perm import PluginPerm
+    from db.utils.plugin_manager import PluginManager
 
     @driver.on_bot_connect
     async def _update_plugin_list(bot: Bot) -> None:
@@ -84,7 +84,9 @@ def update_plugin_list(driver):
             group_id = group["group_id"]
 
             # 插件管理器状态更新
-            plugin_status = await query_plugin_status(id=group_id, isGroup=True)
+            plugin_status = await PluginManager.query_plugin_status(
+                id=group_id, isGroup=True
+            )
             for plugin_name in [plugin.name for plugin in current_plugin_list]:
                 if plugin_name not in HIDDEN_PLUGINS:
                     if plugin_name not in plugin_status:
@@ -92,7 +94,7 @@ def update_plugin_list(driver):
                     else:
                         current_plugin_status[plugin_name] = plugin_status[plugin_name]
 
-            await set_plugin_status(
+            await PluginManager.set_plugin_status(
                 id=group_id, status=current_plugin_status, isGroup=True
             )
 
@@ -100,14 +102,14 @@ def update_plugin_list(driver):
             user_id = user["user_id"]
 
             # 插件管理器状态更新
-            plugin_status = await query_plugin_status(id=user_id)
+            plugin_status = await PluginManager.query_plugin_status(id=user_id)
             for plugin_name in [plugin.name for plugin in current_plugin_list]:
                 if plugin_name not in HIDDEN_PLUGINS:
                     if plugin_name not in plugin_status:
                         current_plugin_status[plugin_name] = True
                     else:
                         current_plugin_status[plugin_name] = plugin_status[plugin_name]
-            await set_plugin_status(
+            await PluginManager.set_plugin_status(
                 id=user_id, status=current_plugin_status, isGroup=True
             )
 

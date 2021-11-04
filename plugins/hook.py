@@ -7,6 +7,7 @@ from nonebot.exception import IgnoredException
 from nonebot.adapters.cqhttp import Bot, Event, MessageEvent, GroupMessageEvent
 
 from utils.utils import ExploitCheck, perm_check, enable_check
+from db.models.ban import Ban
 from configs.config import (
     OWNER,
     BAN_TIME,
@@ -16,8 +17,7 @@ from configs.config import (
     BAN_CHECK_PERIOD,
 )
 from utils.msg_util import at
-from service.db.models.ban import Ban
-from service.db.utils.plugin_perm import PluginPerm
+from db.utils.plugin_perm import PluginPerm
 
 __permission__ = 0
 

@@ -1,6 +1,6 @@
 from typing import Optional
 
-from service.db.models.config import BotConfig
+from db.models.config import BotConfig
 
 
 class PluginPerm:

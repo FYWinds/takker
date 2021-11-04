@@ -5,12 +5,12 @@ from tortoise.exceptions import DBConnectionError
 from configs.path_config import DATA_PATH
 
 models: list[str] = [
-    "service.db.models.config",
-    "service.db.models.ban",
-    "service.db.models.bs",
-    "service.db.models.statistic",
-    "service.db.models.wordcloud",
-    "service.db.models.outdated_models",
+    "db.models.config",
+    "db.models.ban",
+    "db.models.bs",
+    "db.models.statistic",
+    "db.models.wordcloud",
+    "db.models.outdated_models",
     "aerich.models",
 ]
 
@@ -31,7 +31,7 @@ TORTOISE_ORM: dict = {
             "default_connection": "data",
         },
         "illustdb": {
-            "models": ["service.db.models.illust"],
+            "models": ["db.models.illust"],
             "default_connection": "illust",
         },
     },

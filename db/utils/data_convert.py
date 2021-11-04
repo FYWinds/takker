@@ -1,4 +1,3 @@
-
 import json
 import shutil
 
@@ -6,8 +5,8 @@ from nonebot.log import logger
 from tortoise.query_utils import Q
 
 from configs.path_config import DATA_PATH
-from service.db.models.config import VERSION_TAG, BotConfig, UserConfig, GroupConfig
-from service.db.models.outdated_models import Point, Plugin, Starluck, Permission
+from db.models.config import VERSION_TAG, BotConfig, UserConfig, GroupConfig
+from db.models.outdated_models import Point, Plugin, Starluck, Permission
 
 
 async def convert() -> None:
