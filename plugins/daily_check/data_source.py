@@ -2,6 +2,7 @@ import time
 import random
 
 import httpx
+from httpx import ReadTimeout
 
 from utils.data import fortune, msg_of_day
 from utils.browser import get_ua
@@ -11,11 +12,11 @@ from configs.config import ALAPI_TOKEN
 async def get_acg_image():
     url = "https://v2.alapi.cn/api/acg"
     params = {"token": ALAPI_TOKEN, "format": "json"}
-    async with httpx.AsyncClient(headers=get_ua()) as client:
-        resp = await client.get(url=url, params=params)
     try:
-        return resp.json()["data"]["url"]
-    except KeyError:
+        async with httpx.AsyncClient(headers=get_ua()) as client:
+            resp = await client.get(url=url, params=params)
+            return resp.json()["data"]["url"]
+    except (KeyError, ReadTimeout):
         return "https://file.alapi.cn/image/comic/122514-15234207140623.jpg"
 
 
