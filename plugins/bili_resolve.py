@@ -15,9 +15,12 @@ from utils.text_util import cut_text
 from configs.path_config import FONT_PATH
 
 __permission__ = 3
-__plugin_name__ = "b站视频解析"
-__usage__ = "被动功能"
-__author__ = "djkcyl"
+__plugin_name__ = "B站视频分享链接解析"
+__plugin_usage__ = """
+被动功能，适用范围见文档
+"""
+__plugin_author__ = "djkcyl"
+__plugin_version__ = "1.3.0"
 
 bili_resolve = on_regex(
     r"av(\d{1,12})|BV(1[A-Za-z0-9]{2}4.1.7[A-Za-z0-9]{2})|b23.tv", priority=20

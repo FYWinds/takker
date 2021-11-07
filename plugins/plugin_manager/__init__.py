@@ -12,11 +12,14 @@ from .parser import pm_parser
 __permission__ = 0
 
 __plugin_name__ = "插件管理器"
-
-__usage__ = """pm list | 获取当前会话的插件里列表
-pm ban [插件1] <插件x> | 禁用当前会话中的这些插件
-pm unban [插件1] <插件x> | 启用当前会话中的这些插件
+__plugin_usage__ = f"""
+{'pm list':24s} | 查看当前会话插件列表
+{'pm ban <plugin>':24s} | 禁用插件
+{'pm unban <plugin>':24s} | 启用插件
+plugin可以为多个插件，用空格分隔
 """
+__plugin_author__ = "风屿"
+__plugin_version__ = "1.4.0"
 
 pm = on_shell_command("pm", parser=pm_parser, priority=1, block=True)
 

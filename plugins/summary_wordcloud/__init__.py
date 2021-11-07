@@ -14,10 +14,13 @@ from .draw import draw_word_cloud
 
 __permission__ = 1
 
-__plugin_name__ = "群消息词云总结"
-
-__usage__ = """本群月内/年内总结
-为防止刷屏故只有群管理可以使用"""
+__plugin_name__ = "群消息词云统计"
+__plugin_usage__ = f"""
+{'本群月内总结':24s} | 获取本群月内发言热词总结
+{'本群年内总结':24s} | 获取本群年内发言热词总结
+"""
+__plugin_author__ = "风屿"
+__plugin_version__ = "1.0.0"
 
 
 word = on_message(permission=GROUP, priority=100, block=False)

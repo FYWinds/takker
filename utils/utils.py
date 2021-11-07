@@ -1,5 +1,5 @@
-# 该文件部分内容参考了HibiKier/zhenxun_bot
 import time
+from typing import Union, Optional
 from collections import defaultdict
 
 from nonebot import require

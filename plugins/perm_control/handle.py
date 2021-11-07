@@ -149,7 +149,8 @@ async def reset_perm(args: Namespace) -> str:
                     if p in plugin_perms:
                         plugin = get_plugin(p)
                         assert plugin is not None
-                        plugin_perms[p] = getattr(plugin.module, "__permission__", 5)
+                        plugin_info = getattr(plugin.module, "__plugin_info__", {})
+                        plugin_perms[p] = plugin_info.get("permission", 5)
                         reseted_plugins.append(p)
                 await PluginPerm.group_set_plugin_perm(plugin_perms)
             return f"成功重置插件 {', '.join(reseted_plugins)} 的权限等级为其默认等级"

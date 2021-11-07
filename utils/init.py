@@ -121,16 +121,16 @@ def update_plugin_list(driver):
         if plugin_perms:
             for plugin in current_plugin_list:
                 if plugin.name not in HIDDEN_PLUGINS:
+                    plugin_info = getattr(plugin, "plugin_info", {})
                     if plugin.name not in plugin_perms:
-                        current_plugin_perms[plugin.name] = getattr(
-                            plugin.module, "__permission__", 5
-                        )
+                        current_plugin_perms[plugin.name] = plugin_info.get("permission", 5)
                     else:
                         current_plugin_perms[plugin.name] = plugin_perms[plugin.name]
         else:
             for plugin in current_plugin_list:
                 if plugin.name not in HIDDEN_PLUGINS:
+                    plugin_info = getattr(plugin, "plugin_info", {})
                     current_plugin_perms = {
-                        plugin.name: getattr(plugin.module, "__permission__", 5)
+                        plugin.name: plugin_info.get("permission", 5)
                     }
         await PluginPerm.group_set_plugin_perm(current_plugin_perms)

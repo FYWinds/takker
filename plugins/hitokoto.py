@@ -1,19 +1,21 @@
 __permission__ = 1
 
 __plugin_name__ = "一言"
+__plugin_usage__ = f"""
+{'.h <类型>':24s} | 获取指定类型的随机一言
+类型列表:
+    a 动画
+    b 文学
+    c 影视
+    d 诗词
+    e 哲学
+    f 网易云
+"""
+__plugin_author__ = "风屿"
+__plugin_version__ = "1.0.0"
 
-__usage__ = """使用方法
-.h 类型
-类型列表：
-a 动画
-b 文学
-c 影视
-d 诗词
-e 哲学
-f 网易云"""
 
 import httpx
-
 from nonebot import on_command
 from nonebot.typing import T_State
 from nonebot.adapters.cqhttp import Bot, Event
@@ -36,15 +38,7 @@ async def handle_content(bot: Bot, event: Event, state: T_State):
 
 async def hitokoto_get(content: str):
 
-    help_message = """使用方法
-.h 类型
-类型列表：
-a 动画
-b 文学
-c 影视
-d 诗词
-e 哲学
-f 网易云"""
+    help_message = __plugin_usage__
 
     wrong_type = "对不起，您输入的类型暂不支持"
 

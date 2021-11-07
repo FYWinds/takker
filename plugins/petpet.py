@@ -1,21 +1,25 @@
-from PIL import Image as IMG
-from PIL import ImageOps
-from moviepy.editor import ImageSequenceClip as imageclip
-import numpy
-import httpx
 from io import BytesIO
 
+import httpx
+import numpy
+from PIL import Image as IMG
+from PIL import ImageOps
 from nonebot import on_command
-from nonebot.adapters.cqhttp import Bot, MessageEvent, GROUP
+from moviepy.editor import ImageSequenceClip as imageclip
 from nonebot.typing import T_State
+from nonebot.adapters.cqhttp import GROUP, Bot, MessageEvent
 
-from configs.path_config import IMAGE_PATH
-from utils.msg_util import image
 from utils.browser import get_ua
+from utils.msg_util import image
+from configs.path_config import IMAGE_PATH
 
 __permission__ = 2
-__plugin_name__ = "摸/rua!"
-__usage__ = "摸@目标"
+__plugin_name__ = "摸摸"
+__plugin_usage__ = f"""
+{'摸|rua @目标':24s} | 返回一张摸目标头像的动图
+"""
+__plugin_author__ = "风屿"
+__plugin_version__ = "1.0.0"
 
 
 pet = on_command(

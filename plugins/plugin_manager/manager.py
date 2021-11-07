@@ -19,7 +19,8 @@ async def get_plugin_list(
         if plugin:
             if plugin.name in HIDDEN_PLUGINS:
                 continue
-            plugin_perm = getattr(plugin.module, "__permission__", 5)
+            plugin_info = getattr(plugin.module, "__plugin_info__", {})
+            plugin_perm = plugin_info.get("permission", 5)
             if plugin_perm <= perm:
                 result |= {p: bool(plugin_list[p])}
     return result
@@ -40,7 +41,8 @@ async def ban_plugin(
                     try:
                         plugin = get_plugin(p)
                         assert plugin is not None
-                        plugin_perm = getattr(plugin.module, "__permission__", 5)
+                        plugin_info = getattr(plugin.module, "__plugin_info__", {})
+                        plugin_perm = plugin_info.get("permission", 5)
                     except AssertionError:
                         plugin_perm = 5
                     if plugin_perm > perm:
@@ -59,7 +61,8 @@ async def ban_plugin(
                     try:
                         plugin = get_plugin(p)
                         assert plugin is not None
-                        plugin_perm = getattr(plugin.module, "__permission__", 5)
+                        plugin_info = getattr(plugin.module, "__plugin_info__", {})
+                        plugin_perm = plugin_info.get("permission", 5)
                     except AssertionError:
                         plugin_perm = 5
                     if plugin_perm > perm:
@@ -87,7 +90,8 @@ async def unban_plugin(
                     try:
                         plugin = get_plugin(p)
                         assert plugin is not None
-                        plugin_perm = getattr(plugin.module, "__permission__", 5)
+                        plugin_info = getattr(plugin.module, "__plugin_info__", {})
+                        plugin_perm = plugin_info.get("permission", 5)
                     except AssertionError:
                         plugin_perm = 5
                     if plugin_perm > perm:
@@ -106,7 +110,8 @@ async def unban_plugin(
                     try:
                         plugin = get_plugin(p)
                         assert plugin is not None
-                        plugin_perm = getattr(plugin.module, "__permission__", 5)
+                        plugin_info = getattr(plugin.module, "__plugin_info__", {})
+                        plugin_perm = plugin_info.get("permission", 5)
                     except AssertionError:
                         plugin_perm = 5
                     if plugin_perm > perm:

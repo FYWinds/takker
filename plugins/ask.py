@@ -11,9 +11,11 @@ from api.info import get_group_member_list
 __permission__ = 1
 
 __plugin_name__ = "问答"
-
-__usage__ = "问内容"
-
+__plugin_usage__ = f"""
+{'问 几|多少|什么时候|啥时候|多久|多长时间|x不x|谁':24s} | 生成随机答句
+"""
+__plugin_author__ = "风屿"
+__plugin_version__ = "1.0.0"
 ask = on_startswith("问", priority=20)
 
 
