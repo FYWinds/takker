@@ -1,13 +1,16 @@
-from nonebot.plugin import on_shell_command
+from nonebot.rule import to_me
+from nonebot.plugin import on_notice, on_shell_command
 from nonebot.typing import T_State
 from nonebot.adapters.cqhttp import (
     Bot,
     MessageEvent,
     GroupMessageEvent,
     PrivateMessageEvent,
+    GroupDecreaseNoticeEvent,
 )
 
 from utils.rule import admin
+from db.models.bs import BiliSub
 from utils.img_util import textToImage
 from utils.msg_util import image
 
@@ -50,3 +53,12 @@ async def _(bot: Bot, event: MessageEvent, state: T_State):
         message = await args.handle(args)
         img = await textToImage(message, cut=100)
         await bot.send(event, image(c=img))
+
+
+leave_group = on_notice(priority=20, rule=to_me())
+
+
+@leave_group.handle()
+async def leave_group_handler(bot: Bot, event: GroupDecreaseNoticeEvent):
+    if event.user_id == event.self_id:
+        await BiliSub.remove_record(event.group_id, isGroup=True)

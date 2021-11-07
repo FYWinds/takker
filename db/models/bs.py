@@ -1,4 +1,4 @@
-from typing import Union
+from typing import Union, Optional
 
 import httpx
 from tortoise.models import Model
@@ -116,19 +116,29 @@ class BiliSub(Model):
 
     @classmethod
     async def remove_record(
-        cls, id: Union[str, int], bid: Union[str, int], isGroup: bool = False
+        cls, id: Union[str, int], bid: Optional[Union[str, int]] = None, isGroup: bool = False
     ) -> bool:
         try:
             if isGroup:
-                if not await cls.get_or_none(
-                    type="group", type_id=int(id), bid=int(bid)
-                ):
-                    return False
-                await cls.filter(type="group", type_id=int(id), bid=int(bid)).delete()
+                if bid:
+                    if not await cls.get_or_none(
+                        type="group", type_id=int(id), bid=int(bid)
+                    ):
+                        return False
+                    await cls.filter(
+                        type="group", type_id=int(id), bid=int(bid)
+                    ).delete()
+                else:
+                    await cls.filter(type="group", type_id=int(id)).delete()
             else:
-                if not await cls.get_or_none(type="user", type_id=int(id), bid=int(bid)):
-                    return False
-                await cls.filter(type="user", type_id=int(id), bid=int(bid)).delete()
+                if bid:
+                    if not await cls.get_or_none(
+                        type="user", type_id=int(id), bid=int(bid)
+                    ):
+                        return False
+                    await cls.filter(type="user", type_id=int(id), bid=int(bid)).delete()
+                else:
+                    await cls.filter(type="user", type_id=int(id)).delete()
         except KeyError:
             return False
         return True
