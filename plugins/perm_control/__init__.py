@@ -13,7 +13,7 @@ __plugin_info__ = {
     "name": "权限控制",
     "des": "机器人底层控制插件",
     "usage": {
-        "perm get": {"des": "获取当前会话的权限等级"},
+        "perm get": "获取当前会话的权限等级",
         "perm set <权限等级>": {"des": "设置当前会话的权限等级", "eg": "perm set 3"},
     },
     "superuser_usage": {

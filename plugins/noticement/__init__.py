@@ -10,7 +10,7 @@ __plugin_info__ = {
     "name": "公告",
     "des": "向指定群聊通过机器人广播一条信息",
     "superuser_usage": {
-        "notice list": {"des": "查看机器人运行以来发送过的所有公告"},
+        "notice list": "查看机器人运行以来发送过的所有公告",
         "notice <group> -n <通知内容>": {
             "des": "向指定群聊发送指定公告",
             "eg": "notice 123456 2324352 -n 测试公告",
