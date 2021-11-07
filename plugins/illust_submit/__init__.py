@@ -9,14 +9,16 @@ from db.models.illust import Illust
 
 from .data_source import get_illust_info, get_illust_link
 
-__permission__ = 6
-__plugin_name__ = "Pixiv图片上传"
-__plugin_usage__ = f"""
-{'pixupload <pid>':24s} | 上传指定PID的Pixiv图片到图库中
-将由主人审核后方上传
-"""
-__plugin_author__ = "风屿"
-__plugin_version__ = "1.0.0"
+__plugin_info__ = {
+    "name": "Pixiv图片上传",
+    "usage": {
+        "pixupload <pid>": {"des": "上传指定PID的Pixiv图片到图库中", "eg": "pixupload 12345678"}
+    },
+    "additional_info": f"图片会经过 {OWNER} 审核后才上传",
+    "author": "风屿",
+    "version": "1.0.0",
+    "permission": 6,
+}
 
 pix_uplaod = on_command("pixupload", priority=20, permission=GROUP)
 

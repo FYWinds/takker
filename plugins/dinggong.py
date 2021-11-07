@@ -10,13 +10,15 @@ from nonebot.adapters.cqhttp import Bot, MessageEvent
 from utils.msg_util import record
 from configs.path_config import VOICE_PATH
 
-__permission__ = 3
-__plugin_name__ = "钉宫语音包"
-__plugin_usage__ = f"""
-{'傲娇|钉宫':24s} | 返回一条随机的钉宫语音
-"""
-__plugin_author__ = "风屿"
-__plugin_version__ = "1.0.0"
+__plugin_info__ = {
+    "name": "钉宫语音包",
+    "usage": {
+        "傲娇|钉宫": {"des": "返回一条随机的钉宫语音"}
+    },
+    "author": "风屿",
+    "version": "1.0.0",
+    "permission": 3,
+}
 
 blame = on_command(
     "傲娇",

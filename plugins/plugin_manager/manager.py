@@ -17,7 +17,7 @@ async def get_plugin_list(
     for p in list(plugin_list.keys()):
         plugin = get_plugin(p)
         if plugin:
-            if plugin.name in HIDDEN_PLUGINS:
+            if plugin.name in HIDDEN_PLUGINS or plugin.name == "plugin_manager":
                 continue
             plugin_info = getattr(plugin.module, "__plugin_info__", {})
             plugin_perm = plugin_info.get("permission", 5)

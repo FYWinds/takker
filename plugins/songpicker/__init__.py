@@ -15,6 +15,16 @@ __plugin_usage__ = f"""
 __plugin_author__ = "风屿"
 __plugin_version__ = "1.0.0"
 
+__plugin_info__ = {
+    "name": "网易云点歌",
+    "usage": {
+        "点歌 <歌名>": {"des": "搜索网易云音乐歌曲", "eg": "点歌 海阔天空"},
+    },
+    "author": "风屿",
+    "version": "1.0.0",
+    "permission": 2,
+}
+
 dataget = dataGet()
 
 songpicker = on_command("点歌", priority=20)

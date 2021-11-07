@@ -18,6 +18,17 @@ __plugin_author__ = "风屿"
 __plugin_version__ = "1.0.0"
 ask = on_startswith("问", priority=20)
 
+__plugin_info__ = {
+    "name": "智障问答",
+    "usage": {
+        "问<内容>": {"des": "生成随机回答内容", "eg": "问我是不是最帅的"}
+    },
+    "additional_info": "所有支持响应的内容请查看文档",
+    "author": "风屿",
+    "version": "1.0.0",
+    "permission": 1,
+}
+
 
 @ask.handle()
 async def _(bot: Bot, event: GroupMessageEvent, state: T_State):

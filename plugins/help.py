@@ -5,7 +5,6 @@ from nonebot import on_command
 from nonebot.typing import T_State
 from nonebot.adapters.cqhttp import (
     Bot,
-    Event,
     MessageEvent,
     GroupMessageEvent,
     PrivateMessageEvent,
@@ -29,7 +28,6 @@ __plugin_info__: dict[str, Union[str, dict[str, dict[str, Union[int, str]]], int
     },
     "author": "风屿",
     "version": "1.4.0",
-    "doc": "",
     "permission": 0,
 }
 
@@ -37,7 +35,7 @@ helper = on_command("/help", priority=20)
 
 
 @helper.handle()
-async def handle_first_receive(bot: Bot, event: Event, state: T_State):
+async def handle_first_receive(bot: Bot, event: MessageEvent, state: T_State):
     args = str(event.get_message()).strip()
     if args:
         state["content"] = args
@@ -65,11 +63,11 @@ async def get_result(bot: Bot, event: MessageEvent, state: T_State):
             enabled = await enable_check(plugin.name, event)
             plugin_perm = await PluginPerm.get_plugin_perm(plugin.name)
             if (perm >= plugin_perm) and enabled:
-                plugin_info: dict = getattr(plugin, "__plugin_info__", {})
+                plugin_info: dict = getattr(plugin.module, "__plugin_info__", {})
                 plugin_name = plugin_info.get("name", "未命名")
-                name = f"{plugin.name}: {plugin_name}"
                 version = plugin_info.get("version", "未知")
-                plugin_names.append(f"{name + version:24s} 权限:{str(plugin_perm):2s}级")
+                info = f"{align(plugin.name, 18)}: {align(plugin_name+ ' '+version, 32)}"
+                plugin_names.append(f"{info} 权限:{align(plugin_perm, 2)}级")
         plugin_names.sort()
         newline_char = "\n"
         message = f"插件列表：\n{newline_char.join(plugin_names)}"
@@ -102,7 +100,7 @@ async def get_result(bot: Bot, event: MessageEvent, state: T_State):
                 doc = "暂无文档"
             await helper.finish(
                 at(event.user_id)
-                + image(c=(await textToImage(message.strip())))
+                + image(c=(await textToImage(message.strip(), 96)))
                 + f"文档地址: {doc}"
             )
         except (AttributeError, AssertionError):
@@ -115,7 +113,6 @@ async def build_message(plugin_info: dict, identity: str = "norm") -> str:
 作者: {plugin_info.get("author", "未知")}
 权限: {plugin_info.get("permission", 0)} 级
 版本: {plugin_info.get("version", "未知")}
-
 介绍: {plugin_info.get("des", "无简介")}
 """.strip()
     usage: dict[str, dict[str, str]] = plugin_info.get("usage", {})
@@ -123,27 +120,27 @@ async def build_message(plugin_info: dict, identity: str = "norm") -> str:
     superuser_usage: dict[str, dict[str, str]] = plugin_info.get("superuser_usage", {})
     if identity == "norm":
         if usage:
-            message += "\n\n指令列表:"
+            message += "\n \n指令列表:"
             message = await add_usage(message, usage)
     elif identity == "admin":
         if usage:
-            message += "\n\n指令列表:"
+            message += "\n \n指令列表:"
             message = await add_usage(message, usage)
         if admin_usage:
-            message += "\n\n管理员指令列表:"
+            message += "\n \n管理员指令列表:"
             message = await add_usage(message, admin_usage)
     elif identity == "superuser":
         if usage:
-            message += "\n\n指令列表:"
+            message += "\n \n指令列表:"
             message = await add_usage(message, usage)
         if admin_usage:
-            message += "\n\n管理员指令列表:"
+            message += "\n \n管理员指令列表:"
             message = await add_usage(message, admin_usage)
         if superuser_usage:
-            message += "\n\n超级管理员指令列表:"
+            message += "\n \n超级管理员指令列表:"
             message = await add_usage(message, superuser_usage)
     addition_info = plugin_info.get("additional_info", "")
-    message += f"\n\n{addition_info}"
+    message += f"\n \n{addition_info}"
     return message
 
 
@@ -151,10 +148,13 @@ async def add_usage(message: str, usage: dict) -> str:
     blank = " " * 4
     if usage:
         for key, value in usage.items():
-            if value.get("des"):
-                message += f"\n{blank}{align(key, 32)}| {value['des']}"
+            if isinstance(value, dict):
+                if value.get("des"):
+                    message += f"\n{blank}{align(key, 32)}| {value['des']}"
+                else:
+                    message += f"\n{blank}{align(key, 32)}| 无说明"
+                if value.get("eg"):
+                    message += f"\n{blank}{blank}示例: {value['eg']}"
             else:
-                message += f"\n{blank}{align(key, 32)}| 无说明"
-            if value.get("eg"):
-                message += f"\n{blank}{blank}示例: {value['eg']}"
+                message += f"\n{blank}{align(key, 32)}| {value}"
     return message

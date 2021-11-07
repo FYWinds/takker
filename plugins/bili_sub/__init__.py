@@ -30,7 +30,6 @@ __plugin_info__ = {
     },
     "author": "风屿",
     "version": "1.3.0",
-    "doc": "",
     "permission": 0,
 }
 
