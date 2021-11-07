@@ -10,9 +10,18 @@ from nonebot.adapters.cqhttp import GROUP, Bot, GroupMessageEvent
 from utils.data import atri_text
 from utils.msg_util import record
 
-__permission__ = 3
-__plugin_name__ = "高性能萝卜子"
-__usage__ = "@Bot 想说的话"
+__plugin_info__ = {
+    "name": "ATRI语音包",
+    "des": "从游戏ATRI My Dear Moments内提取出来的ATRI原味语音！",
+    "usage": {
+        "亚托莉|atri": {"des": "获取随机一条ATRI语音"},
+        "亚托莉|atri <要说的话>": {"des": "根据文本相似度匹配一条ATRI语音", "eg": "亚托莉|atri 晚安"},
+    },
+    "author": "风屿",
+    "version": "1.0.0",
+    "permission": 3,
+}
+
 
 atri = on_command(
     "atri",

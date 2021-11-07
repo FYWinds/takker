@@ -25,8 +25,8 @@ async def draw_stat(group_id: int):
         try:
             plugin = get_plugin(k)
             assert plugin is not None
-            plugin_name = getattr(plugin.module, "__plugin_name__", None)
-            assert plugin_name is not None
+            plugin_info = getattr(plugin.module, "__plugin_info__", {})
+            plugin_name = plugin_info.get("name", plugin.name)
             p_list_cn |= {plugin_name: p_list[k]}
         except AssertionError:
             p_list_cn |= {k: p_list[k]}

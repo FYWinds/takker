@@ -90,3 +90,20 @@ class Perm:
             await GroupConfig.filter(Q(id=int(id))).delete()
         else:
             await UserConfig.filter(Q(id=int(id))).delete()
+
+    @staticmethod
+    async def get_all_perm(isGroup: Optional[bool] = False) -> dict[str, int]:
+        """
+        :说明: `get_all_perm`
+        > 获取所有已记录权限列表
+
+        :可选参数:
+          * `isGroup: Optional[bool] = False`: 是否是群，默认不是
+
+        :返回:
+          - `dict[str, int]`: {"id": 权限等级}
+        """
+        if isGroup:
+            return {str(i.gid): i.perm for i in await GroupConfig.all() if i.perm}
+        else:
+            return {str(i.uid): i.perm for i in await UserConfig.all() if i.perm}

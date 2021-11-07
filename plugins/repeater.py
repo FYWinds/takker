@@ -1,14 +1,16 @@
 import re
+
 from nonebot import on_message
 from nonebot.typing import T_State
-from nonebot.adapters.cqhttp import Bot, GroupMessageEvent, GROUP
+from nonebot.adapters.cqhttp import GROUP, Bot, GroupMessageEvent
 
-
-__permission__ = 2
-
-__plugin_name__ = "复读机"
-
-__usage__ = "能有啥功能啊喂"
+__plugin_info__ = {
+    "name": "复读",
+    "des": "被动功能，三条消息后触发复读",
+    "author": "风屿",
+    "version": "1.0.0",
+    "permission": 2,
+}
 
 last_msg = {}
 last_repeat_msg = {}

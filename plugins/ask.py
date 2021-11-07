@@ -11,10 +11,23 @@ from api.info import get_group_member_list
 __permission__ = 1
 
 __plugin_name__ = "问答"
-
-__usage__ = "问内容"
-
+__plugin_usage__ = f"""
+{'问 几|多少|什么时候|啥时候|多久|多长时间|x不x|谁':24s} | 生成随机答句
+"""
+__plugin_author__ = "风屿"
+__plugin_version__ = "1.0.0"
 ask = on_startswith("问", priority=20)
+
+__plugin_info__ = {
+    "name": "智障问答",
+    "usage": {
+        "问<内容>": {"des": "生成随机回答内容", "eg": "问我是不是最帅的"}
+    },
+    "additional_info": "所有支持响应的内容请查看文档",
+    "author": "风屿",
+    "version": "1.0.0",
+    "permission": 1,
+}
 
 
 @ask.handle()

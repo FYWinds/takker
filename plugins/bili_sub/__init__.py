@@ -14,10 +14,24 @@ from utils.msg_util import image
 from . import live_pusher, dynamic_pusher
 from .parser import bs_parser
 
-__permission__ = 0
-__plugin_name__ = "UP主订阅"
-__usage__ = "见文档"
-__author__ = "SK-415"
+__plugin_info__ = {
+    "name": "B站UP主订阅助手",
+    "des": "Bilibili UP主的动态更新/直播提醒",
+    "admin_usage": {
+        "bs list": {"des": "查看订阅列表"},
+        "bs add <uid>": {
+            "des": "添加订阅",
+            "eg": "bs add 12345678  # 添加uid为12345678的UP主到订阅列表",
+        },
+        "bs remove <uid>": {
+            "des": "删除订阅",
+            "eg": "bs remove 12345678  # 从订阅列表中删除uid为12345678的UP主",
+        },
+    },
+    "author": "风屿",
+    "version": "1.3.0",
+    "permission": 0,
+}
 
 bs = on_shell_command("bs", parser=bs_parser, priority=20, rule=admin())
 

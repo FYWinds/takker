@@ -10,9 +10,17 @@ from utils.msg_util import image
 from .convert_pic import Image, draw
 from .get_weather import get_City_Weather
 
-__permission__ = 2
-__plugin_name__ = "天气"
-__usage__ = "天气 [城市]"
+__plugin_info__ = {
+    "name": "天气",
+    "des": "生成一张指定地区的当前天气图片",
+    "usage": {
+        "天气 <城市/地区>": {"des": f"获取指定城市/地区的天气，默认为{WEATHER_DEFAULT}"},
+    },
+    "author": "kexue-z",
+    "version": "1.1.0",
+    "permission": 2,
+}
+
 
 weather = on_command("天气", priority=1)
 

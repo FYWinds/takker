@@ -16,11 +16,15 @@ async def list_perm(args: Namespace) -> str:
         return "获取权限等级列表需要超级用户权限"
     if args.group:
         message = f"群权限等级列表：\n{dash*16}"
-        g_list = await get_group_list()
+        g_list = await Perm.get_all_perm(isGroup=True)
         for group in g_list:
-            group_id = group["group_id"]
-            perm = await Perm.query_perm(id=str(group_id), isGroup=True)
-            message = message + "\n" + f"{str(group_id):10s}: {str(perm):2s}级"
+            message = message + "\n" + f"{group:10s}: {str(g_list[group]):2s}级"
+            message = message + "\n" + f"{dash*16}"
+    elif args.user:
+        message = f"用户权限等级列表：\n{dash*16}"
+        u_list = await Perm.get_all_perm()
+        for user in u_list:
+            message = message + "\n" + f"{user:10s}: {str(u_list[user]):2s}级"
             message = message + "\n" + f"{dash*16}"
     elif args.plugin:
         message = f"插件权限等级列表：\n{dash*30}"
@@ -149,7 +153,8 @@ async def reset_perm(args: Namespace) -> str:
                     if p in plugin_perms:
                         plugin = get_plugin(p)
                         assert plugin is not None
-                        plugin_perms[p] = getattr(plugin.module, "__permission__", 5)
+                        plugin_info = getattr(plugin.module, "__plugin_info__", {})
+                        plugin_perms[p] = plugin_info.get("permission", 5)
                         reseted_plugins.append(p)
                 await PluginPerm.group_set_plugin_perm(plugin_perms)
             return f"成功重置插件 {', '.join(reseted_plugins)} 的权限等级为其默认等级"

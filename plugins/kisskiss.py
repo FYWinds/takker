@@ -1,23 +1,28 @@
-from PIL import Image as IMG
-from PIL import ImageOps, ImageDraw
-from moviepy.editor import ImageSequenceClip as imageclip
-import numpy
-import httpx
 from io import BytesIO
 
+import httpx
+import numpy
+from PIL import Image as IMG
+from PIL import ImageOps, ImageDraw
 from nonebot import on_command
-from nonebot.adapters.cqhttp import Bot, MessageEvent, GROUP
+from moviepy.editor import ImageSequenceClip as imageclip
 from nonebot.typing import T_State
+from nonebot.adapters.cqhttp import GROUP, Bot, MessageEvent
 
-from configs.path_config import IMAGE_PATH
-from utils.msg_util import image
 from utils.browser import get_ua
+from utils.msg_util import image
+from configs.path_config import IMAGE_PATH
 
-# 插件信息
-__permission__ = 2
-__plugin_name__ = "亲亲"
-__usage__ = "亲@目标"
-
+__plugin_info__ = {
+    "name": "亲亲",
+    "des": "动图生成",
+    "usage": {
+        "亲 @目标": "返回一张你和目标的亲亲动图",
+    },
+    "author": "风屿",
+    "version": "1.0.0",
+    "permission": 2,
+}
 kiss = on_command("亲", permission=GROUP, priority=20)
 
 

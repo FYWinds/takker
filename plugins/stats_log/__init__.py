@@ -7,11 +7,17 @@ from utils.msg_util import image
 from . import stat_hook
 from .draw import draw_stat, draw_xp_stat
 
-__permission__ = 1
-__plugin_name__ = "插件调用统计"
-__usage__ = """插件调用统计 | 返回插件的调用情况
-xp统计 | 返回pix搜索关键词调用情况
-"""
+__plugin_info__ = {
+    "name": "机器人统计数据",
+    "des": "各功能调用相关统计",
+    "usage": {
+        "调用统计": {"des": "调取本群一个月内的插件调用统计"},
+        "xp统计": {"des": "调取本群一个月内的pix关键词搜索统计"},
+    },
+    "author": "风屿",
+    "version": "1.1.0",
+    "permission": 1,
+}
 
 plugin_stat = on_command(
     "插件调用统计",

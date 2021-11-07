@@ -1,16 +1,25 @@
-from nonebot.adapters.cqhttp import (
-    Bot,
-    PrivateMessageEvent,
-)
-from nonebot.exception import IgnoredException
 from nonebot.plugin import on_shell_command
 from nonebot.typing import T_State
+from nonebot.adapters.cqhttp import Bot, PrivateMessageEvent
 
-from configs.config import SUPERUSERS, OWNER
+from configs.config import OWNER, SUPERUSERS
+
 from .parser import n_parser
 
-__permission__ = 9
-
+__plugin_info__ = {
+    "name": "公告",
+    "des": "向指定群聊通过机器人广播一条信息",
+    "superuser_usage": {
+        "notice list": {"des": "查看机器人运行以来发送过的所有公告"},
+        "notice <group> -n <通知内容>": {
+            "des": "向指定群聊发送指定公告",
+            "eg": "notice 123456 2324352 -n 测试公告",
+        },
+    },
+    "author": "风屿",
+    "version": "1.0.0",
+    "permission": 9,
+}
 
 n = on_shell_command("notice", parser=n_parser, priority=20, block=True)
 

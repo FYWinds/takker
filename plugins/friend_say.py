@@ -8,9 +8,19 @@ from nonebot.adapters.cqhttp.event import GroupMessageEvent
 from utils.img_util import ImageUtil
 from utils.msg_util import image
 
-__permission__ = 3
-__plugin_name__ = "我有一个朋友"
-__usage__ = "我有个朋友@朋友 <要说的话>"
+__plugin_info__ = {
+    "name": "我有个朋友",
+    "des": "伪造一张朋友发来信息的图片",
+    "usage": {
+        "我有个朋友 @某人 <他要说的话>": {"des": "伪造一张朋友发来信息的图片", "eg": "我有个朋友 @群主 来点乐子"},
+        "我有个朋友 @某人 说<他要说的话>": {"des": "伪造一张朋友发来信息的图片", "eg": "我有个朋友 @群主 说来点乐子"},
+    },
+    "addition_info": "我有个朋友可以替换为: 我有一个朋友|我有朋友|我有个朋友说",
+    "author": "风屿",
+    "version": "1.4.0",
+    "permission": 3,
+}
+
 
 friend = on_command("我有个朋友", aliases={"我有一个朋友", "我有朋友", "我有个朋友说"}, priority=20)
 
