@@ -8,8 +8,8 @@ from nonebot import get_bot
 from nonebot.log import logger
 from nonebot_plugin_apscheduler import scheduler
 
+from db.models.bs import BiliSub as DB
 from utils.browser import get_browser
-from service.db.models.bs import BiliSub as DB
 
 from .bilireq import BiliReq
 from .dynamic import Dynamic

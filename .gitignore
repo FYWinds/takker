@@ -122,3 +122,4 @@ temp*.png
 temp*.gif
 temp*.html
 data/*.db-*
+data/data.db.old

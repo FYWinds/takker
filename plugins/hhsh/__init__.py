@@ -16,9 +16,11 @@ async def handle_receive(bot: Bot, event: MessageEvent, state: T_State):
     await hhsh.finish(reply(event.user_id) + text(sx))
 
 
-__usage__ = """好好说话 [缩写内容]
-"""
-
-__plugin_name__ = "缩写查询"
-
-__permission__ = 2
+__plugin_info__ = {
+    "name": "好好说话",
+    "des": "通过 能不能好好说话 API 查询某个缩写词的可能含义",
+    "usage": {"好好说话 <缩写内容>": {"des": "查询某个缩写词的可能含义", "eg": "好好说话 cpdd"}},
+    "author": "风屿",
+    "version": "1.0.0",
+    "permission": 2,
+}

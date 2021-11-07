@@ -1,11 +1,10 @@
 import numpy
-from PIL import Image
-from matplotlib import pyplot
 import multidict
+from PIL import Image
 from wordcloud import WordCloud, ImageColorGenerator
+from matplotlib import pyplot
 
-
-from configs.path_config import IMAGE_PATH, FONT_PATH
+from configs.path_config import FONT_PATH, IMAGE_PATH
 
 
 async def draw_word_cloud(gid: int, words: list):
@@ -19,7 +18,7 @@ async def draw_word_cloud(gid: int, words: list):
         dic.add(key, ndic[key])
     mask = numpy.array(Image.open(f"{IMAGE_PATH}wordcloud/back.jpg"))
     wc = WordCloud(
-        font_path=f"{FONT_PATH}/STKAITI.TTF",
+        font_path=f"{FONT_PATH}/msyh.TTF",
         background_color="white",
         max_font_size=100,
         width=1920,

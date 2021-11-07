@@ -21,7 +21,7 @@ def admin(isGlobal: Optional[bool] = False) -> Rule:
         group_id = getattr(event, "group_id", None)
         role = getattr(getattr(event, "sender", None), "role", None)
         # 不包含用户/群的事件不做响应
-        if user_id == None and group_id == None:
+        if user_id is None and group_id is None:
             return False
         _isBotAdmin = str(user_id) in SUPERUSERS or str(user_id) == OWNER
 
@@ -32,7 +32,7 @@ def admin(isGlobal: Optional[bool] = False) -> Rule:
             else:
                 return _isBotAdmin or _isGroupAdmin
 
-        if user_id is not None and group_id == None:
+        if user_id is not None and group_id is None:
             return _isBotAdmin
 
         return False

@@ -1,5 +1,4 @@
 import os
-import json
 import time
 import textwrap
 
@@ -13,13 +12,21 @@ from nonebot.adapters.cqhttp import Bot, MessageEvent, GroupMessageEvent
 
 from configs.config import ALI_API_TOKEN
 from utils.msg_util import text, image, reply
+from db.utils.starluck import Starluck
 from configs.path_config import FONT_PATH, IMAGE_PATH
-from service.db.utils.starluck import set_star, query_star
 
-__permission__ = 1
-__plugin_name__ = "星座运势"
-__usage__ = """.sluck 星座 | 绑定指定星座
-.sluck | 获取绑定的星座的运势数据"""
+__plugin_info__ = {
+    "name": "星座运势",
+    "des": "每个星座每日的详细运势",
+    "usage": {
+        ".sluck|sluck|星座运势": "返回你绑定的星座的当日运势",
+        ".sluck|sluck|星座运势 <星座>": {"des": "绑定一个星座，返回这个星座的当日运势", "eg": ".sluck 双鱼座"},
+    },
+    "author": "风屿",
+    "version": "1.0.0",
+    "permission": 1,
+}
+
 
 starluck = on_command(
     ".sluck",
@@ -68,7 +75,7 @@ async def handle_starluck_receive(bot: Bot, event: MessageEvent, state: T_State)
             await starluck.finish(message)
 
         num = stars.index(star_pinyin) + 1
-        await set_star(user_id, num)
+        await Starluck.set_star(user_id, num)
         message = (
             (reply(user_id) + text("绑定成功"))
             if isinstance(event, GroupMessageEvent)
@@ -76,7 +83,7 @@ async def handle_starluck_receive(bot: Bot, event: MessageEvent, state: T_State)
         )
         await starluck.send(message)
 
-    if not await query_star(user_id):
+    if not await Starluck.query_star(user_id):
         message = (
             (reply(user_id) + text("请使用\n.sluck 星座\n绑定星座"))
             if isinstance(event, GroupMessageEvent)
@@ -84,8 +91,8 @@ async def handle_starluck_receive(bot: Bot, event: MessageEvent, state: T_State)
         )
         await starluck.finish(message)
 
-    star_pinyin = stars[await query_star(user_id) - 1]
-    star = stars_cn[await query_star(user_id) - 1]
+    star_pinyin = stars[await Starluck.query_star(user_id) - 1]
+    star = stars_cn[await Starluck.query_star(user_id) - 1]
 
     # 从缓存读取图片
 
@@ -204,7 +211,7 @@ async def generate_content(resp_body: dict, star: str):
 async def generate_img(star_pinyin: str, content: str):
     im = Image.new("RGB", (450, 600), (255, 255, 255))
     draw = ImageDraw.Draw(im)
-    font = ImageFont.truetype(os.path.join(FONT_PATH, "PingFangMedium.ttf"), 14)
+    font = ImageFont.truetype(os.path.join(FONT_PATH, "msyh.ttf"), 14)
     draw.text((10, 10), content, font=font, fill=(65, 83, 130))
     time_today = time.strftime("%Y-%m-%d")
     file = f"{IMAGE_PATH}starluck/temp-{time_today}-{star_pinyin}.png"

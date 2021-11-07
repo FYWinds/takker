@@ -4,7 +4,7 @@ import httpx
 
 from utils.browser import get_ua
 from configs.config import PIXIV_IMAGE_URL
-from service.db.models.illust import Illust
+from db.models.illust import Illust
 
 
 async def get_illust(nsfw: int, keywords: Optional[list] = []) -> dict:

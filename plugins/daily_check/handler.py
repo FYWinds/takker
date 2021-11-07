@@ -4,8 +4,8 @@ import random
 
 from api.info import get_stranger_info
 from utils.browser import get_browser
-from configs.path_config import IMAGE_PATH, TEMPLATE_PATH
-from service.db.utils.point import add_random_points
+from db.utils.point import Point
+from configs.path_config import TEMPLATE_PATH
 
 from .data_source import get_msg, get_greet, get_stick, get_acg_image
 
@@ -30,12 +30,12 @@ async def get_card(user_id: int):
         mtime = time.strftime(r"%Y%m%d", modifiedTime)
         ntime = time.strftime(r"%Y%m%d", time.localtime(time.time()))
         if mtime != ntime:
-            points = await add_random_points(user_id, 20)
+            points = await Point.add_random_points(user_id, 20)
             template = template.replace("[points]", str(points))
         else:
             template = template.replace("[points]", "0(已经签到过啦)")
     else:
-        points = await add_random_points(user_id, 20)
+        points = await Point.add_random_points(user_id, 20)
         template = template.replace("[points]", str(points))
 
     template = template.replace("static/", "../static/")

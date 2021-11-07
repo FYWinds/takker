@@ -1,20 +1,30 @@
-__permission__ = 6
-
-__plugin_name__ = "随机pixiv美图"
-
-__usage__ = """pix <关键词> <-l NSFW等级>
-NSFW等级: 0-全年龄 1-R15 2-R18"""
-
 from zhconv import convert
 from nonebot.plugin import on_shell_command
 from nonebot.typing import T_State
 from nonebot.adapters.cqhttp import Bot, MessageEvent, GroupMessageEvent
-from nonebot.adapters.cqhttp.event import GroupMessageEvent
 
 from utils.msg_util import text, image, reply
-from service.db.utils.illust_config import get_illust_config
+from db.utils.illust_config import IllustConfig
 
 from .parser import pic_parser, set_parser
+
+__plugin_info__ = {
+    "name": "Pixiv美图",
+    "des": "从Bot的数据库中随机抽取一张来自于Pixiv的美图",
+    "usage": {
+        "pix": "返回一张全年龄图片",
+        "pix -l <等级>": {"des": "返回一张指定等级的图片", "eg": "pix -l 1"},
+        "pix <关键词>": {"des": "返回一张指定关键词的图片", "eg": "pix 初音未来 miku -l 2"},
+    },
+    "additional_info": """
+等级 0->全年龄,1->R-15,2->R18
+等级默认为0，可与关键词同时使用
+关键词可输入多个，用空格隔开，为与的关系
+""".strip(),
+    "author": "风屿",
+    "version": "1.0.0",
+    "permission": 6,
+}
 
 pic = on_shell_command("pix", parser=pic_parser, priority=20)
 
@@ -29,7 +39,7 @@ async def _(bot: Bot, event: MessageEvent, state: T_State):
         result = await args.handle(args)
         if result:
             r = result
-            c = await get_illust_config()
+            c = await IllustConfig.get_illust_config()
             tags = convert(r["tags"], "zh-tw")
             message = (
                 f"{r['title']}({r['pid']})\n作者: {r['author']}({r['uid']})\ntags: {tags}"
@@ -99,7 +109,7 @@ async def _s(bot: Bot, event: MessageEvent, state: T_State):
     if hasattr(args, "handle"):
         result = await args.handle(args)
         if result:
-            current_config = await get_illust_config()
+            current_config = await IllustConfig.get_illust_config()
             c: list[str] = []
             for n in current_config.keys():
                 c.append(f"{n}, {'开启' if current_config[n] else '关闭'}")
