@@ -28,4 +28,4 @@ else:
 
 # Migration
 logger.debug("Migration...")
-subprocess.Popen("aerich upgrade", stdout=subprocess.DEVNULL)
+subprocess.Popen("poetry run aerich upgrade", stdout=subprocess.DEVNULL)
