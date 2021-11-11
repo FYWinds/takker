@@ -76,11 +76,13 @@ async def get_status() -> Message:
     pid = os.getpid()
     cpu_percent = psutil.cpu_percent(interval=0.1)
     mem_percent = psutil.Process(pid).memory_percent()
-    total_cpus = psutil.cpu_count()
+    server_mem = psutil.virtual_memory().used / 1024 / 1024
+    server_mem_percent = psutil.virtual_memory().percent
     total_mem = psutil.virtual_memory().total / 1024 / 1024
     message: str = f"""
-CPU使用率: {cpu_percent:.2f}% {cpu_percent/100*total_cpus:.2f} | {total_cpus:.2f} Cores
-内存使用率: {mem_percent:.2f}% {mem_percent*total_mem/100:.2f} | {total_mem:.2f} MB
+CPU使用率: {cpu_percent:.2f}%
+内存使用率: bot: {mem_percent:.2f}% | used: {server_mem_percent:.2f}%
+bot: {mem_percent*total_mem/100:.2f} MB | used: {server_mem:.2f} MB | total: {total_mem:.2f} MB
 """
     return text(message.strip()) + image(c=pt_img)
 
