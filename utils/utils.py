@@ -3,7 +3,7 @@ from typing import Union, Optional
 from collections import defaultdict
 
 from nonebot import require
-from nonebot.adapters.cqhttp import Event, GroupMessageEvent, PrivateMessageEvent
+from nonebot.adapters import Event
 
 from db.utils.perm import Perm
 from configs.config import HIDDEN_PLUGINS, MAX_PROCESS_TIME
@@ -15,7 +15,7 @@ scheduler = require("nonebot_plugin_apscheduler").scheduler  # type: ignore
 async def perm_check(perm: int, event: "Event") -> bool:
     """
     :说明:
-        检查是否拥有足够权限等级(仅支持cqhttp)
+        检查是否拥有足够权限等级
 
     :参数:
       * ``perm: int``: 权限等级

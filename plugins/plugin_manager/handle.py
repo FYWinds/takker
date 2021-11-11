@@ -20,6 +20,7 @@ async def handle_ls(args: Namespace) -> str:
                 id=str(i), isGroup=True if t == "group" else False
             )
             plugin_list = await get_plugin_list(args.conv, perm)
+            del plugin_list["plugin_manager"]
     message += "\n".join(
         f"[{'o' if plugin_list[p] else 'x'}] {p:24s}" for p in plugin_list
     )
@@ -30,16 +31,17 @@ async def handle_ban(args: Namespace):
     perm = await Perm.query_perm(id=str(args.conv["user"][0]))
     if args.is_admin:
         perm = 9
-    plugin = await get_plugin_list(args.conv, perm)
+    plugin_list = await get_plugin_list(args.conv, perm)
+    del plugin_list["plugin_manager"]
     if args.all:
-        args.plugin = list(p for p in plugin)
+        args.plugin = list(p for p in plugin_list)
     if args.reverse:
-        args.plugin = list(filter(lambda p: p not in args.plugin, plugin))
+        args.plugin = list(filter(lambda p: p not in args.plugin, plugin_list))
     result: dict[str, bool]
     result = {}
     if not args.is_superuser:
-        for p in plugin:
-            if p in args.plugin and not plugin[p]:
+        for p in plugin_list:
+            if p in args.plugin and not plugin_list[p]:
                 args.plugin.pop(p)  # type: ignore
                 result[p] = False
 
@@ -73,16 +75,17 @@ async def handle_unban(args: Namespace):
     perm = await Perm.query_perm(id=str(args.conv["user"][0]))
     if args.is_admin:
         perm = 9
-    plugin = await get_plugin_list(args.conv, perm)
+    plugin_list = await get_plugin_list(args.conv, perm)
+    del plugin_list["plugin_manager"]
     if args.all:
-        args.plugin = list(p for p in plugin)
+        args.plugin = list(p for p in plugin_list)
     if args.reverse:
-        args.plugin = list(filter(lambda p: p not in args.plugin, plugin))
+        args.plugin = list(filter(lambda p: p not in args.plugin, plugin_list))
     result: dict[str, bool]
     result = {}
     if not args.is_superuser:
-        for p in plugin:
-            if p in args.plugin and not plugin[p]:
+        for p in plugin_list:
+            if p in args.plugin and not plugin_list[p]:
                 args.plugin.pop(p)  # type: ignore
                 result[p] = False
 

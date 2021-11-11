@@ -4,7 +4,6 @@ from nonebot.adapters.cqhttp import GROUP, Bot, GroupMessageEvent
 
 from utils.msg_util import image
 
-from . import stat_hook
 from .draw import draw_stat, draw_xp_stat
 
 __plugin_info__ = {

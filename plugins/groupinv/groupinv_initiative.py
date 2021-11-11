@@ -5,13 +5,6 @@ from nonebot.adapters.cqhttp.exception import ActionFailed
 from api.info import get_stranger_info, group_join_request, get_group_member_list
 from api.group_manage import set_request
 
-__permission__ = 0
-
-__plugin_name__ = "加群自动审核"
-
-__usage__ = """无指令
-"""
-
 
 @scheduler.scheduled_job("interval", seconds=10, id="handle_group_req")
 async def handle_group_requests():

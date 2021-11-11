@@ -1,3 +1,6 @@
+import os
+import subprocess
+
 from tortoise import Tortoise
 from nonebot.log import logger
 from tortoise.exceptions import DBConnectionError
@@ -38,7 +41,7 @@ TORTOISE_ORM: dict = {
 }
 
 
-async def db_init():
+async def connect_database():
     logger.debug("开始连接数据库")
     try:
         await Tortoise.init(TORTOISE_ORM)

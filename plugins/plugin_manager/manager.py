@@ -17,7 +17,7 @@ async def get_plugin_list(
     for p in list(plugin_list.keys()):
         plugin = get_plugin(p)
         if plugin:
-            if plugin.name in HIDDEN_PLUGINS or plugin.name == "plugin_manager":
+            if plugin.name in HIDDEN_PLUGINS:
                 continue
             plugin_info = getattr(plugin.module, "__plugin_info__", {})
             plugin_perm = plugin_info.get("permission", 5)
@@ -29,7 +29,6 @@ async def get_plugin_list(
 async def ban_plugin(
     conv={"user": [], "group": []}, plugins: list[str] = [], perm: int = 0
 ) -> dict[str, bool]:
-    plugin_list: dict[str, bool] = {}
     result = {}
     all_plugin_list = await get_plugin_list(conv, perm)
     if conv["group"]:
@@ -48,9 +47,9 @@ async def ban_plugin(
                     if plugin_perm > perm:
                         result[p] = False
                         continue
-                    plugin_list |= {p: False}
+                    all_plugin_list[p] = False
                     await PluginManager.set_plugin_status(
-                        str(g), plugin_list, isGroup=True
+                        str(g), all_plugin_list, isGroup=True
                     )
     else:
         for u in conv["user"]:
@@ -68,9 +67,9 @@ async def ban_plugin(
                     if plugin_perm > perm:
                         result[p] = False
                         continue
-                    plugin_list |= {p: False}
+                    all_plugin_list[p] = False
                     await PluginManager.set_plugin_status(
-                        str(u), plugin_list, isGroup=False
+                        str(u), all_plugin_list, isGroup=False
                     )
     return result
 
@@ -78,7 +77,6 @@ async def ban_plugin(
 async def unban_plugin(
     conv={"user": [], "group": []}, plugins: list[str] = [], perm: int = 0
 ) -> dict[str, bool]:
-    plugin_list: dict[str, bool] = {}
     all_plugin_list = await get_plugin_list(conv, perm)
     result = {}
     if conv["group"]:
@@ -97,9 +95,9 @@ async def unban_plugin(
                     if plugin_perm > perm:
                         result[p] = False
                         continue
-                    plugin_list |= {p: True}
+                    all_plugin_list[p] = True
                     await PluginManager.set_plugin_status(
-                        str(g), plugin_list, isGroup=True
+                        str(g), all_plugin_list, isGroup=True
                     )
     else:
         for u in conv["user"]:
@@ -117,8 +115,8 @@ async def unban_plugin(
                     if plugin_perm > perm:
                         result[p] = False
                         continue
-                    plugin_list |= {p: True}
+                    all_plugin_list[p] = True
                     await PluginManager.set_plugin_status(
-                        str(u), plugin_list, isGroup=False
+                        str(u), all_plugin_list, isGroup=False
                     )
     return result

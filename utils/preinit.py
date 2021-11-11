@@ -1,5 +1,6 @@
 import asyncio
 import platform
+import subprocess
 
 from uvicorn import config
 from nonebot.log import logger
@@ -16,6 +17,7 @@ def should_reload(self):
     return False
 
 
+# monkey patch for uvicorn reload bug on windows platform
 if platform.system() == "Windows":
     _asyncio.asyncio_setup = asyncio_setup
     config.Config.should_reload = should_reload  # type: ignore
@@ -23,3 +25,7 @@ if platform.system() == "Windows":
 else:
     config.Config.should_reload = should_reload  # type: ignore
     logger.info("已禁用uvicorn自动重载")
+
+# Migration
+logger.debug("Migration...")
+subprocess.Popen("aerich upgrade", stdout=subprocess.DEVNULL)

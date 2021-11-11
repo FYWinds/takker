@@ -26,7 +26,7 @@ ERROR_LOG_TIME: int = 90  # 错误日志记录时长，单位天
 HIDDEN_PLUGINS: List[str] = [
     "nonebot_plugin_apscheduler",
     "nonebot_plugin_test",
-    "hook",
+    "hooks",
     "invite_check",
     "withdraw",
 ]

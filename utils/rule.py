@@ -60,3 +60,16 @@ def limit_group(group_list: list[Union[int, str]]) -> Rule:
         return False
 
     return Rule(_limit_group)
+
+
+def on_poke() -> Rule:
+    """
+    :说明: `on_poke`
+    > 检测戳一戳事件
+    """
+    async def _on_poke(bot: "Bot", event: "Event", state: T_State) -> bool:
+        if getattr(event, "sub_type", None) == "poke":
+            return True
+        return False
+
+    return Rule(_on_poke)

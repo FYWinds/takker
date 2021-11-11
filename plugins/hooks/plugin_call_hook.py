@@ -1,9 +1,11 @@
 import time
+from typing import Optional
 
 from nonebot.typing import T_State
 from nonebot.matcher import Matcher
 from nonebot.message import run_postprocessor
-from nonebot.adapters.cqhttp import Bot, Event, GroupMessageEvent
+from nonebot.adapters import Bot, Event
+from nonebot.adapters.cqhttp import GroupMessageEvent
 
 from configs.config import HIDDEN_PLUGINS
 from db.models.statistic import Statistic
@@ -12,8 +14,8 @@ stat: dict[int, dict[int, dict[str, int]]]
 # {gid: {day1: {plugin: times}, day2: {plugin: times}}}
 
 
-@run_postprocessor  # type: ignore
-async def _(matcher: Matcher, e: Exception, bot: Bot, event: Event, state: T_State):
+@run_postprocessor
+async def _(matcher: Matcher, e: Optional[Exception], bot: Bot, event: Event, state: T_State):
     if not isinstance(event, GroupMessageEvent):
         return
     if e:

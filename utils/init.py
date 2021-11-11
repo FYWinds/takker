@@ -1,8 +1,6 @@
-import subprocess
-
 from nonebot.log import logger
 
-from db.db_connect import db_init
+from db.db_connect import connect_database
 from utils.browser import install
 from configs.config import INFO_LOG_TIME, DEBUG_LOG_TIME, ERROR_LOG_TIME
 from configs.path_config import LOG_PATH
@@ -41,17 +39,11 @@ async def init_bot_startup():
     )
 
     # *建立数据库连接
-    await db_init()
+    await connect_database()
 
     # *检查更新Playwright的Chromuim
     await install()
 
-    # *数据迁移
-    logger.debug("Starting Migration...")
-    subprocess.Popen(
-        "aerich upgrade", shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT
-    )
-    logger.debug("Migration Complete...")
     await convert()
 
     # *更新权限

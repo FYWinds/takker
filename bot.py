@@ -1,10 +1,10 @@
 import nonebot
 from nonebot.adapters.cqhttp import Bot as CQHTTPBot
 
-import utils.patcher  # type: ignore
+import utils.preinit  # type: ignore
 from utils.init import init_bot_startup, update_plugin_list
-from utils.browser import close_browser
 from db.db_connect import db_disconnect
+from utils.browser import close_browser
 
 nonebot.init()
 

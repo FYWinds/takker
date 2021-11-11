@@ -7,14 +7,6 @@ from utils.msg_util import music_163
 
 from .data_source import dataGet, dataProcess
 
-__permission__ = 2
-__plugin_name__ = "点歌(网易云)"
-__plugin_usage__ = f"""
-{'点歌 <歌名>':24s} | 搜索网易云音乐歌曲
-"""
-__plugin_author__ = "风屿"
-__plugin_version__ = "1.0.0"
-
 __plugin_info__ = {
     "name": "网易云点歌",
     "usage": {
