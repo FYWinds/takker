@@ -26,7 +26,9 @@ async def end_time_log(
     global process_time
     if "start_time" not in state:
         return
-    if state.get("_prefix", {}).get("raw_command", None) is None:
+    if not state.get("_prefix", {}).get("raw_command", None):
+        return
+    if matcher.priority in (0, 11) or matcher.priority in (91, 101):
         return
     start_time = state["start_time"]
     plugin_name = state.get("plugin_name", "Unknown")
