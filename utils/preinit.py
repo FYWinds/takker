@@ -1,6 +1,6 @@
+import os
 import asyncio
 import platform
-import subprocess
 
 from uvicorn import config
 from nonebot.log import logger
@@ -28,4 +28,4 @@ else:
 
 # Migration
 logger.debug("Migration...")
-subprocess.Popen("poetry run aerich upgrade", stdout=subprocess.DEVNULL)
+os.system("aerich upgrade")
