@@ -79,7 +79,7 @@ async def get_status() -> Message:
     total_cpus = psutil.cpu_count()
     total_mem = psutil.virtual_memory().total / 1024 / 1024
     message: str = f"""
-CPU使用率: {cpu_percent:.2f}% {cpu_percent*total_cpus:.2f} | {total_cpus:.2f} Cores
+CPU使用率: {cpu_percent:.2f}% {cpu_percent/100*total_cpus:.2f} | {total_cpus:.2f} Cores
 内存使用率: {mem_percent:.2f}% {mem_percent*total_mem/100:.2f} | {total_mem:.2f} MB
 """
     return text(message.strip()) + image(c=pt_img)
