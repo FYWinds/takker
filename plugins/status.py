@@ -74,7 +74,7 @@ async def get_status() -> Message:
     pt_img = await generate_pic(filename)
 
     pid = os.getpid()
-    cpu_percent = psutil.Process(pid).cpu_percent(interval=None)
+    cpu_percent = psutil.cpu_percent(interval=0.1)
     mem_percent = psutil.Process(pid).memory_percent()
     total_cpus = psutil.cpu_count()
     total_mem = psutil.virtual_memory().total / 1024 / 1024
