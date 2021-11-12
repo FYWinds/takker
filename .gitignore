@@ -124,3 +124,4 @@ temp*.html
 resources/**/temp/*
 data/*.db-*
 data/data.db.old
+data/backups/*

@@ -26,7 +26,7 @@ async def live_sched():
         return
     if not uids:
         return
-    logger.debug(f"爬取直播列表，目前开播{sum(status.values())}人，总共{len(uids)}人")
+    # logger.debug(f"爬取直播列表，目前开播{sum(status.values())}人，总共{len(uids)}人")
     br = BiliReq()
     res = await br.get_live_list(uids)
     if not res:

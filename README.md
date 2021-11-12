@@ -42,7 +42,8 @@
 - [x] 天气 (基于[nonebot-plugin-heweather](https://github.com/kexue-z/nonebot-plugin-heweather/)插件修改)
 - [x] 鲁迅说 (抄的[zhenxun_bot](https://github.com/HibiKier/zhenxun_bot))
 - [x] 我有个朋友说
-- [x] 答案之书 
+- [x] 答案之书
+- [x] Bot运行状态
 
 ### 已实现的管理员功能
 - [x] 95%的插件功能开关 (基于[nonebot_plugin_manager](https://github.com/Jigsaw111/nonebot_plugin_manager)插件修改)
@@ -57,12 +58,14 @@
 - [x] 好友请求转发给主人处理
 - [x] 超级用户发送多群联合公告后通知主人
 - [x] pixiv图片上传由主人审核级别
+- [x] 回滚数据库 
 
 ### 已实现的被动技能
 - [x] 被超级用户拉入群聊自动通过
 - [x] 复读
 - [x] 问（智障回复）
 - [x] B站视频解析 (基于[ABot-Graia的插件](https://github.com/djkcyl/ABot-Graia/blob/master/saya/BilibiliResolve)修改而来)
+- [x] 数据库自动备份 
 
 ### 已实现的隐藏技能！
 - [x] 检测恶意触发命令（将被次高权限ban掉5分钟，只有最高权限(9&10级)可以进行unban）
@@ -162,6 +165,10 @@ HIDDEN_PLUGINS: List[str] = [
     "withdraw",
 ]
 
+# 数据自动备份
+DB_BAKCUP_INTERVAL: int = 720  # 备份间隔，单位分钟
+DB_BACKUP_COPIES: int = 12  # 保留的备份数量
+
 WEATHER_DEFAULT: str = ""  # 天气插件默认城市/区
 ```
 
@@ -192,6 +199,12 @@ TEMP_PATH = Path("resources/img/temp/")
 
 <details>
 <summary>更新记录</summary>
+
+### 2021/11/12
+* 添加功能-机器人状态
+* 添加功能-数据库备份与回滚
+* 修复各个Bug
+* 提高性能
 
 ### 2021/10/31
 * 添加功能-答案之书

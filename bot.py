@@ -5,6 +5,7 @@ import utils.preinit  # type: ignore
 from utils.init import init_bot_startup, update_plugin_list
 from db.db_connect import db_disconnect
 from utils.browser import close_browser
+from utils.shutdown import shut_down
 
 nonebot.init()
 
@@ -17,6 +18,7 @@ update_plugin_list(driver)
 driver.on_startup(init_bot_startup)
 driver.on_shutdown(db_disconnect)
 driver.on_shutdown(close_browser)
+driver.on_shutdown(shut_down)
 
 
 nonebot.load_plugins("plugins")

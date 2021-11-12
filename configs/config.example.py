@@ -31,6 +31,10 @@ HIDDEN_PLUGINS: List[str] = [
     "withdraw",
 ]
 
+# 数据自动备份
+DB_BAKCUP_INTERVAL: int = 720  # 备份间隔，单位分钟
+DB_BACKUP_COPIES: int = 12  # 保留的备份数量
+
 WEATHER_DEFAULT: str = ""  # 天气插件默认城市/区
 
 SUPERUSERS += list(map(int, SUPERUSERS))

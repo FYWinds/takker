@@ -32,7 +32,7 @@ async def dy_sched():
         asyncio.sleep(2)
         name = await DB.get_user_name(uid)
 
-        logger.debug(f"爬取动态 {name}（{uid}）")
+        # logger.debug(f"爬取动态 {name}（{uid}）")
         br = BiliReq()
         dynamics = (await br.get_user_dynamics(uid)).get("cards", [])  # 获取最近十二条动态
 
