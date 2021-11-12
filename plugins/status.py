@@ -25,7 +25,7 @@ __plugin_info__ = {
 }
 
 
-sp = on_notice(rule=on_poke(), priority=20, block=False)
+sp = on_notice(rule=on_poke() & to_me(), priority=20, block=False)
 sc = on_command("状态", aliases={"当前状态"}, rule=to_me(), priority=20, block=False)
 
 
