@@ -1,4 +1,7 @@
 import time
+import inspect
+import warnings
+import functools
 from typing import Union, Optional
 from collections import defaultdict
 
@@ -127,3 +130,25 @@ class ExploitCheck:
             self.mint[key] = 0
             return True
         return False
+
+
+def deprecated(reason: str):
+    def decorator(func):
+        if inspect.isclass(func):
+            fmt = "Call to deprecated class {name}:{reason}"
+        else:
+            fmt = "Call to deprecated function {name}:{reason}"
+
+        @functools.wraps(func)
+        def _func(*args, **kwargs):
+            warnings.warn(
+                fmt.format(name=func.__name__, reason=reason),
+                category=DeprecationWarning,
+                stacklevel=2,
+            )
+            warnings.simplefilter("default", DeprecationWarning)
+            return func(*args, **kwargs)
+
+        return _func
+
+    return decorator

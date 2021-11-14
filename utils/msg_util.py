@@ -1,5 +1,5 @@
-## Author HibiKier/zhenxun_bot
-## Edit by FYWinds
+# Author HibiKier/zhenxun_bot
+# Edit by FYWinds
 import os
 from io import BytesIO
 from typing import Union, Optional

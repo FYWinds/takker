@@ -2,8 +2,7 @@ from nonebot.log import logger
 from nonebot_plugin_apscheduler import scheduler
 from nonebot.adapters.cqhttp.exception import ActionFailed
 
-from api.info import get_stranger_info, group_join_request, get_group_member_list
-from api.group_manage import set_request
+from api import InfoAPI, GroupManagementAPI
 
 
 @scheduler.scheduled_job("interval", seconds=10, id="handle_group_req")
@@ -35,7 +34,7 @@ async def handle_group_requests():
     ]
     # * 一群 二群 三群 四群 直播通知群 测试群
 
-    req = await group_join_request()
+    req = await InfoAPI.group_join_request()
     if not req:
         return
     for reqs in req:
@@ -67,7 +66,7 @@ async def approve_requests(reqs: dict):
     group_id = reqs["group_id"]
     group_name = reqs["group_name"]
     try:
-        await set_request(flag, True)
+        await GroupManagementAPI.set_request(flag, True)
     except ActionFailed as e:
         f_reason = e.info["wording"]
         logger.info(
@@ -85,7 +84,7 @@ async def reject_requests(reqs: dict, reason: str):
     group_id = reqs["group_id"]
     group_name = reqs["group_name"]
     try:
-        await set_request(flag, False, reason)
+        await GroupManagementAPI.set_request(flag, False, reason)
     except ActionFailed as e:
         f_reason = e.info["wording"]
         logger.info(
@@ -98,9 +97,9 @@ async def reject_requests(reqs: dict, reason: str):
 
 async def check_list(user_id: str):
     # g1 = await get_group_member_list(511467246)
-    g2 = await get_group_member_list(319152433)
-    g3 = await get_group_member_list(603809278)
-    g4 = await get_group_member_list(869202661)
+    g2 = await InfoAPI.get_group_member_list(319152433)
+    g3 = await InfoAPI.get_group_member_list(603809278)
+    g4 = await InfoAPI.get_group_member_list(869202661)
 
     # for data in g1:
     #     if user_id == str(data['user_id']):
@@ -117,7 +116,7 @@ async def check_list(user_id: str):
 
 
 async def check_level(reqs: dict):
-    r = await get_stranger_info(reqs["requester_uin"])
+    r = await InfoAPI.get_stranger_info(reqs["requester_uin"])
     if r["level"] >= 15:
         return True
     else:

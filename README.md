@@ -1,7 +1,7 @@
 [![Time](https://wakatime.com/badge/github/FYWinds/takker.svg)](https://wakatime.com/badge/github/FYWinds/takker)
 
 ![maven](https://img.shields.io/badge/python-3.9%2B-green)
-![maven](https://img.shields.io/badge/nonebot-2.0.0a15-mint)
+![maven](https://img.shields.io/badge/nonebot-2.0.0a16-mint)
 ![maven](https://img.shields.io/badge/go--cqhttp-1.0.0--beta7.fix2-lime)
 
 [![State-of-the-art Shitcode](https://img.shields.io/static/v1?label=State-of-the-art&message=Shitcode&color=7B5804)](https://github.com/trekhleb/state-of-the-art-shitcode)
@@ -326,7 +326,6 @@ TEMP_PATH = Path("resources/img/temp/")
 - [ ] 缓存清理功能
 - [ ] 完善各种功能
 - [ ] docker容器化部署
-- [ ] 提供非侵入式的权限等级管理方式
 
 ## 感谢
 [Onebot](https://github.com/howmanybots/onebot)  
