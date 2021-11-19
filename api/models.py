@@ -217,6 +217,32 @@ class ImageInfo(BaseModel):
     url: str
 
 
+class VersionInfo(BaseModel):
+    app_name: Literal["go-cqhttp"]
+    app_version: str
+    app_full_name: str
+    runtime_version: str
+    runtime_os: str
+    version: str
+    protocol: int
+
+
+class OCRCoordinates(BaseModel):
+    x: int
+    y: int
+
+
+class OCRText(BaseModel):
+    text: str
+    confidence: int
+    coordinates: List[OCRCoordinates]
+
+
+class OCRResult(BaseModel):
+    language: str
+    texts: List[OCRText]
+
+
 __all__ = [
     "SelfGroupMessage",
     "MessageGot",
@@ -236,4 +262,6 @@ __all__ = [
     "EssenceMsg",
     "ForwardMsg",
     "ImageInfo",
+    "VersionInfo",
+    "OCRResult",
 ]

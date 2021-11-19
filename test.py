@@ -83,7 +83,8 @@ b = ForwardMsg(
         ],
         "sender": {"nickname": "风屿测试bot", "user_id": 3147315517},
         "time": 1636712312,
+        "extra": 1243,
     }
 )
 
-print(b.content[0].data)
+print(b)

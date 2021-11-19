@@ -233,3 +233,33 @@ class GroupManagementAPI(BaseAPI):
             approve=approve,
             reason=reason,
         )
+
+    async def upload_group_file(
+        self, group_id: Union[int, str], file: Union[str, Path], name: str, folder: str
+    ) -> None:
+        """
+        :说明: `upload_group_file`
+        > [**上传群文件**](https://docs.go-cqhttp.org/api/#%E4%B8%8A%E4%BC%A0%E7%BE%A4%E6%96%87%E4%BB%B6)
+
+        :参数:
+          * `group_id: Union[int, str]`: 群号
+          * `file: Union[str, Path]`: 文件路径
+          * `name: str`: 文件名
+          * `folder: str`: 群文件父文件夹 ID
+        """
+        if isinstance(file, Path):
+            file = str(file.resolve())
+        await self.call(
+            "upload_group_file", group_id=group_id, file=file, name=name, folder=folder
+        )
+
+    async def send_group_notice(self, group_id: Union[int, str], content: str) -> None:
+        """
+        :说明: `send_group_notice`
+        > [**发送群公告**](https://docs.go-cqhttp.org/api/#%E5%8F%91%E9%80%81%E7%BE%A4%E5%85%AC%E5%91%8A)
+
+        :参数:
+          * `group_id: Union[int, str]`: 群号
+          * `content: str`: 公告内容
+        """
+        await self.call("_send_group_notice", group_id=group_id, content=content)

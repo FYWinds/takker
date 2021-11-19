@@ -109,7 +109,7 @@ class MessageAPI(BaseAPI):
     ) -> List[Union[GroupMessageEvent, SelfGroupMessage]]:
         """
         :说明: `get_group_msg_history`
-        > 获取群消息历史记录
+        > [**获取群消息历史记录**](https://docs.go-cqhttp.org/api/#%E8%8E%B7%E5%8F%96%E7%BE%A4%E6%B6%88%E6%81%AF%E5%8E%86%E5%8F%B2%E8%AE%B0%E5%BD%95)
 
         :参数:
           * `message_seq: Union[int, str]`: 起始消息序号, 可通过 get_msg 获得
@@ -192,3 +192,23 @@ class MessageAPI(BaseAPI):
                 "send_group_forward_msg", group_id=group_id, messages=messages
             )
         )["message_id"]
+
+    async def set_essence_msg(self, message_id: Union[int, str]) -> None:
+        """
+        :说明: `set_essence_msg`
+        > [**设置精华消息**](https://docs.go-cqhttp.org/api/#%E8%AE%BE%E7%BD%AE%E7%B2%BE%E5%8D%8E%E6%B6%88%E6%81%AF)
+
+        :参数:
+          * `message_id: Union[int, str]`: 消息ID
+        """
+        await self.call("set_essence_msg", message_id=message_id)
+
+    async def delete_essence_msg(self, message_id: Union[int, str]) -> None:
+        """
+        :说明: `delete_essence_msg`
+        > [**移出精华消息**](https://docs.go-cqhttp.org/api/#%E7%A7%BB%E5%87%BA%E7%B2%BE%E5%8D%8E%E6%B6%88%E6%81%AF)
+
+        :参数:
+          * `message_id: Union[int, str]`: 消息ID
+        """
+        await self.call("delete_essence_msg", message_id=message_id)
