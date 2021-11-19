@@ -8,6 +8,7 @@ from nonebot import get_bot
 from nonebot.log import logger
 from nonebot_plugin_apscheduler import scheduler
 
+from gocqapi import api
 from db.models.bs import BiliSub as DB
 from utils.browser import get_browser
 
@@ -24,10 +25,7 @@ async def dy_sched():
     uids = await DB.get_dynamic_bid()
     if not uids:
         return
-    try:
-        bot = get_bot()
-    except (KeyError, ValueError):
-        return
+
     for uid in uids:
         asyncio.sleep(2)
         name = await DB.get_user_name(uid)
@@ -67,16 +65,10 @@ async def dy_sched():
 
                 push_list = await DB.get_dynamic_push_list(uid)
                 for g in push_list["group"]:
-                    await bot.call_api(
-                        "send_group_msg",
-                        **{"message": dynamic.message, "group_id": g},
-                    )
+                    await api.group_message(g, dynamic.message)
                     asyncio.sleep(random.random())
                 for u in push_list["user"]:
-                    await bot.call_api(
-                        "send_private_msg",
-                        **{"message": dynamic.message, "user_id": u},
-                    )
+                    await api.friend_message(u, dynamic.message)
                     asyncio.sleep(random.random())
 
                 last_time[uid] = dynamic.time

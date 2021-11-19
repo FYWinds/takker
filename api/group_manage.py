@@ -5,9 +5,7 @@ from pathlib import Path
 
 from nonebot.adapters.cqhttp.event import Anonymous
 
-from utils.utils import deprecated
-
-from . import BaseAPI
+from ._api import BaseAPI
 
 
 class GroupManagementAPI(BaseAPI):
@@ -178,7 +176,6 @@ class GroupManagementAPI(BaseAPI):
             duration=duration,
         )
 
-    @deprecated("此API不稳定， 登录一段时间后失效，不建议使用")
     async def set_group_portrait(
         self,
         group_id: Union[int, str],
@@ -214,7 +211,11 @@ class GroupManagementAPI(BaseAPI):
         await self.call("set_group_portrait", group_id=group_id, file=file, cache=cache)
 
     async def set_group_add_request(
-        self, flag: str, sub_type: Literal["add", "invite"], approve: bool, reason: str
+        self,
+        flag: str,
+        sub_type: Literal["add", "invite"],
+        approve: bool,
+        reason: Optional[str] = None,
     ) -> None:
         """
         :说明: `set_group_add_request`
@@ -224,7 +225,9 @@ class GroupManagementAPI(BaseAPI):
           * `flag: str`: 加群请求的 flag（需从上报的数据中获得）
           * `sub_type: Literal["add", "invite"]`: add 或 invite, 请求类型（需要和上报消息中的 sub_type 字段相符）
           * `approve: bool`: 是否同意请求／邀请
-          * `reason: str`: 拒绝理由（仅在拒绝时有效）
+
+        :可选参数:
+          * `reason: Optional[str] = None`: 拒绝理由（仅在拒绝时有效）
         """
         await self.call(
             "set_group_add_request",

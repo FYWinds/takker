@@ -2,7 +2,7 @@ from typing import List, Union, Optional
 
 from nonebot.adapters.cqhttp import Message, MessageSegment, GroupMessageEvent
 
-from . import BaseAPI
+from ._api import BaseAPI
 from .models import *
 
 

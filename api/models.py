@@ -43,6 +43,10 @@ class UserInfo(BaseUserInfo):
         return resp.content
 
 
+class FriendInfo(BaseUserInfo):
+    remark: str
+
+
 class GroupInfo(BaseModel):
     group_id: int
     group_name: str
@@ -110,11 +114,12 @@ class JoinRequest(Request, BaseModel):
     requester_nick: str
     remark: str
     message: str
+    suspicious: bool
 
 
 class GroupSystemMsg(BaseModel):
-    invited_requests: List[InvitedRequest]
-    join_requests: List[JoinRequest]
+    invited_requests: Optional[List[InvitedRequest]] = None
+    join_requests: Optional[List[JoinRequest]] = None
 
 
 class GroupFileSystemInfo(BaseModel):
@@ -249,6 +254,7 @@ __all__ = [
     "GroupMessageGot",
     "BaseUserInfo",
     "UserInfo",
+    "FriendInfo",
     "GroupInfo",
     "GroupMemberInfo",
     "HonorInfo",

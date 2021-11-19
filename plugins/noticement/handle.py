@@ -2,7 +2,7 @@ import random
 from asyncio import sleep
 from argparse import Namespace
 
-from api.message import send_group_msg, send_private_msg
+from gocqapi import api
 from configs.config import OWNER
 
 notice: dict[int, dict[int, list[str]]] = {}
@@ -33,7 +33,7 @@ async def handle_send(args: Namespace):
         return "请输入要发送的公告内容"
     if groups:
         for g in groups:
-            await send_group_msg(g, this_notice)
+            await api.group_message(g, this_notice)
             sleep_time = random.random() + 1
             await sleep(sleep_time)
             history_notice = args.notice
@@ -47,8 +47,8 @@ async def handle_send(args: Namespace):
             else:
                 notice |= {args.user: {g: history_notice}}
             if args.user not in OWNER:
-                await send_private_msg(
-                    uid=int(OWNER),
-                    message=f"超级管理员({args.user})向群{args.groups}发送了公告，内容为: {args.notice[0]}",
+                await api.friend_message(
+                    int(OWNER),
+                    f"超级管理员({args.user})向群{args.groups}发送了公告，内容为: {args.notice[0]}",
                 )
     return "公告发送成功"

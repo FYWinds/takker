@@ -2,7 +2,6 @@ from argparse import Namespace
 
 from nonebot.plugin import get_plugin
 
-from api.info import get_group_list
 from db.utils.perm import Perm
 from db.utils.plugin_perm import PluginPerm
 

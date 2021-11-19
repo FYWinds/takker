@@ -1,4 +1,4 @@
-from . import BaseAPI
+from ._api import BaseAPI
 
 
 class SelfManagementAPI(BaseAPI):

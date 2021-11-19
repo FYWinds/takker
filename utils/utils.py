@@ -12,8 +12,6 @@ from db.utils.perm import Perm
 from configs.config import HIDDEN_PLUGINS, MAX_PROCESS_TIME
 from db.utils.plugin_manager import PluginManager
 
-scheduler = require("nonebot_plugin_apscheduler").scheduler  # type: ignore
-
 
 async def perm_check(perm: int, event: "Event") -> bool:
     """

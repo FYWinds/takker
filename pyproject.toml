@@ -6,7 +6,7 @@ authors = ["风屿 <i@windis.cn>"]
 license = "AGPL-v3"
 
 [tool.poetry.dependencies]
-python = ">=3.9,<3.11"
+python = ">=3.9,<3.10"
 nonebot2 = "^2.0.0-alpha.15"
 nonebot-adapter-cqhttp = "^2.0.0-alpha.15"
 nonebot-plugin-apscheduler = "^0.1.2"
@@ -27,6 +27,7 @@ opencv-python = "^4.5.3"
 qrcode = "^7.3"
 aerich = "^0.5.8"
 psutil = "^5.8.0"
+gocqapi = "^0.1.0"
 
 
 [tool.poetry.dev-dependencies]

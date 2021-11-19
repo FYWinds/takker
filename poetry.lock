@@ -117,10 +117,7 @@ pathspec = ">=0.9.0,<1"
 platformdirs = ">=2"
 regex = ">=2020.1.8"
 tomli = ">=0.2.6,<2.0.0"
-typing-extensions = [
-    {version = ">=3.10.0.0", markers = "python_version < \"3.10\""},
-    {version = "!=3.10.0.1", markers = "python_version >= \"3.10\""},
-]
+typing-extensions = ">=3.10.0.0"
 
 [package.extras]
 colorama = ["colorama (>=0.4.3)"]
@@ -246,6 +243,14 @@ python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,>=2.7"
 mccabe = ">=0.6.0,<0.7.0"
 pycodestyle = ">=2.7.0,<2.8.0"
 pyflakes = ">=2.3.0,<2.4.0"
+
+[[package]]
+name = "gocqapi"
+version = "0.1.0"
+description = "go-cqhttp API typing annoations, return data models and utils for nonebot"
+category = "main"
+optional = false
+python-versions = ">=3.7.3,<3.10"
 
 [[package]]
 name = "greenlet"
@@ -1149,8 +1154,8 @@ python-versions = "*"
 
 [metadata]
 lock-version = "1.1"
-python-versions = ">=3.9,<3.11"
-content-hash = "9e79a89f66faf4f6d87ce1033b0931cfe2d9aa2607263eb877402751afa3c436"
+python-versions = ">=3.9,<3.10"
+content-hash = "d011ad72313ebba26029ec11e32c1ac0fe166111c3e2316c20e7b45862df965b"
 
 [metadata.files]
 aerich = [
@@ -1227,6 +1232,10 @@ fastapi = [
 flake8 = [
     {file = "flake8-3.9.2-py2.py3-none-any.whl", hash = "sha256:bf8fd333346d844f616e8d47905ef3a3384edae6b4e9beb0c5101e25e3110907"},
     {file = "flake8-3.9.2.tar.gz", hash = "sha256:07528381786f2a6237b061f6e96610a4167b226cb926e2aa2b6b1d78057c576b"},
+]
+gocqapi = [
+    {file = "gocqapi-0.1.0-py3-none-any.whl", hash = "sha256:e47b359b045683f99e8bcb2bff428c4a9edf42908411f34976eb390986ddbdc1"},
+    {file = "gocqapi-0.1.0.tar.gz", hash = "sha256:8ca2593909723162d16b1e19919e0a35237ff185633d5746a403ddfb606e87d5"},
 ]
 greenlet = [
     {file = "greenlet-1.1.2-cp27-cp27m-macosx_10_14_x86_64.whl", hash = "sha256:58df5c2a0e293bf665a51f8a100d3e9956febfbf1d9aaf8c0677cf70218910c6"},

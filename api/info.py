@@ -1,6 +1,6 @@
 from typing import List, Union, Literal
 
-from . import BaseAPI
+from ._api import BaseAPI
 from .models import *
 
 
@@ -55,7 +55,7 @@ class InfoAPI(BaseAPI):
             **(await self.call("get_group_info", group_id=group_id, no_cache=no_cache))
         )
 
-    async def get_friend_list(self) -> List[UserInfo]:
+    async def get_friend_list(self) -> List[FriendInfo]:
         """
         :说明: `friend_list`
         > [**获取好友列表**](https://docs.go-cqhttp.org/api/#%E8%8E%B7%E5%8F%96%E5%A5%BD%E5%8F%8B%E5%88%97%E8%A1%A8)
@@ -63,7 +63,7 @@ class InfoAPI(BaseAPI):
         :返回:
           - `dict[Any, Any]`: 响应数据 参考GOCQ文档
         """
-        return [UserInfo(**i) for i in (await self.call("get_friend_list"))]
+        return [FriendInfo(**i) for i in (await self.call("get_friend_list"))]
 
     async def get_group_list(self) -> List[GroupInfo]:
         """
@@ -75,7 +75,9 @@ class InfoAPI(BaseAPI):
         """
         return [GroupInfo(**i) for i in (await self.call("get_group_list"))]
 
-    async def get_group_member_info(self, group_id: Union[int, str]) -> GroupMemberInfo:
+    async def get_group_member_info(
+        self, group_id: Union[int, str], user_id: Union[int, str]
+    ) -> GroupMemberInfo:
         """
         :说明: `group_member_info`
         > [**获取群成员信息**](https://docs.go-cqhttp.org/api/#%E8%8E%B7%E5%8F%96%E7%BE%A4%E6%88%90%E5%91%98%E4%BF%A1%E6%81%AF)

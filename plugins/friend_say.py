@@ -5,6 +5,7 @@ from nonebot import on_command
 from nonebot.adapters.cqhttp import Bot, MessageEvent
 from nonebot.adapters.cqhttp.event import GroupMessageEvent
 
+from gocqapi import api
 from utils.img_util import ImageUtil
 from utils.msg_util import image
 
@@ -50,10 +51,10 @@ async def _(bot: Bot, event: MessageEvent):
 
     # Get QQ Name
     if isinstance(event, GroupMessageEvent):
-        at_user = await bot.get_group_member_info(group_id=event.group_id, user_id=at)
-        user_name = at_user["card"] if at_user["card"] else at_user["nickname"]
+        at_user = await api.get_group_member_info(group_id=event.group_id, user_id=at)
+        user_name = at_user.card if at_user.card else at_user.nickname
     else:
-        user_name = (await bot.get_stranger_info(user_id=at))["nickname"]
+        user_name = (await api.get_stranger_info(user_id=at)).nickname
 
     # Create image
     if avatar:
