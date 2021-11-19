@@ -1,52 +1,16 @@
 import base64
 from io import BytesIO
-from typing import Union, Optional
+from typing import Union, Literal, Optional
 from pathlib import Path
 
 from nonebot.adapters.cqhttp.event import Anonymous
 
 from utils.utils import deprecated
 
-from . import API
+from . import BaseAPI
 
 
-@deprecated("此API不稳定， 登录一段时间后失效，不建议使用")
-async def set_group_portrait(
-    self,
-    group_id: Union[int, str],
-    file: Union[str, Path, bytes, BytesIO],
-    cache: int = 1,
-) -> None:
-    """
-    :说明: `set_group_portrait`
-    > 设置群头像
-
-    不稳定， 登录一段时间后失效，不建议使用
-
-    :参数:
-        * `group_id: Union[int, str]`: 群号
-        * `file: Union[str, Path, bytes, BytesIO]`: 图片文件
-
-    :可选参数:
-        * `cache: int = 1`: 使用URL图片时，是否使用已缓存的文件
-
-    :异常:
-        * `TypeError`: 文件解析错误
-    """
-    if isinstance(file, BytesIO):
-        file = file.getvalue()
-    if isinstance(file, bytes):
-        file = "base64://" + base64.b64encode(file).decode()
-    if isinstance(file, Path):
-        file = str(file.resolve())
-    if not isinstance(file, str):
-        raise TypeError("file must be str, Path , bytes or BytesIO")
-    if not file.startswith(("file:///", "base64://", "http://", "https://")):
-        file = "file:///" + file
-    await self.call("set_group_portrait", group_id=group_id, file=file, cache=cache)
-
-
-class GroupManagementAPI(API):
+class GroupManagementAPI(BaseAPI):
     async def set_group_kick(
         self,
         group_id: Union[int, str],
@@ -134,3 +98,138 @@ class GroupManagementAPI(API):
           * `enable: bool`: 是否禁言
         """
         await self.call("set_group_whole_ban", group_id=group_id, enable=enable)
+
+    async def set_group_admin(
+        self, group_id: Union[int, str], user_id: Union[int, str], enable: bool
+    ) -> None:
+        """
+        :说明: `set_group_admin`
+        > [**群组设置管理员**](https://docs.go-cqhttp.org/api/#%E7%BE%A4%E7%BB%84%E8%AE%BE%E7%BD%AE%E7%AE%A1%E7%90%86%E5%91%98)
+
+        :参数:
+          * `group_id: Union[int, str]`: 群号
+          * `user_id: Union[int, str]`: 被设置管理员的QQ号
+          * `enable: bool`: 是否设置为管理员
+        """
+        await self.call(
+            "set_group_admin", group_id=group_id, user_id=user_id, enable=enable
+        )
+
+    async def set_group_card(
+        self, group_id: Union[int, str], user_id: Union[int, str], card: str
+    ) -> None:
+        """
+        :说明: `set_group_card`
+        > [**设置群名片 ( 群备注 )**](https://docs.go-cqhttp.org/api/#%E8%AE%BE%E7%BD%AE%E7%BE%A4%E5%90%8D%E7%89%87-%E7%BE%A4%E5%A4%87%E6%B3%A8)
+
+        :参数:
+          * `group_id: Union[int, str]`: 群号
+          * `user_id: Union[int, str]`: 被设置群名片的QQ号
+          * `card: str`: 群名片
+        """
+        await self.call("set_group_card", group_id=group_id, user_id=user_id, card=card)
+
+    async def set_group_name(self, group_id: Union[int, str], group_name: str) -> None:
+        """
+        :说明: `set_group_name`
+        > [**设置群名**](https://docs.go-cqhttp.org/api/#%E8%AE%BE%E7%BD%AE%E7%BE%A4%E5%90%8D)
+
+        :参数:
+          * `group_id: Union[int, str]`: 群号
+          * `group_name: str`: 群名
+        """
+        await self.call("set_group_name", group_id=group_id, group_name=group_name)
+
+    async def set_group_leave(self, group_id: Union[int, str], is_dismiss: bool) -> None:
+        """
+        :说明: `set_group_leave`
+        > [**退出群组**](https://docs.go-cqhttp.org/api/#%E9%80%80%E5%87%BA%E7%BE%A4%E7%BB%84)
+
+        :参数:
+          * `group_id: Union[int, str]`: 群号
+          * `is_dismiss: bool`: 是否解散群组
+        """
+        await self.call("set_group_leave", group_id=group_id, is_dismiss=is_dismiss)
+
+    async def set_group_special_title(
+        self,
+        group_id: Union[int, str],
+        user_id: Union[int, str],
+        special_title: Union[int, str],
+        duration: int = -1,
+    ) -> None:
+        """
+        :说明: `set_group_special_title`
+        > [**设置群组专属头衔**](https://docs.go-cqhttp.org/api/#%E8%AE%BE%E7%BD%AE%E7%BE%A4%E7%BB%84%E4%B8%93%E5%B1%9E%E5%A4%B4%E8%A1%94)
+
+        :参数:
+          * `group_id: Union[int, str]`: 群号
+          * `user_id: Union[int, str]`: 被设置专属头衔的QQ号
+          * `special_title: Union[int, str]`: 专属头衔
+
+        :可选参数:
+          * `duration: int = -1`: 专属头衔持续时间，单位秒，默认为-1，永久
+        """
+        await self.call(
+            "set_group_special_title",
+            group_id=group_id,
+            user_id=user_id,
+            special_title=special_title,
+            duration=duration,
+        )
+
+    @deprecated("此API不稳定， 登录一段时间后失效，不建议使用")
+    async def set_group_portrait(
+        self,
+        group_id: Union[int, str],
+        file: Union[str, Path, bytes, BytesIO],
+        cache: int = 1,
+    ) -> None:
+        """
+        :说明: `set_group_portrait`
+        > 设置群头像
+
+        不稳定， 登录一段时间后失效，不建议使用
+
+        :参数:
+            * `group_id: Union[int, str]`: 群号
+            * `file: Union[str, Path, bytes, BytesIO]`: 图片文件
+
+        :可选参数:
+            * `cache: int = 1`: 使用URL图片时，是否使用已缓存的文件
+
+        :异常:
+            * `TypeError`: 文件解析错误
+        """
+        if isinstance(file, BytesIO):
+            file = file.getvalue()
+        if isinstance(file, bytes):
+            file = "base64://" + base64.b64encode(file).decode()
+        if isinstance(file, Path):
+            file = str(file.resolve())
+        if not isinstance(file, str):
+            raise TypeError("file must be str, Path , bytes or BytesIO")
+        if not file.startswith(("file:///", "base64://", "http://", "https://")):
+            file = "file:///" + file
+        await self.call("set_group_portrait", group_id=group_id, file=file, cache=cache)
+
+    async def set_group_add_request(
+        self, flag: str, sub_type: Literal["add", "invite"], approve: bool, reason: str
+    ) -> None:
+        """
+        :说明: `set_group_add_request`
+        > [**处理加群请求／邀请**](https://docs.go-cqhttp.org/api/#%E5%A4%84%E7%90%86%E5%8A%A0%E7%BE%A4%E8%AF%B7%E6%B1%82-%E9%82%80%E8%AF%B7)
+
+        :参数:
+          * `flag: str`: 加群请求的 flag（需从上报的数据中获得）
+          * `sub_type: Literal["add", "invite"]`: add 或 invite, 请求类型（需要和上报消息中的 sub_type 字段相符）
+          * `approve: bool`: 是否同意请求／邀请
+          * `reason: str`: 拒绝理由（仅在拒绝时有效）
+        """
+        await self.call(
+            "set_group_add_request",
+            flag=flag,
+            sub_type=sub_type,
+            approve=approve,
+            reason=reason,
+        )

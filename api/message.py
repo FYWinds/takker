@@ -2,17 +2,17 @@ from typing import List, Union, Optional
 
 from nonebot.adapters.cqhttp import Message, MessageSegment, GroupMessageEvent
 
-from . import API
+from . import BaseAPI
 from .models import *
 
 
-class MessageAPI(API):
-    async def friend(
+class MessageAPI(BaseAPI):
+    async def friend_message(
         self, user_id: Union[int, str], message: Union[str, Message, MessageSegment]
     ) -> int:
         """
         :说明: `friend`
-        > 向好友发送私聊消息
+        > [**发送私聊消息**](https://docs.go-cqhttp.org/api/#%E5%8F%91%E9%80%81%E7%A7%81%E8%81%8A%E6%B6%88%E6%81%AF)
 
         :参数:
           * `user_id: Union[int, str]`: QQ号
@@ -25,7 +25,7 @@ class MessageAPI(API):
             "message_id"
         ]
 
-    async def stranger(
+    async def stranger_message(
         self,
         user_id: Union[int, str],
         group_id: Union[int, str],
@@ -49,12 +49,12 @@ class MessageAPI(API):
             )
         )["message_id"]
 
-    async def group(
+    async def group_message(
         self, group_id: Union[int, str], message: Union[str, Message, MessageSegment]
     ) -> int:
         """
         :说明: `group`
-        > 向群聊发送消息
+        > [**发送群聊消息**](https://docs.go-cqhttp.org/api/#%E5%8F%91%E9%80%81%E7%BE%A4%E6%B6%88%E6%81%AF)
 
         :参数:
           * `group_id: Union[int, str]`: 群号
@@ -67,12 +67,30 @@ class MessageAPI(API):
             "message_id"
         ]
 
-    async def send(
+    async def send_msg(
         self,
         message: Union[str, Message, MessageSegment],
         user_id: Optional[Union[int, str]] = None,
         group_id: Optional[Union[int, str]] = None,
     ) -> int:
+        """
+        :说明: `send_msg`
+        > [**发送消息**](https://docs.go-cqhttp.org/api/#%E5%8F%91%E9%80%81%E6%B6%88%E6%81%AF)
+
+        :参数:
+          * `message: Union[str, Message, MessageSegment]`: 消息
+
+        :可选参数:
+          * `user_id: Optional[Union[int, str]] = None`: QQ号
+          * `group_id: Optional[Union[int, str]] = None`: 群号
+
+        :Exceptions:
+          * `ValueError`: user_id 和 group_id 不能同时为空
+          * `ValueError`: user_id 和 group_id 不能同时为非空
+
+        :返回:
+          - `int`: [description]
+        """
         if user_id and group_id:
             raise ValueError("user_id and group_id cannot be provided together")
         if user_id:
@@ -114,7 +132,7 @@ class MessageAPI(API):
     ) -> Union[MessageGot, GroupMessageGot]:
         """
         :说明: `get_msg`
-        > 获取消息
+        > [**获取消息**](https://docs.go-cqhttp.org/api/#%E8%8E%B7%E5%8F%96%E6%B6%88%E6%81%AF)
 
         :参数:
           * `message_id: Union[int, str]`: 消息ID
@@ -132,7 +150,7 @@ class MessageAPI(API):
     async def delete_msg(self, message_id: Union[int, str]) -> None:
         """
         :说明: `delete_msg`
-        > 撤回消息
+        > [**撤回消息**](https://docs.go-cqhttp.org/api/#%E6%92%A4%E5%9B%9E%E6%B6%88%E6%81%AF)
 
         :参数:
           * `message_id: Union[int, str]`: 消息ID
@@ -142,7 +160,7 @@ class MessageAPI(API):
     async def get_forward_msg(self, message_id: str) -> List[ForwardMsg]:
         """
         :说明: `get_forward_msg`
-        > 获取合并转发内容
+        > [**获取合并转发内容**](https://docs.go-cqhttp.org/api/#%E8%8E%B7%E5%8F%96%E5%90%88%E5%B9%B6%E8%BD%AC%E5%8F%91%E5%86%85%E5%AE%B9)
 
         :参数:
           * `message_id: str`: 合并转发中的消息ID

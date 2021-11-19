@@ -1,14 +1,14 @@
 from typing import List, Union, Literal
 
-from . import API
+from . import BaseAPI
 from .models import *
 
 
-class InfoAPI(API):
+class InfoAPI(BaseAPI):
     async def get_login_info(self) -> BaseUserInfo:
         """
         :说明: `login_info`
-        > 获取登录账号信息
+        > [**获取登录账号信息**](https://docs.go-cqhttp.org/api/#%E8%8E%B7%E5%8F%96%E7%99%BB%E5%BD%95%E5%8F%B7%E4%BF%A1%E6%81%AF)
 
         :返回:
           - `BaseUserInfo`: 响应数据 参考GOCQ文档
@@ -20,7 +20,7 @@ class InfoAPI(API):
     ) -> UserInfo:
         """
         :说明: `stranger_info`
-        > 获取陌生人信息
+        > [**获取陌生人信息**](https://docs.go-cqhttp.org/api/#%E8%8E%B7%E5%8F%96%E9%99%8C%E7%94%9F%E4%BA%BA%E4%BF%A1%E6%81%AF)
 
         :参数:
           * `user_id: Union[int, str]`: QQ号
@@ -40,7 +40,7 @@ class InfoAPI(API):
     ) -> GroupInfo:
         """
         :说明: `group_info`
-        > 获取群信息
+        > [**获取群信息**](https://docs.go-cqhttp.org/api/#%E8%8E%B7%E5%8F%96%E7%BE%A4%E4%BF%A1%E6%81%AF)
 
         :参数:
           * `group_id: Union[int, str]`: 群号
@@ -57,7 +57,7 @@ class InfoAPI(API):
     async def get_friend_list(self) -> List[UserInfo]:
         """
         :说明: `friend_list`
-        > 获取好友列表
+        > [**获取好友列表**](https://docs.go-cqhttp.org/api/#%E8%8E%B7%E5%8F%96%E5%A5%BD%E5%8F%8B%E5%88%97%E8%A1%A8)
 
         :返回:
           - `dict[Any, Any]`: 响应数据 参考GOCQ文档
@@ -68,7 +68,7 @@ class InfoAPI(API):
     async def get_group_list(self) -> List[GroupInfo]:
         """
         :说明: `group_list`
-        > 获取群列表
+        > [**获取群列表**](https://docs.go-cqhttp.org/api/#%E8%8E%B7%E5%8F%96%E7%BE%A4%E5%88%97%E8%A1%A8)
 
         :返回:
           - `dict[Any, Any]`: 响应数据 参考GOCQ文档
@@ -79,7 +79,7 @@ class InfoAPI(API):
     async def get_group_member_info(self, group_id: Union[int, str]) -> GroupMemberInfo:
         """
         :说明: `group_member_info`
-        > 获取群成员信息
+        > [**获取群成员信息**](https://docs.go-cqhttp.org/api/#%E8%8E%B7%E5%8F%96%E7%BE%A4%E6%88%90%E5%91%98%E4%BF%A1%E6%81%AF)
 
         :参数:
           * `group_id: Union[int, str]`: 群号
@@ -95,7 +95,7 @@ class InfoAPI(API):
     ) -> List[GroupMemberInfo]:
         """
         :说明: `group_member_list`
-        > 获取群成员列表，返回数据量较获取群成员信息少
+        > [**获取群成员列表**](https://docs.go-cqhttp.org/api/#%E8%8E%B7%E5%8F%96%E7%BE%A4%E6%88%90%E5%91%98%E5%88%97%E8%A1%A8)，返回数据量较获取群成员信息少
 
         :参数:
           * `group_id: Union[int, str]`: 群号

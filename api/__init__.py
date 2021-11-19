@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, Union, Optional
 
 import nonebot
 from nonebot.log import logger
@@ -9,27 +9,24 @@ from .info import InfoAPI
 from .message import MessageAPI
 from .group_manage import GroupManagementAPI
 
-InfoAPI = InfoAPI()
-MessageAPI = MessageAPI()
-GroupManagementAPI = GroupManagementAPI()
-
-__all__ = ["InfoAPI", "MessageAPI", "GroupManagementAPI"]
+__all__ = ["API"]
 
 
-class API:
-    def __init__(self):
-        try:
-            self.bot = nonebot.get_bot()
-        except ValueError:
-            self.bot = None
+class BaseAPI:
+    async def __init__(self, bot_id: Optional[Union[int, str]]) -> None:
+        if bot_id:
+            self.bot_id = str(bot_id) if isinstance(bot_id, int) else bot_id
 
     async def call(self, api: str, **kwargs: Any) -> dict[Any, Any]:
         if self.bot is None:
             try:
-                self.bot = nonebot.get_bot()
-            except ValueError:
+                if self.bot_id:
+                    self.bot = nonebot.get_bot(self.bot_id)
+                else:
+                    self.bot = nonebot.get_bot()
+            except (ValueError, KeyError) as e:
                 logger.error("请求API失败，未连接Bot")
-                raise NetworkError("请求API失败，未连接Bot")
+                raise e
         try:
             try:
                 if "user_id" in kwargs:
@@ -54,10 +51,16 @@ class API:
                     )
             except ValueError:
                 raise TypeError("请求API参数类型错误")
+
             data: dict[Any, Any] = await self.bot.call_api(api, **kwargs)
             if data.get("retcode") == 100 or data.get("status") == "failed":
                 raise ActionFailed(**data)
             return data
-        except ValueError:
+        except ValueError as e:
             logger.error("请求API失败，未连接Bot")
-            raise NetworkError("请求API失败，未连接Bot")
+            raise e
+
+
+class API(GroupManagementAPI, InfoAPI, MessageAPI):
+    async def __init__(self, bot_id: Optional[Union[int, str]]) -> None:
+        await super().__init__(bot_id)
