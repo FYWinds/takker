@@ -7,7 +7,7 @@ from nonebot.adapters.cqhttp.event import GroupMessageEvent
 
 from gocqapi import api
 from utils.img_util import ImageUtil
-from utils.msg_util import image
+from utils.msg_util import MS
 
 __plugin_info__ = {
     "name": "我有个朋友",
@@ -69,4 +69,4 @@ async def _(bot: Bot, event: MessageEvent):
     img.paste(name, (150, 38))
     img.text((150, 85), text, (125, 125, 125))
 
-    await friend.finish(image(c=img.toB64()))
+    await friend.finish(MS.image(c=img.toB64()))

@@ -10,7 +10,7 @@ from nonebot.adapters.cqhttp import Bot, Message, MessageEvent, PokeNotifyEvent
 from utils.data import process_time
 from utils.rule import on_poke
 from utils.browser import get_browser
-from utils.msg_util import text, image
+from utils.msg_util import MS
 from configs.path_config import TEMPLATE_PATH
 
 __plugin_info__ = {
@@ -84,7 +84,7 @@ CPU使用率: {cpu_percent:.2f}%
 内存使用率: bot: {mem_percent:.2f}% | used: {server_mem_percent:.2f}%
 bot: {mem_percent*total_mem/100:.2f} MB | used: {server_mem:.2f} MB | total: {total_mem:.2f} MB
 """
-    return text(message.strip()) + image(c=pt_img)
+    return MS.text(message.strip()) + MS.image(c=pt_img)
 
 
 async def generate_pic(filename: str):

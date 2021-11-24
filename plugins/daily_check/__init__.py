@@ -2,7 +2,7 @@ from nonebot.plugin import on_command
 from nonebot.typing import T_State
 from nonebot.adapters.cqhttp import Bot, MessageEvent
 
-from utils.msg_util import image
+from utils.msg_util import MS
 
 from .handler import get_card
 
@@ -32,4 +32,4 @@ async def _(bot: Bot, event: MessageEvent, state: T_State):
         return
     user_id = event.user_id
     img = await get_card(user_id)
-    await check.finish(image(c=img))
+    await check.finish(MS.image(c=img))

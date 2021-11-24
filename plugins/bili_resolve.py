@@ -10,7 +10,7 @@ from nonebot.plugin import on_regex
 from qrcode.image.pil import PilImage
 from nonebot.adapters.cqhttp import Bot, GroupMessageEvent
 
-from utils.msg_util import image as send_image
+from utils.msg_util import MS
 from utils.text_util import cut_text
 from configs.path_config import FONT_PATH
 
@@ -43,7 +43,7 @@ async def bilibili_main(bot: Bot, event: GroupMessageEvent):
         if video_info["code"] != 0:
             await bili_resolve.finish("视频不存在")
         image = binfo_image_create(video_info)
-        message = send_image(c=image)
+        message = MS.image(c=image)
         await bili_resolve.finish(message)
 
 

@@ -14,7 +14,7 @@ from utils.utils import enable_check
 from db.utils.perm import Perm
 from configs.config import OWNER, SUPERUSERS, HIDDEN_PLUGINS
 from utils.img_util import textToImage
-from utils.msg_util import at, image
+from utils.msg_util import MS
 from utils.text_util import align
 from db.utils.plugin_perm import PluginPerm
 
@@ -74,7 +74,7 @@ async def get_result(bot: Bot, event: MessageEvent, state: T_State):
         newline_char = "\n"
         message = f"插件列表：\n{newline_char.join(plugin_names)}"
         await helper.finish(
-            at(event.user_id) + image(c=(await textToImage(message.strip())))
+            MS.at(event.user_id) + MS.image(c=(await textToImage(message.strip())))
         )
     else:
         if event.user_id in SUPERUSERS or str(event.user_id) == OWNER:
@@ -101,12 +101,12 @@ async def get_result(bot: Bot, event: MessageEvent, state: T_State):
                 message = "暂无信息"
                 doc = "暂无文档"
             await helper.finish(
-                at(event.user_id)
-                + image(c=(await textToImage(message.strip(), 96)))
+                MS.at(event.user_id)
+                + MS.image(c=(await textToImage(message.strip(), 96)))
                 + f"文档地址: {doc}"
             )
         except (AttributeError, AssertionError):
-            await helper.finish(at(event.user_id) + f'{state.get("content")}插件不存在或未加载')
+            await helper.finish(MS.at(event.user_id) + f'{state.get("content")}插件不存在或未加载')
 
 
 async def build_message(plugin_info: dict, identity: str = "norm") -> str:

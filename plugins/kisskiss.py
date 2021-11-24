@@ -10,7 +10,7 @@ from nonebot.typing import T_State
 from nonebot.adapters.cqhttp import GROUP, Bot, MessageEvent
 
 from utils.browser import get_ua
-from utils.msg_util import image
+from utils.msg_util import MS
 from configs.path_config import IMAGE_PATH
 
 __plugin_info__ = {
@@ -34,7 +34,7 @@ async def handle_receive(bot: Bot, event: MessageEvent, state: T_State):
     member_id = str(event.user_id)
     SavePic = f"tempKiss-{member_id}-{at}.gif"
     await tie(member_id, at)
-    await kiss.finish(image(SavePic, "kisskiss"))
+    await kiss.finish(MS.image(SavePic, "kisskiss"))
 
 
 async def save_gif(gif_frames, dest, fps=25):

@@ -38,3 +38,12 @@ class ProcessTime:
 
 
 process_time: dict[str, ProcessTime] = {}
+
+_time_definition: dict[str, int] = {
+    "year": 365 * 24 * 60 * 60,
+    "month": 30 * 24 * 60 * 60,
+    "day": 24 * 60 * 60,
+    "hour": 60 * 60,
+    "minute": 60,
+    "second": 1,
+}

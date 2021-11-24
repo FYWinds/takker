@@ -7,7 +7,7 @@ from nonebot.typing import T_State
 from nonebot.adapters.cqhttp import GROUP, Bot, GroupMessageEvent
 
 from configs.config import SUPERUSERS
-from utils.msg_util import text, image
+from utils.msg_util import MS
 from db.models.wordcloud import Wordcloud
 
 from .draw import draw_word_cloud
@@ -59,7 +59,7 @@ async def generate(gid: int, type: str):
     msg_seg = await Wordcloud.get_words(gid, ptime)
     img_path = await draw_word_cloud(gid, msg_seg)
     text_ = await generate_text(ptime, len(msg_seg))
-    return text(text_) + image(abspath=img_path)
+    return MS.text(text_) + MS.image(abspath=img_path)
 
 
 async def generate_text(ptime: int, msgs: int) -> str:

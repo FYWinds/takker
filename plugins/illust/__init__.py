@@ -3,7 +3,7 @@ from nonebot.plugin import on_shell_command
 from nonebot.typing import T_State
 from nonebot.adapters.cqhttp import Bot, MessageEvent, GroupMessageEvent
 
-from utils.msg_util import text, image, reply
+from utils.msg_util import MS
 from db.utils.illust_config import IllustConfig
 
 from .parser import pic_parser, set_parser
@@ -53,9 +53,9 @@ async def _(bot: Bot, event: MessageEvent, state: T_State):
                 await bot.send(
                     event,
                     message=(
-                        (reply(event.message_id) + text(message))
+                        (MS.reply(event.message_id) + MS.text(message))
                         if isinstance(event, GroupMessageEvent)
-                        else (text(message))
+                        else (MS.text(message))
                     ),
                 )
             if r["nsfw"] in [0, 1]:
@@ -63,14 +63,14 @@ async def _(bot: Bot, event: MessageEvent, state: T_State):
                     event,
                     message=(
                         (
-                            reply(event.message_id)
-                            + (image(c=r["img_bytes"]) if c["send_image"] else None)
-                            + text(message)
+                            MS.reply(event.message_id)
+                            + (MS.image(c=r["img_bytes"]) if c["send_image"] else None)
+                            + MS.text(message)
                         )
                         if isinstance(event, GroupMessageEvent)
                         else (
-                            (image(c=r["img_bytes"]) if c["send_image"] else None)
-                            + text(message)
+                            (MS.image(c=r["img_bytes"]) if c["send_image"] else None)
+                            + MS.text(message)
                         )
                     ),
                 )
@@ -79,9 +79,9 @@ async def _(bot: Bot, event: MessageEvent, state: T_State):
                 await bot.send(
                     event,
                     message=(
-                        (reply(event.message_id) + text(message))
+                        (MS.reply(event.message_id) + MS.text(message))
                         if isinstance(event, GroupMessageEvent)
-                        else (text(message))
+                        else (MS.text(message))
                     ),
                 )
             if c["send_link"]:
@@ -91,13 +91,13 @@ async def _(bot: Bot, event: MessageEvent, state: T_State):
                 await bot.send(
                     event,
                     message=(
-                        (reply(event.message_id) + text(orig))
+                        (MS.reply(event.message_id) + MS.text(orig))
                         if isinstance(event, GroupMessageEvent)
-                        else text(orig)
+                        else MS.text(orig)
                     ),
                 )
         else:
-            await pic.finish(reply(event.message_id) + text("未找到符合要求的图片"))
+            await pic.finish(MS.reply(event.message_id) + MS.text("未找到符合要求的图片"))
 
 
 pixset = on_shell_command("pixset", parser=set_parser, priority=20)

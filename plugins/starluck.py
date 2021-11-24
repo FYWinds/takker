@@ -11,7 +11,7 @@ from nonebot.typing import T_State
 from nonebot.adapters.cqhttp import Bot, MessageEvent, GroupMessageEvent
 
 from configs.config import ALI_API_TOKEN
-from utils.msg_util import text, image, reply
+from utils.msg_util import MS
 from db.utils.starluck import Starluck
 from configs.path_config import FONT_PATH, IMAGE_PATH
 
@@ -68,26 +68,26 @@ async def handle_starluck_receive(bot: Bot, event: MessageEvent, state: T_State)
         # 判断是否合法
         if star_pinyin not in stars:
             message = (
-                (reply(user_id) + text("请输入正确的星座名称"))
+                (MS.reply(user_id) + MS.text("请输入正确的星座名称"))
                 if isinstance(event, GroupMessageEvent)
-                else text("请输入正确的星座名称")
+                else MS.text("请输入正确的星座名称")
             )
             await starluck.finish(message)
 
         num = stars.index(star_pinyin) + 1
         await Starluck.set_star(user_id, num)
         message = (
-            (reply(user_id) + text("绑定成功"))
+            (MS.reply(user_id) + MS.text("绑定成功"))
             if isinstance(event, GroupMessageEvent)
-            else text("绑定成功")
+            else MS.text("绑定成功")
         )
         await starluck.send(message)
 
     if not await Starluck.query_star(user_id):
         message = (
-            (reply(user_id) + text("请使用\n.sluck 星座\n绑定星座"))
+            (MS.reply(user_id) + MS.text("请使用\n.sluck 星座\n绑定星座"))
             if isinstance(event, GroupMessageEvent)
-            else text("请使用\n.sluck 星座\n绑定星座")
+            else MS.text("请使用\n.sluck 星座\n绑定星座")
         )
         await starluck.finish(message)
 
@@ -100,9 +100,9 @@ async def handle_starluck_receive(bot: Bot, event: MessageEvent, state: T_State)
     if await pre_process(star_pinyin):
         file = f"temp-{time_today}-{star_pinyin}.png"
         message = message = (
-            (reply(user_id) + image(file, "starluck"))
+            (MS.reply(user_id) + MS.image(file, "starluck"))
             if isinstance(event, GroupMessageEvent)
-            else image(file, "starluck")
+            else MS.image(file, "starluck")
         )
         logger.debug("Cache Hit!")
         await starluck.finish(message)
@@ -112,9 +112,9 @@ async def handle_starluck_receive(bot: Bot, event: MessageEvent, state: T_State)
 
     file = f"temp-{time_today}-{star_pinyin}.png"
     message = message = (
-        (reply(user_id) + image(file, "starluck"))
+        (MS.reply(user_id) + MS.image(file, "starluck"))
         if isinstance(event, GroupMessageEvent)
-        else image(file, "starluck")
+        else MS.image(file, "starluck")
     )
 
     await starluck.finish(message)

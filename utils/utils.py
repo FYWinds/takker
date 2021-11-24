@@ -2,14 +2,16 @@ import time
 import inspect
 import warnings
 import functools
-from typing import Union, Optional
+from typing import List
 from collections import defaultdict
 
-from nonebot import require
+import jionlp as jio
 from nonebot.adapters import Event
+from nonebot.adapters.cqhttp import Message
 
+from utils.data import _time_definition
 from db.utils.perm import Perm
-from configs.config import HIDDEN_PLUGINS, MAX_PROCESS_TIME
+from configs.config import HIDDEN_PLUGINS
 from db.utils.plugin_manager import PluginManager
 
 
@@ -52,50 +54,6 @@ async def enable_check(plugin: str, event: "Event") -> bool:
         p = await PluginManager.query_plugin_status(user_id)
         return p[plugin]
     return False
-
-
-class Processing:
-    """
-    :说明:
-    > 限制用户在处理期间重复使用指令
-    """
-
-    def __init__(self):
-        self.processing = defaultdict(bool)
-        self.time = time.time()
-
-    def set_True(self, key):
-        self.time = time.time()
-        self.processing[key] = True
-
-    def set_False(self, key):
-        self.processing[key] = False
-
-    def check(self, key):
-        if time.time() - self.time > MAX_PROCESS_TIME:
-            self.set_False(key)
-            return False
-        return self.processing[key]
-
-
-class FreqLimiter:
-    """
-    :说明:
-    > 命令CD
-    """
-
-    def __init__(self, cd):
-        self.end_time = defaultdict(float)
-        self.cd = cd
-
-    def check(self, key) -> bool:
-        return time.time() >= self.end_time[key]
-
-    def start_cd(self, key, cd=0):
-        self.end_time[key] = time.time() + (cd if cd > 0 else self.cd)
-
-    def left_time(self, key) -> float:
-        return self.end_time[key] - time.time()
 
 
 class ExploitCheck:
@@ -150,3 +108,53 @@ def deprecated(reason: str):
         return _func
 
     return decorator
+
+
+async def extract_mentioned_ids(message: Message) -> List[int]:
+    """
+    :说明: `extract_mentioned_ids`
+    > 从消息中提取出所有被@的人的id
+
+    :参数:
+      * `message: Message`: 消息
+
+    :返回:
+      - `List[int]`: 被@的人的id列表
+    """
+    return [seg.data["qq"] for seg in message if seg.type == "at"]
+
+
+async def extract_time_delta(message: Message) -> int:
+    """
+    :说明: `extract_time_delta`
+    > 从消息内提取time_delta，返回秒级时间戳
+
+    :参数:
+      * `message: Message`: 消息
+
+    :Exceptions:
+      * `ValueError`: 未找到代表时间的语句
+
+    :返回:
+      - `int`: 秒级量度的时间戳
+    """
+    for seg in message:
+        if seg.type == "text":
+            cn_time = seg.data["text"]
+    if not cn_time:
+        raise ValueError("未找到代表时间的语句")
+    try:
+        _time = jio.parse_time(cn_time)
+        if (
+            _time.get("type", None) == "time_delta"
+            and _time.get("definition", None) == "accurate"
+        ):
+            time_stamp: int = 0
+            _time_time: dict[str, float] = _time["time"]
+            for t in _time_time:
+                time_stamp += int(_time_time[t]) * _time_definition[t]
+            return time_stamp
+        else:
+            raise ValueError("未找到代表时间的语句")
+    except (ValueError, KeyError):
+        raise ValueError("未找到代表时间的语句")

@@ -2,7 +2,7 @@ from nonebot.plugin import on_command
 from nonebot.typing import T_State
 from nonebot.adapters.cqhttp import Bot, MessageEvent
 
-from utils.msg_util import text, reply
+from utils.msg_util import MS
 
 from .data_source import get_sx
 
@@ -13,7 +13,7 @@ hhsh = on_command("好好说话", priority=20, block=False)
 async def handle_receive(bot: Bot, event: MessageEvent, state: T_State):
     content = str(event.get_message()).strip()
     sx = await get_sx(content)
-    await hhsh.finish(reply(event.user_id) + text(sx))
+    await hhsh.finish(MS.reply(event.user_id) + MS.text(sx))
 
 
 __plugin_info__ = {
