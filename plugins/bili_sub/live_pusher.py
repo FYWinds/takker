@@ -7,6 +7,7 @@ from nonebot.plugin import require
 from nonebot_plugin_apscheduler import scheduler
 from nonebot.adapters.cqhttp.message import Message, MessageSegment
 
+from gocqapi import api
 from db.models.bs import BiliSub as DB
 
 from .bilireq import BiliReq
@@ -20,10 +21,6 @@ async def live_sched():
     """直播推送"""
     uids = await DB.get_live_bid()
 
-    try:
-        bot = get_bot()
-    except (KeyError, ValueError):
-        return
     if not uids:
         return
     # logger.debug(f"爬取直播列表，目前开播{sum(status.values())}人，总共{len(uids)}人")
@@ -55,15 +52,9 @@ async def live_sched():
             for g in push_list["group"]:
                 if (await DB.get_settings(id=g, bid=uid, isGroup=True))["at"]:
                     live_msg = MessageSegment.at("all") + live_msg
-                await bot.call_api(
-                    "send_group_msg",
-                    **{"message": live_msg, "group_id": g},
-                )
+                await api.group_message(g, live_msg)
                 asyncio.sleep(random.random())
             for u in push_list["user"]:
-                await bot.call_api(
-                    "send_private_msg",
-                    **{"message": live_msg, "user_id": u},
-                )
+                await api.friend_message(u, live_msg)
                 asyncio.sleep(random.random())
         status[uid] = new_status

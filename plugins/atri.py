@@ -8,7 +8,7 @@ from nonebot.typing import T_State
 from nonebot.adapters.cqhttp import GROUP, Bot, GroupMessageEvent
 
 from utils.data import atri_text
-from utils.msg_util import record
+from utils.msg_util import MS
 
 __plugin_info__ = {
     "name": "ATRI语音包",
@@ -61,5 +61,5 @@ async def _g(bot: Bot, event: GroupMessageEvent, state: T_State):
     else:
         voice = random.choice(atri_text)["o"]
     text = re.findall("(.*).mp3", voice)[0]
-    await atri.send(record(voice, "atri"))
+    await atri.send(MS.record(voice, "atri"))
     await atri.finish(text)

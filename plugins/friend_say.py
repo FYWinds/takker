@@ -1,12 +1,13 @@
 from io import BytesIO
 
 import httpx
+from gocqapi import api
 from nonebot import on_command
 from nonebot.adapters.cqhttp import Bot, MessageEvent
 from nonebot.adapters.cqhttp.event import GroupMessageEvent
 
 from utils.img_util import ImageUtil
-from utils.msg_util import image
+from utils.msg_util import MS
 
 __plugin_info__ = {
     "name": "我有个朋友",
@@ -27,6 +28,8 @@ friend = on_command("我有个朋友", aliases={"我有一个朋友", "我有朋
 
 @friend.handle()
 async def _(bot: Bot, event: MessageEvent):
+    at: int = int()
+    text: str = str()
     for num, seg in enumerate(event.message):
         if seg.type == "at":
             at = seg.data["qq"]
@@ -50,10 +53,10 @@ async def _(bot: Bot, event: MessageEvent):
 
     # Get QQ Name
     if isinstance(event, GroupMessageEvent):
-        at_user = await bot.get_group_member_info(group_id=event.group_id, user_id=at)
-        user_name = at_user["card"] if at_user["card"] else at_user["nickname"]
+        at_user = await api.get_group_member_info(group_id=event.group_id, user_id=at)
+        user_name = at_user.card if at_user.card else at_user.nickname
     else:
-        user_name = (await bot.get_stranger_info(user_id=at))["nickname"]
+        user_name = (await api.get_stranger_info(user_id=at)).nickname
 
     # Create image
     if avatar:
@@ -68,4 +71,4 @@ async def _(bot: Bot, event: MessageEvent):
     img.paste(name, (150, 38))
     img.text((150, 85), text, (125, 125, 125))
 
-    await friend.finish(image(c=img.toB64()))
+    await friend.finish(MS.image(c=img.toB64()))

@@ -12,7 +12,7 @@ from nonebot.adapters.cqhttp import (
 from utils.rule import admin
 from db.models.bs import BiliSub
 from utils.img_util import textToImage
-from utils.msg_util import image
+from utils.msg_util import MS
 
 from . import live_pusher, dynamic_pusher
 from .parser import bs_parser
@@ -52,7 +52,7 @@ async def _(bot: Bot, event: MessageEvent, state: T_State):
     if hasattr(args, "handle"):
         message = await args.handle(args)
         img = await textToImage(message, cut=100)
-        await bot.send(event, image(c=img))
+        await bot.send(event, MS.image(c=img))
 
 
 leave_group = on_notice(priority=20, rule=to_me())

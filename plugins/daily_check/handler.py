@@ -2,7 +2,7 @@ import os
 import time
 import random
 
-from api.info import get_stranger_info
+from gocqapi import api
 from utils.browser import get_browser
 from db.utils.point import Point
 from configs.path_config import TEMPLATE_PATH
@@ -13,7 +13,7 @@ from .data_source import get_msg, get_greet, get_stick, get_acg_image
 async def get_card(user_id: int):
     stick = await get_stick(user_id)
     acg_url = await get_acg_image()
-    user_name = (await get_stranger_info(user_id))["nickname"]
+    user_name = (await api.get_stranger_info(user_id)).nickname
     day_time = time.strftime(r"%m/%d", time.localtime())
     date = time.strftime(r"%Y-%m-%d", time.localtime())
     random.seed()

@@ -2,11 +2,10 @@ import re
 import random
 from typing import List
 
+from gocqapi import api
 from nonebot.plugin import on_startswith
 from nonebot.typing import T_State
 from nonebot.adapters.cqhttp import Bot, GroupMessageEvent
-
-from api.info import get_group_member_list
 
 ask = on_startswith("问", priority=20)
 
@@ -89,10 +88,10 @@ async def hif(message: str) -> str:
 
 
 async def who(message: str, group_id: int) -> str:
-    group_member_list = await get_group_member_list(group_id)
+    group_member_list = await api.get_group_member_list(group_id)
     member_list: List[str] = []
     for n in group_member_list:
-        member_list += [n["nickname"]]
+        member_list += [n.nickname]
     while "谁" in message:
         member_name = member_list[random.randint(0, len(member_list)) - 1]
         message = message.replace("谁", member_name, 1)

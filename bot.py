@@ -1,5 +1,5 @@
 import nonebot
-from nonebot.adapters.cqhttp import Bot as CQHTTPBot
+from nonebot.adapters.onebot.v11 import Adapter as OneBotAdapter
 
 import utils.preinit  # type: ignore
 from utils.init import init_bot_startup, update_plugin_list
@@ -10,8 +10,7 @@ from utils.shutdown import shut_down
 nonebot.init()
 
 driver = nonebot.get_driver()
-driver.register_adapter("cqhttp", CQHTTPBot)
-config = driver.config
+driver.register_adapter(OneBotAdapter)
 
 update_plugin_list(driver)
 
@@ -20,9 +19,8 @@ driver.on_shutdown(db_disconnect)
 driver.on_shutdown(close_browser)
 driver.on_shutdown(shut_down)
 
-
+nonebot.load_plugin("nonebot_plugin_apscheduler")
 nonebot.load_plugins("plugins")
-nonebot.load_from_toml("pyproject.toml")
 
 
 app = nonebot.get_asgi()

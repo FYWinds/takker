@@ -7,7 +7,7 @@ from nonebot import on_command
 from nonebot.typing import T_State
 from nonebot.adapters.cqhttp import Bot, MessageEvent
 
-from utils.msg_util import image
+from utils.msg_util import MS
 from configs.path_config import FONT_PATH, IMAGE_PATH
 
 __plugin_info__ = {
@@ -41,7 +41,7 @@ async def handle_event(bot: Bot, event: MessageEvent, state: T_State):
     else:
         if len(content) >= 12:
             content = content[:12] + "\n" + content[12:]
-        img = image(c=process_pic(content))
+        img = MS.image(c=process_pic(content))
         await luxun.send(img)
 
 

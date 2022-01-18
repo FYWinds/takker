@@ -1,3 +1,4 @@
+from gocqapi import api
 from nonebot.log import logger
 
 from db.db_connect import connect_database
@@ -71,11 +72,11 @@ def update_plugin_list(driver):
             list(get_loaded_plugins()), key=lambda p: p.name
         )
         current_plugin_status: dict[str, bool] = {}
-        group_list = await bot.get_group_list()
-        user_list = await bot.get_friend_list()
+        group_list = await api.get_group_list()
+        user_list = await api.get_friend_list()
 
         for group in group_list:
-            group_id = group["group_id"]
+            group_id = group.group_id
 
             # 插件管理器状态更新
             plugin_status = await PluginManager.query_plugin_status(
@@ -93,7 +94,7 @@ def update_plugin_list(driver):
             )
 
         for user in user_list:
-            user_id = user["user_id"]
+            user_id = user.user_id
             # 插件管理器状态更新
             plugin_status = await PluginManager.query_plugin_status(id=user_id)
             for plugin_name in [plugin.name for plugin in current_plugin_list]:

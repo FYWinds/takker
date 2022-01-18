@@ -1,15 +1,19 @@
 import time
-from typing import Union, Optional
+import inspect
+import datetime
+import warnings
+import functools
+from typing import List
 from collections import defaultdict
 
-from nonebot import require
+import jionlp as jio
 from nonebot.adapters import Event
+from nonebot.adapters.cqhttp import Message
 
+from utils.data import _time_definition
 from db.utils.perm import Perm
-from configs.config import HIDDEN_PLUGINS, MAX_PROCESS_TIME
+from configs.config import HIDDEN_PLUGINS
 from db.utils.plugin_manager import PluginManager
-
-scheduler = require("nonebot_plugin_apscheduler").scheduler  # type: ignore
 
 
 async def perm_check(perm: int, event: "Event") -> bool:
@@ -53,50 +57,6 @@ async def enable_check(plugin: str, event: "Event") -> bool:
     return False
 
 
-class Processing:
-    """
-    :说明:
-    > 限制用户在处理期间重复使用指令
-    """
-
-    def __init__(self):
-        self.processing = defaultdict(bool)
-        self.time = time.time()
-
-    def set_True(self, key):
-        self.time = time.time()
-        self.processing[key] = True
-
-    def set_False(self, key):
-        self.processing[key] = False
-
-    def check(self, key):
-        if time.time() - self.time > MAX_PROCESS_TIME:
-            self.set_False(key)
-            return False
-        return self.processing[key]
-
-
-class FreqLimiter:
-    """
-    :说明:
-    > 命令CD
-    """
-
-    def __init__(self, cd):
-        self.end_time = defaultdict(float)
-        self.cd = cd
-
-    def check(self, key) -> bool:
-        return time.time() >= self.end_time[key]
-
-    def start_cd(self, key, cd=0):
-        self.end_time[key] = time.time() + (cd if cd > 0 else self.cd)
-
-    def left_time(self, key) -> float:
-        return self.end_time[key] - time.time()
-
-
 class ExploitCheck:
     """
     :说明: ``
@@ -127,3 +87,96 @@ class ExploitCheck:
             self.mint[key] = 0
             return True
         return False
+
+
+def deprecated(reason: str):
+    def decorator(func):
+        if inspect.isclass(func):
+            fmt = "Call to deprecated class {name}:{reason}"
+        else:
+            fmt = "Call to deprecated function {name}:{reason}"
+
+        @functools.wraps(func)
+        def _func(*args, **kwargs):
+            warnings.warn(
+                fmt.format(name=func.__name__, reason=reason),
+                category=DeprecationWarning,
+                stacklevel=2,
+            )
+            warnings.simplefilter("default", DeprecationWarning)
+            return func(*args, **kwargs)
+
+        return _func
+
+    return decorator
+
+
+async def extract_mentioned_ids(message: Message) -> List[int]:
+    """
+    :说明: `extract_mentioned_ids`
+    > 从消息中提取出所有被@的人的id
+
+    :参数:
+      * `message: Message`: 消息
+
+    :返回:
+      - `List[int]`: 被@的人的id列表
+    """
+    return [seg.data["qq"] for seg in message if seg.type == "at"]
+
+
+async def extract_time_delta(message: Message) -> datetime.timedelta:
+    """
+    :说明: `extract_time_delta`
+    > 从消息内提取time_delta，返回时间段长度
+
+    :参数:
+      * `message: Message`: 消息
+
+    :Exceptions:
+      * `ValueError`: 未找到代表时间的语句
+
+    :返回:
+      - `datetime.timedelta`: 时间长度
+    """
+    cn_time: str = str()
+    for seg in message:
+        if seg.type == "text":
+            cn_time = seg.data["text"]
+    if not cn_time:
+        raise ValueError("未找到代表时间的语句")
+    try:
+        _time = jio.parse_time(cn_time)
+        if (
+            _time.get("type", None) == "time_delta"
+            and _time.get("definition", None) == "accurate"
+        ):
+            # time_stamp: int = 0
+            _time_time: dict[str, float] = _time["time"]
+            return datetime.timedelta(**_time_time)
+        else:
+            raise ValueError("未找到代表时间的语句")
+    except (ValueError, KeyError):
+        raise ValueError("未找到代表时间的语句")
+
+
+async def extract_image_link(message: Message) -> list[str]:
+    """
+    :说明: `extract_image_link`
+    > 从消息内提取出所有的图片链接
+
+    :参数:
+      * `message: Message`: 消息
+
+    :返回:
+      - `list[str]`: 图片链接列表
+    """
+    image_seg = [seg for seg in message if seg.type == "image"]
+    image_links: list = []
+    for i in image_seg:
+        if url := i.data.get("url", None):
+            image_links.append(url)
+        else:
+            md5 = str(i.data.get("file", None)).removesuffix(".image")
+            image_links.append(f"https://gchat.qpic.cn/gchatpic_new/0/0-0-{md5}/0")
+    return image_links

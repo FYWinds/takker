@@ -10,7 +10,7 @@ from nonebot.typing import T_State
 from nonebot.adapters.cqhttp import GROUP, Bot, MessageEvent
 
 from utils.browser import get_ua
-from utils.msg_util import image
+from utils.msg_util import MS
 from configs.path_config import IMAGE_PATH
 
 __plugin_info__ = {
@@ -43,7 +43,7 @@ async def handle_receive(bot: Bot, event: MessageEvent, state: T_State):
         return
     await petpet(at)
     image_name = f"temp-{at}.gif"
-    await pet.finish(image(image_name, "petpet"))
+    await pet.finish(MS.image(image_name, "petpet"))
 
 
 frame_spec = [

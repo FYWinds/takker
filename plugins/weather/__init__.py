@@ -5,7 +5,7 @@ from nonebot.plugin import on_command
 from nonebot.adapters.cqhttp import Bot, MessageEvent, MessageSegment
 
 from configs.config import WEATHER_DEFAULT
-from utils.msg_util import image
+from utils.msg_util import MS
 
 from .convert_pic import Image, draw
 from .get_weather import get_City_Weather
@@ -39,12 +39,12 @@ async def _(bot: Bot, event: MessageEvent):
         try:
             data = await get_City_Weather(city)
             img = draw(data)
-            await weather.finish(image(c=img_to_b64(img)))
+            await weather.finish(MS.image(c=img_to_b64(img)))
         except KeyError:
             await weather.finish("这个地方不在天气数据库中哦 >_<")
     elif WEATHER_DEFAULT:
         data = await get_City_Weather(WEATHER_DEFAULT)
         img = draw(data)
-        await weather.finish(image(c=img_to_b64(img)))
+        await weather.finish(MS.image(c=img_to_b64(img)))
     else:
         await weather.finish("地点是...空气吗?? >_<")

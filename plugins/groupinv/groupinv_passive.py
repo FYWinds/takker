@@ -4,7 +4,7 @@ from nonebot.typing import T_State
 from nonebot.adapters.cqhttp import Bot, GroupRequestEvent
 from nonebot.adapters.cqhttp.exception import ActionFailed
 
-from api.info import get_stranger_info, get_group_member_list
+from gocqapi import api
 from utils.rule import limit_group
 
 gr = on_request(
@@ -85,27 +85,27 @@ async def set_request(
 
 async def check_list(user_id: str):
     # g1 = await get_group_member_list(511467246)
-    g2 = await get_group_member_list(319152433)
-    g3 = await get_group_member_list(603809278)
-    g4 = await get_group_member_list(869202661)
+    g2 = await api.get_group_member_list(319152433)
+    g3 = await api.get_group_member_list(603809278)
+    g4 = await api.get_group_member_list(869202661)
 
     # for data in g1:
     #     if user_id == str(data['user_id']):
     #         return True
     for data in g2:
-        if user_id == str(data["user_id"]):
+        if user_id == data.user_id:
             return True
     for data in g3:
-        if user_id == str(data["user_id"]):
+        if user_id == data.user_id:
             return True
     for data in g4:
-        if user_id == str(data["user_id"]):
+        if user_id == data.user_id:
             return True
 
 
 async def check_level(user_id: int):
-    r = await get_stranger_info(user_id)
-    if r["level"] >= 15:
+    r = await api.get_stranger_info(user_id)
+    if r.level >= 15:
         return True
     else:
         return False

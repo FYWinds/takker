@@ -7,7 +7,7 @@ from nonebot.plugin import on_command
 from nonebot.typing import T_State
 from nonebot.adapters.cqhttp import Bot, MessageEvent
 
-from utils.msg_util import record
+from utils.msg_util import MS
 from configs.path_config import VOICE_PATH
 
 __plugin_info__ = {
@@ -34,5 +34,5 @@ async def _(bot: Bot, event: MessageEvent, state: T_State):
     voices: List[str] = os.listdir(f"{VOICE_PATH}dinggong")
     voice = random.choice(voices)
     text = re.findall("_(.*)_", voice)[0]
-    await bot.send(event, record(voice, "dinggong"))
+    await bot.send(event, MS.record(voice, "dinggong"))
     await blame.finish(text)

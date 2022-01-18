@@ -1,6 +1,3 @@
-import os
-import subprocess
-
 from tortoise import Tortoise
 from nonebot.log import logger
 from tortoise.exceptions import DBConnectionError

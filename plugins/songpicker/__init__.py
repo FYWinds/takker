@@ -3,7 +3,7 @@ from nonebot.typing import T_State
 from nonebot.adapters import Bot, Event
 from nonebot.adapters.cqhttp.message import MessageSegment
 
-from utils.msg_util import music_163
+from utils.msg_util import MS
 
 from .data_source import dataGet, dataProcess
 
@@ -57,4 +57,4 @@ async def handle_songNum(bot: Bot, event: Event, state: T_State):
         await songpicker.reject("数字序号错误，请重选")
 
     selectedSongId = songIdList[int(songNum)]
-    await songpicker.finish(music_163(selectedSongId))
+    await songpicker.finish(MS.music_163(selectedSongId))
