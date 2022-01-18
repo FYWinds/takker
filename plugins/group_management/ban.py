@@ -24,6 +24,7 @@ ban = on_command(
 @ban.handle()
 async def _ban(bot: Bot, event: GroupMessageEvent):
     at_list = await extract_mentioned_ids(event.message)
+    fail: bool = False
     if not at_list:
         await ban.finish("无用户被禁言")
     try:
@@ -46,6 +47,46 @@ async def _ban(bot: Bot, event: GroupMessageEvent):
     message += (
         (
             "\n 以下用户禁言失败\n"
+            + ", ".join([str(user) for user in progress if not progress[user]])
+        )
+        if fail
+        else ""
+    )
+    await ban.finish(MS.image(c=await textToImage(message)))
+
+
+unban = on_command(
+    "解除禁言",
+    aliases={
+        "解禁",
+        "unban",
+        "Unban",
+    },
+    rule=admin(),
+    priority=20,
+    block=True,
+)
+
+
+@unban.handle()
+async def _unban(bot: Bot, event: GroupMessageEvent):
+    at_list = await extract_mentioned_ids(event.message)
+    fail: bool = False
+    if not at_list:
+        await ban.finish("无用户被解禁")
+    progress: dict[int, bool] = {}
+    group_id = event.group_id
+    for at_id in at_list:
+        try:
+            await api.set_group_ban(group_id, at_id, 0)
+            progress[at_id] = True
+        except ValueError:
+            progress[at_id] = False
+            fail = True
+    message = "成功解禁: \n" + ", ".join([str(user) for user in progress if progress[user]])
+    message += (
+        (
+            "\n 以下用户解禁失败\n"
             + ", ".join([str(user) for user in progress if not progress[user]])
         )
         if fail

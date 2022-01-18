@@ -1,11 +1,8 @@
+from gocqapi import api
 from nonebot.log import logger
+from gocqapi.models import JoinRequest
 from nonebot_plugin_apscheduler import scheduler
 from nonebot.adapters.cqhttp.exception import ActionFailed
-
-from api import API
-from api.models import JoinRequest
-
-api = API()
 
 
 @scheduler.scheduled_job("interval", seconds=10, id="handle_group_req")

@@ -1,11 +1,11 @@
 from io import BytesIO
 
 import httpx
+from gocqapi import api
 from nonebot import on_command
 from nonebot.adapters.cqhttp import Bot, MessageEvent
 from nonebot.adapters.cqhttp.event import GroupMessageEvent
 
-from gocqapi import api
 from utils.img_util import ImageUtil
 from utils.msg_util import MS
 
@@ -28,6 +28,8 @@ friend = on_command("我有个朋友", aliases={"我有一个朋友", "我有朋
 
 @friend.handle()
 async def _(bot: Bot, event: MessageEvent):
+    at: int = int()
+    text: str = str()
     for num, seg in enumerate(event.message):
         if seg.type == "at":
             at = seg.data["qq"]

@@ -1,5 +1,6 @@
 import time
 import inspect
+import datetime
 import warnings
 import functools
 from typing import List
@@ -124,10 +125,10 @@ async def extract_mentioned_ids(message: Message) -> List[int]:
     return [seg.data["qq"] for seg in message if seg.type == "at"]
 
 
-async def extract_time_delta(message: Message) -> int:
+async def extract_time_delta(message: Message) -> datetime.timedelta:
     """
     :说明: `extract_time_delta`
-    > 从消息内提取time_delta，返回秒级时间戳
+    > 从消息内提取time_delta，返回时间段长度
 
     :参数:
       * `message: Message`: 消息
@@ -136,8 +137,9 @@ async def extract_time_delta(message: Message) -> int:
       * `ValueError`: 未找到代表时间的语句
 
     :返回:
-      - `int`: 秒级量度的时间戳
+      - `datetime.timedelta`: 时间长度
     """
+    cn_time: str = str()
     for seg in message:
         if seg.type == "text":
             cn_time = seg.data["text"]
@@ -149,12 +151,32 @@ async def extract_time_delta(message: Message) -> int:
             _time.get("type", None) == "time_delta"
             and _time.get("definition", None) == "accurate"
         ):
-            time_stamp: int = 0
+            # time_stamp: int = 0
             _time_time: dict[str, float] = _time["time"]
-            for t in _time_time:
-                time_stamp += int(_time_time[t]) * _time_definition[t]
-            return time_stamp
+            return datetime.timedelta(**_time_time)
         else:
             raise ValueError("未找到代表时间的语句")
     except (ValueError, KeyError):
         raise ValueError("未找到代表时间的语句")
+
+
+async def extract_image_link(message: Message) -> list[str]:
+    """
+    :说明: `extract_image_link`
+    > 从消息内提取出所有的图片链接
+
+    :参数:
+      * `message: Message`: 消息
+
+    :返回:
+      - `list[str]`: 图片链接列表
+    """
+    image_seg = [seg for seg in message if seg.type == "image"]
+    image_links: list = []
+    for i in image_seg:
+        if url := i.data.get("url", None):
+            image_links.append(url)
+        else:
+            md5 = str(i.data.get("file", None)).removesuffix(".image")
+            image_links.append(f"https://gchat.qpic.cn/gchatpic_new/0/0-0-{md5}/0")
+    return image_links
