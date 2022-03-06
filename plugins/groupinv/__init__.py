@@ -1,5 +1,8 @@
-from . import groupinv_initiative, groupinv_passive
+from . import groupinv_passive, groupinv_initiative
 
-__permission__ = 10
-__plugin_name__ = "自动审核加群"
-__usage__ = """None"""
+__plugin_info__ = {
+    "name": "加群自动审核",
+    "author": "风屿",
+    "version": "1.0.0",
+    "permission": 10,
+}

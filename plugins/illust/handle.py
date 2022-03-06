@@ -1,7 +1,7 @@
 from argparse import Namespace
 
-from service.db.models.statistic import Statistic
-from service.db.utils.illust_config import get_illust_config, set_illust_config
+from db.models.statistic import Statistic
+from db.utils.illust_config import IllustConfig
 
 from .data_source import get_illust, get_illust_direct
 
@@ -47,5 +47,5 @@ async def handle_set(args: Namespace) -> str:
     for c in config:
         if c in settings:
             configs.append(c)
-    await set_illust_config(configs, state)
+    await IllustConfig.set_illust_config(configs, state)
     return f"配置项({', '.join(configs)})修改成功!"

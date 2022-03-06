@@ -1,4 +1,5 @@
 from PIL import Image, ImageDraw, ImageFont
+
 from configs.path_config import FONT_PATH, IMAGE_PATH
 
 font = f"{FONT_PATH}/weather.ttc"

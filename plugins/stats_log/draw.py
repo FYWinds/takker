@@ -5,8 +5,8 @@ from collections import Counter
 from nonebot.plugin import get_plugin
 
 from utils.browser import get_browser
-from configs.path_config import IMAGE_PATH, TEMPLATE_PATH
-from service.db.models.statistic import Statistic
+from configs.path_config import TEMPLATE_PATH
+from db.models.statistic import Statistic
 
 
 async def draw_stat(group_id: int):
@@ -25,8 +25,8 @@ async def draw_stat(group_id: int):
         try:
             plugin = get_plugin(k)
             assert plugin is not None
-            plugin_name = getattr(plugin.module, "__plugin_name__", None)
-            assert plugin_name is not None
+            plugin_info = getattr(plugin.module, "__plugin_info__", {})
+            plugin_name = plugin_info.get("name", plugin.name)
             p_list_cn |= {plugin_name: p_list[k]}
         except AssertionError:
             p_list_cn |= {k: p_list[k]}

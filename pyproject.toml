@@ -25,6 +25,7 @@ pypinyin = "^0.42.0"
 ImageHash = "^4.2.1"
 opencv-python = "^4.5.3"
 qrcode = "^7.3"
+aerich = "^0.5.8"
 
 
 [tool.poetry.dev-dependencies]
