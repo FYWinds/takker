@@ -37,9 +37,5 @@
         "**/__pycache__": true,
         ".venv": true,
         ".mypy_cache": true,
-        ".gitattributes": true,
-        ".gitignore": true,
-        "poetry.lock": true,
-        "LICENSE": true,
     },
 }
