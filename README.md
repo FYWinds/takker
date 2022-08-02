@@ -1,7 +1,5 @@
 [![Time](https://wakatime.com/badge/github/FYWinds/takker.svg)](https://wakatime.com/badge/github/FYWinds/takker)
 
-[![Codeac](https://static.codeac.io/badges/2-395259589.svg "Codeac")](https://app.codeac.io/github/FYWinds/takker)
-
 ![maven](https://img.shields.io/badge/python-3.9%2B-green)
 ![maven](https://img.shields.io/badge/nonebot-2.0.0a15-mint)
 ![maven](https://img.shields.io/badge/go--cqhttp-1.0.0--beta7.fix2-lime)
@@ -186,13 +184,16 @@ TEMP_PATH = Path("resources/img/temp/")
 <details>
 <summary>更新记录</summary>
 
+### 2021/10/17
+* 提升截图的清晰度
+
 ### 2021/?/?
 * 不知道咕了多少天
 * 添加功能-B站订阅推送
 * 添加功能-B站视频解析
 * 数据库结构重构
 * 增加旧版数据转换，但依旧建议手动备份data.db
-* 
+* ???
 * 修复大量错误
 * 准备发版
 
@@ -289,11 +290,12 @@ TEMP_PATH = Path("resources/img/temp/")
 </details>
 
 ## Todo
+- [ ] 文档
 - [ ] 群管功能
-- [ ] 缓存清理功能
-- [ ] docker容器化部署
 - [ ] Web管理面板
+- [ ] 缓存清理功能
 - [ ] 完善各种功能
+- [ ] docker容器化部署
 - [ ] 提供非侵入式的权限等级管理方式
 
 ## 感谢
