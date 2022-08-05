@@ -1,5 +1,5 @@
 from tortoise.models import Model
-from tortoise.fields.data import *  # type: ignore
+from tortoise.fields.data import IntField, TextField, BigIntField
 
 
 class Starluck(Model):
@@ -48,4 +48,3 @@ class Plugin(Model):
     class Meta:
         table = "plugin_manager"
         table_description = "插件管理器数据"
-

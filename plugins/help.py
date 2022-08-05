@@ -12,8 +12,8 @@ from nonebot.adapters.cqhttp import (
 
 from utils.utils import enable_check
 from configs.config import HIDDEN_PLUGINS
-from utils.img_util import create_image_from_text
-from utils.msg_util import at, text, image
+from utils.img_util import textToImage
+from utils.msg_util import at, image
 from service.db.utils.perm import query_perm
 
 __usage__ = """/help | 获取帮助菜单
@@ -97,9 +97,7 @@ async def get_result(bot: Bot, event: MessageEvent, state: T_State):
                 result = str(plugin.module.__doc__)
             except (AttributeError, AssertionError):
                 result = f'{state.get("content")}插件不存在或未加载'
-    await helper.finish(
-        at(event.user_id) + image(c=(await create_image_from_text(result)))
-    )
+    await helper.finish(at(event.user_id) + image(c=(await textToImage(result))))
 
 
 async def get_help():

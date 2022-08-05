@@ -9,12 +9,11 @@ from nonebot.log import logger
 from nonebot_plugin_apscheduler import scheduler
 
 from utils.browser import get_browser
-from service.db.models.bs import Bili_sub
+from service.db.models.bs import BiliSub as DB
 
 from .bilireq import BiliReq
 from .dynamic import Dynamic
 
-DB = Bili_sub()
 last_time = {}
 
 

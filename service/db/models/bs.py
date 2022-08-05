@@ -6,7 +6,7 @@ from tortoise.fields.data import IntField, CharField, BooleanField
 from tortoise.query_utils import Q
 
 
-class Bili_sub(Model):
+class BiliSub(Model):
     type = CharField(max_length=10)  # 订阅类型 user/group
     type_id = IntField()  # 订阅会话id
     bid = IntField()  # 订阅主播

@@ -8,7 +8,7 @@ from nonebot.adapters.cqhttp import (
 )
 
 from utils.rule import admin
-from utils.img_util import create_image_from_text
+from utils.img_util import textToImage
 from utils.msg_util import image
 
 from . import live_pusher, dynamic_pusher
@@ -34,5 +34,5 @@ async def _(bot: Bot, event: MessageEvent, state: T_State):
 
     if hasattr(args, "handle"):
         message = await args.handle(args)
-        img = await create_image_from_text(message, cut=100)
+        img = await textToImage(message, cut=100)
         await bot.send(event, image(c=img))
