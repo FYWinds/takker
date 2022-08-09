@@ -1,6 +1,9 @@
+from logging import INFO
+
 from nonebot.log import logger
 
 from utils.browser import install
+from configs.config import INFO_LOG_TIME, DEBUG_LOG_TIME, ERROR_LOG_TIME
 from configs.path_config import LOG_PATH
 from service.db.db_connect import db_init
 from service.db.utils.data_convert import convert
@@ -15,7 +18,7 @@ async def init_bot_startup():
     logger.add(
         LOG_PATH + "debug/{time:YYYY-MM-DD}.log",
         rotation="00:00",
-        retention="10 days",
+        retention=f"{DEBUG_LOG_TIME} days",
         level="DEBUG",
         format=custom_format,
         encoding="utf-8",
@@ -23,7 +26,7 @@ async def init_bot_startup():
     logger.add(
         LOG_PATH + "info/{time:YYYY-MM-DD}.log",
         rotation="00:00",
-        retention="3 months",
+        retention=f"{INFO_LOG_TIME} days",
         level="INFO",
         format=custom_format,
         encoding="utf-8",
@@ -31,7 +34,7 @@ async def init_bot_startup():
     logger.add(
         LOG_PATH + "error/{time:YYYY-MM-DD}.log",
         rotation="00:00",
-        retention="1 year",
+        retention=f"{ERROR_LOG_TIME} days",
         level="ERROR",
         format=custom_format,
         encoding="utf-8",
