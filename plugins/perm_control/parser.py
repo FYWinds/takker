@@ -1,6 +1,6 @@
 from nonebot.rule import ArgumentParser
 
-from .handle import list_perm, get_perm, edit_perm
+from .handle import list_perm, get_perm, edit_perm, edit_plugin_perm
 
 perm_parser = ArgumentParser("perm")
 
@@ -24,3 +24,8 @@ set_parser.add_argument(
     "-g", "--group", action="store", nargs="+", default=[], type=int
 )
 set_parser.set_defaults(handle=edit_perm)
+
+edit_parser = perm_subparsers.add_parser("edit")
+edit_parser.add_argument("perm", nargs=1)
+edit_parser.add_argument("plugins", nargs="+", default=[], type=str)
+edit_parser.set_defaults(handle=edit_plugin_perm)
