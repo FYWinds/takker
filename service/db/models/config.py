@@ -39,6 +39,7 @@ class BotConfig(Model):
 
     version = CharField(max_length=32)
     illust_config = JSONField(null=True)
+    plugin_perms = JSONField(null=True)
 
     class Meta:
         table = "bot_config"
