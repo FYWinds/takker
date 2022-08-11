@@ -38,4 +38,5 @@
         ".venv": true,
         ".mypy_cache": true,
     },
+    "files.trimFinalNewlines": true,
 }

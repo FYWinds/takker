@@ -123,3 +123,4 @@ temp*.gif
 temp*.html
 data/*.db-*
 data/backups/*
+data/data.db.old

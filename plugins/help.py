@@ -15,6 +15,7 @@ from configs.config import HIDDEN_PLUGINS
 from utils.img_util import textToImage
 from utils.msg_util import at, image
 from service.db.utils.perm import query_perm
+from service.db.utils.plugin_perm import PluginPerm
 
 __usage__ = """/help | 获取帮助菜单
 /help list | 插件列表
@@ -59,7 +60,7 @@ async def get_result(bot: Bot, event: MessageEvent, state: T_State):
             # 权限和插件开启判断，优先级 关闭状态>=权限>=开启状态
             enabled = await enable_check(plugin.name, event)
             try:
-                plugin_perm = getattr(plugin.module, "__permission__", None)
+                plugin_perm = await PluginPerm.get_plugin_perm(plugin.name)
                 assert plugin_perm is not None
             except AssertionError:
                 plugin_perm = 5

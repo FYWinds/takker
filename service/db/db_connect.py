@@ -1,6 +1,5 @@
 from tortoise import Tortoise
 from nonebot.log import logger
-from nonebot.exception import NoneBotException
 from tortoise.exceptions import DBConnectionError
 
 from configs.path_config import DATA_PATH
@@ -12,36 +11,37 @@ models: list[str] = [
     "service.db.models.statistic",
     "service.db.models.wordcloud",
     "service.db.models.outdated_models",
+    "aerich.models",
 ]
+
+TORTOISE_ORM: dict = {
+    "connections": {
+        "data": {
+            "engine": "tortoise.backends.sqlite",
+            "credentials": {"file_path": f"{DATA_PATH}data.db"},
+        },
+        "illust": {
+            "engine": "tortoise.backends.sqlite",
+            "credentials": {"file_path": f"{DATA_PATH}illust.db"},
+        },
+    },
+    "apps": {
+        "datadb": {
+            "models": models,
+            "default_connection": "data",
+        },
+        "illustdb": {
+            "models": ["service.db.models.illust"],
+            "default_connection": "illust",
+        },
+    },
+}
 
 
 async def db_init():
     logger.debug("开始连接数据库")
     try:
-        await Tortoise.init(
-            {
-                "connections": {
-                    "data": {
-                        "engine": "tortoise.backends.sqlite",
-                        "credentials": {"file_path": f"{DATA_PATH}data.db"},
-                    },
-                    "illust": {
-                        "engine": "tortoise.backends.sqlite",
-                        "credentials": {"file_path": f"{DATA_PATH}illust.db"},
-                    },
-                },
-                "apps": {
-                    "datadb": {
-                        "models": models,
-                        "default_connection": "data",
-                    },
-                    "illustdb": {
-                        "models": ["service.db.models.illust"],
-                        "default_connection": "illust",
-                    },
-                },
-            }
-        )
+        await Tortoise.init(TORTOISE_ORM)
         await Tortoise.generate_schemas()
         logger.info("数据库连接成功")
     except DBConnectionError as e:
