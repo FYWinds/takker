@@ -5,8 +5,8 @@ from collections import Counter
 from nonebot.plugin import get_plugin
 
 from utils.browser import get_browser
-from configs.path_config import IMAGE_PATH, TEMPLATE_PATH
-from service.db.models.statistic import Statistic
+from configs.path_config import TEMPLATE_PATH
+from db.models.statistic import Statistic
 
 
 async def draw_stat(group_id: int):

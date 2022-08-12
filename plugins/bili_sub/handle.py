@@ -1,6 +1,6 @@
 from argparse import Namespace
 
-from service.db.models.bs import BiliSub as DB
+from db.models.bs import BiliSub as DB
 
 _blank = "    "
 
@@ -255,7 +255,7 @@ def convert_settings(settings: dict[str, bool]) -> str:
     > 转换设置项至文字
 
     :参数:
-      * `settings: dict[str, bool]`: 设置项 格式为service.db.models.hb.Bili_sub().get_settings()的返回值
+      * `settings: dict[str, bool]`: 设置项 格式为db.models.hb.Bili_sub().get_settings()的返回值
 
     :返回:
       - `str`: 转换后的文字 格式为 动态: 开  直播: 开  全体: 关

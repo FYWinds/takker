@@ -3,8 +3,8 @@ from argparse import Namespace
 from nonebot.plugin import get_plugin
 
 from api.info import get_group_list
-from service.db.utils.perm import set_perm, query_perm
-from service.db.utils.plugin_perm import PluginPerm
+from db.utils.perm import Perm
+from db.utils.plugin_perm import PluginPerm
 
 dash = "-"
 
@@ -19,7 +19,7 @@ async def list_perm(args: Namespace) -> str:
         g_list = await get_group_list()
         for group in g_list:
             group_id = group["group_id"]
-            perm = await query_perm(id=str(group_id), isGroup=True)
+            perm = await Perm.query_perm(id=str(group_id), isGroup=True)
             message = message + "\n" + f"{str(group_id):10s}: {str(perm):2s}级"
             message = message + "\n" + f"{dash*16}"
     elif args.plugin:
@@ -44,25 +44,25 @@ async def get_perm(args: Namespace) -> str:
     if args.user:
         id = args.user[0]
         message = f"用户({id})的权限为: "
-        perm = await query_perm(id=str(id), isGroup=False)
+        perm = await Perm.query_perm(id=str(id), isGroup=False)
         message += f"{perm}级"
         return message
     elif args.group:
         id = args.group[0]
         message = f"群({id})的权限为: "
-        perm = await query_perm(id=str(id), isGroup=True)
+        perm = await Perm.query_perm(id=str(id), isGroup=True)
         message += f"{perm}级"
         return message
     elif args.conv["group"]:
         group_id = args.conv["group"][0]
         message = f"群({group_id})的权限为: "
-        perm = await query_perm(id=str(group_id), isGroup=True)
+        perm = await Perm.query_perm(id=str(group_id), isGroup=True)
         message += f"{perm}级"
         return message
     else:
         user_id = args.conv["user"][0]
         message = f"用户({user_id})的权限为: "
-        perm = await query_perm(id=str(user_id), isGroup=False)
+        perm = await Perm.query_perm(id=str(user_id), isGroup=False)
         message += f"{perm}级"
         return message
 
@@ -84,29 +84,29 @@ async def edit_perm(args: Namespace) -> str:
         return "非私聊，只能修改当前群聊权限等级"
     if args.user:
         for u in args.conv["user"]:
-            user_perm = await query_perm(id=str(args.c_user))
+            user_perm = await Perm.query_perm(id=str(args.c_user))
             if user_perm > perm:
-                await set_perm(id=u, perm=perm)
+                await Perm.set_perm(id=u, perm=perm)
                 message += f"成功设置用户({u})的权限等级为 {perm} 级\n"
             else:
                 message += f"您的权限等级({user_perm}级)过低，无法修改用户({u})权限等级为 {perm} 级！\n"
         return message
     elif args.group:
-        user_perm = await query_perm(id=args.c_user)
+        user_perm = await Perm.query_perm(id=args.c_user)
         for g in args.conv["group"]:
             if user_perm > perm:
-                await set_perm(id=g, perm=perm, isGroup=True)
+                await Perm.set_perm(id=g, perm=perm, isGroup=True)
                 message += f"成功设置群({g})的权限等级为 {perm} 级\n"
             else:
                 message += f"您的权限等级({user_perm}级)过低，无法修改群({g})权限等级为 {perm} 级！\n"
         return message.strip()
     else:
         user_id = args.conv["user"][0]
-        user_perm = await query_perm(id=str(user_id))
+        user_perm = await Perm.query_perm(id=str(user_id))
         try:
             id = args.conv["group"][0]
             if user_perm > perm:
-                await set_perm(id=id, perm=perm, isGroup=True)
+                await Perm.set_perm(id=id, perm=perm, isGroup=True)
                 return f"成功设置本群权限等级为 {perm} 级"
             return f"您的权限等级({user_perm}级)过低，无法修改本群权限等级为 {perm} 级！"
         except IndexError:
@@ -135,11 +135,11 @@ async def reset_perm(args: Namespace) -> str:
     if args.is_superuser:
         if args.user:
             for u in args.user:
-                await set_perm(id=u, perm=0)
+                await Perm.set_perm(id=u, perm=0)
             return f"成功重置用户 {', '.join(args.user)} 的权限等级为 0 级"
         elif args.group:
             for g in args.group:
-                await set_perm(id=g, perm=0, isGroup=True)
+                await Perm.set_perm(id=g, perm=0, isGroup=True)
             return f"成功重置群 {', '.join(args.group)} 的权限等级为 0 级"
         elif args.plugin:
             plugin_perms = await PluginPerm.get_all_plugin_perm()

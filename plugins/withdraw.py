@@ -5,7 +5,6 @@ from nonebot.typing import T_State
 from nonebot.adapters.cqhttp import GROUP, Bot, GroupMessageEvent
 
 from utils.rule import admin
-from configs.config import OWNER, SUPERUSERS
 
 __permission__ = 0
 __plugin_name__ = "撤回"
@@ -37,7 +36,7 @@ withdraw = on_command("撤回", priority=20, permission=GROUP, rule=admin())
 @withdraw.handle()
 async def _wdh(bot: Bot, event: GroupMessageEvent, state: T_State):
     global messages
-    if event.reply == None:
+    if event.reply is None:
         return
     message_id = event.reply.message_id
     if message_id in messages:

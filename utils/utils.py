@@ -5,9 +5,9 @@ from collections import defaultdict
 from nonebot import require
 from nonebot.adapters.cqhttp import Event, GroupMessageEvent, PrivateMessageEvent
 
+from db.utils.perm import Perm
 from configs.config import HIDDEN_PLUGINS, MAX_PROCESS_TIME
-from service.db.utils.perm import check_perm
-from service.db.utils.plugin_manager import query_plugin_status
+from db.utils.plugin_manager import PluginManager
 
 scheduler = require("nonebot_plugin_apscheduler").scheduler  # type: ignore
 
@@ -23,11 +23,11 @@ async def perm_check(perm: int, event: "Event") -> bool:
     user_id = getattr(event, "user_id", None)
     group_id = getattr(event, "group_id", None)
     if group_id is not None and user_id is not None:
-        u_perm = await check_perm(id=user_id, perm=perm)
-        g_perm = await check_perm(id=group_id, perm=perm, isGroup=True)
+        u_perm = await Perm.check_perm(id=user_id, perm=perm)
+        g_perm = await Perm.check_perm(id=group_id, perm=perm, isGroup=True)
         return u_perm or g_perm
     elif user_id is not None:
-        u_perm = await check_perm(id=user_id, perm=perm)
+        u_perm = await Perm.check_perm(id=user_id, perm=perm)
         return u_perm
     return False
 
@@ -45,10 +45,10 @@ async def enable_check(plugin: str, event: "Event") -> bool:
     user_id = getattr(event, "user_id", None)
     group_id = getattr(event, "group_id", None)
     if group_id is not None:
-        p = await query_plugin_status(id=group_id, isGroup=True)
+        p = await PluginManager.query_plugin_status(id=group_id, isGroup=True)
         return p[plugin]
     elif user_id is not None:
-        p = await query_plugin_status(user_id)
+        p = await PluginManager.query_plugin_status(user_id)
         return p[plugin]
     return False
 

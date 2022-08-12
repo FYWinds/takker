@@ -5,7 +5,7 @@ from nonebot.typing import T_State
 from nonebot.adapters.cqhttp import GROUP, PRIVATE_FRIEND, Bot, MessageEvent
 
 from configs.config import OWNER
-from service.db.models.illust import Illust
+from db.models.illust import Illust
 
 from .data_source import get_illust_info, get_illust_link
 

@@ -11,11 +11,11 @@ from nonebot.adapters.cqhttp import (
 )
 
 from utils.utils import enable_check
+from db.utils.perm import Perm
 from configs.config import HIDDEN_PLUGINS
 from utils.img_util import textToImage
 from utils.msg_util import at, image
-from service.db.utils.perm import query_perm
-from service.db.utils.plugin_perm import PluginPerm
+from db.utils.plugin_perm import PluginPerm
 
 __usage__ = """/help | 获取帮助菜单
 /help list | 插件列表
@@ -47,9 +47,9 @@ async def get_result(bot: Bot, event: MessageEvent, state: T_State):
         plugin_set = nonebot.plugin.get_loaded_plugins()
         plugin_names = []
         if isinstance(event, GroupMessageEvent):
-            perm = await query_perm(id=str(event.group_id), isGroup=True)
+            perm = await Perm.query_perm(id=str(event.group_id), isGroup=True)
         elif isinstance(event, PrivateMessageEvent):
-            perm = await query_perm(id=str(event.user_id), isGroup=False)
+            perm = await Perm.query_perm(id=str(event.user_id), isGroup=False)
         else:
             return
         for plugin in plugin_set:
