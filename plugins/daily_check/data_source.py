@@ -17,7 +17,7 @@ async def get_acg_image():
         async with httpx.AsyncClient(headers=get_ua()) as client:
             resp = await client.get(url=url, params=params)
             return resp.json()["data"]["url"]
-    except (KeyError, ReadTimeout, JSONDecodeError):
+    except Exception:
         return "https://file.alapi.cn/image/comic/122514-15234207140623.jpg"
 
 
