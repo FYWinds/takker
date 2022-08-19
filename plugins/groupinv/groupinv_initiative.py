@@ -1,10 +1,9 @@
-from nonebot_plugin_apscheduler import scheduler
 from nonebot.log import logger
+from nonebot_plugin_apscheduler import scheduler
 from nonebot.adapters.cqhttp.exception import ActionFailed
 
-from api.group_manage import set_request
 from api.info import get_stranger_info, group_join_request, get_group_member_list
-
+from api.group_manage import set_request
 
 __permission__ = 0
 
@@ -126,7 +125,7 @@ async def check_list(user_id: str):
 
 async def check_level(reqs: dict):
     r = await get_stranger_info(reqs["requester_uin"])
-    if r["level"] >= 5:
+    if r["level"] >= 15:
         return True
     else:
         return False

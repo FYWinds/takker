@@ -105,7 +105,7 @@ async def check_list(user_id: str):
 
 async def check_level(user_id: int):
     r = await get_stranger_info(user_id)
-    if r["level"] >= 5:
+    if r["level"] >= 15:
         return True
     else:
         return False
