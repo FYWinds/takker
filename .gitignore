@@ -116,6 +116,7 @@ dmypy.json
 
 # My Own Config
 configs/config.py
+configs/config.yaml
 data/data.db
 temp*.jpg
 temp*.png
