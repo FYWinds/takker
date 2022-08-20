@@ -51,6 +51,31 @@ async def textToImage(text: str, cut=64) -> str:
     return imageb64
 
 
+async def textToImageBuf(text: str, cut=64) -> bytes:
+    """
+    :说明: `textToImageBuf`
+    > 文字转图片，返回bytes
+
+    :参数:
+      * `text: str`: 要转换的文字内容
+
+    :可选参数:
+      * `cut: int = 64`: 自动换行字符数限制
+
+    :返回:
+      - `bytes`: 图片bytes
+    """
+    font = ImageFont.truetype(f"{FONT_PATH}sarasa-mono-sc-semibold.ttf", 22)
+    cut_str = "\n".join(cut_text(text, cut))
+    textx, texty = font.getsize_multiline(cut_str)
+    image = Image.new("RGB", (textx + 50, texty + 50), (242, 242, 242))
+    draw = ImageDraw.Draw(image)
+    draw.text((20, 20), cut_str, font=font, fill=(31, 31, 33))
+    buf = BytesIO()
+    image.save(buf, format="PNG")
+    return buf.getvalue()
+
+
 class ImageUtil:
     """
     :说明: `ImageUtil`

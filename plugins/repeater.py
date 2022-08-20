@@ -1,14 +1,17 @@
 import re
+
 from nonebot import on_message
 from nonebot.typing import T_State
-from nonebot.adapters.cqhttp import Bot, GroupMessageEvent, GROUP
-
+from nonebot.adapters.cqhttp import GROUP, Bot, GroupMessageEvent
 
 __permission__ = 2
 
 __plugin_name__ = "复读机"
-
-__usage__ = "能有啥功能啊喂"
+__plugin_usage__ = """
+被动插件，想要啥用法
+"""
+__plugin_author__ = "风屿"
+__plugin_version__ = "1.0.0"
 
 last_msg = {}
 last_repeat_msg = {}

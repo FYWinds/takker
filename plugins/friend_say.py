@@ -9,8 +9,17 @@ from utils.img_util import ImageUtil
 from utils.msg_util import image
 
 __permission__ = 3
-__plugin_name__ = "我有一个朋友"
-__usage__ = "我有个朋友@朋友 <要说的话>"
+__plugin_name__ = "我有个朋友"
+__plugin_usage__ = f"""
+{'我有个朋友 @某人 <他想说的话>':24s} | 伪造一张朋友发来消息的图片
+{'我有个朋友 @某人 说<他想说的话>':24s} | 伪造一张朋友发来消息的图片
+我有个朋友可替换为以下命令:
+    我有一个朋友
+    我有朋友
+    我有个朋友说
+"""
+__plugin_author__ = "风屿"
+__plugin_version__ = "1.0.0"
 
 friend = on_command("我有个朋友", aliases={"我有一个朋友", "我有朋友", "我有个朋友说"}, priority=20)
 

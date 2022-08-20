@@ -8,8 +8,11 @@ from utils.rule import admin
 
 __permission__ = 0
 __plugin_name__ = "撤回"
-__usage__ = "撤回回复的消息"
-
+__plugin_usage__ = """
+撤回Bot发送的消息
+"""
+__plugin_author__ = "风屿"
+__plugin_version__ = "1.0.0"
 messages: list[int] = []
 
 

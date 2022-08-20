@@ -59,3 +59,21 @@ def cut_text(str, cut):
         non_wrap_str.append(p)
         i += 1
     return non_wrap_str
+
+
+def align(str: str, num: int, type: str = "left") -> str:
+    length = 0
+    for c in str:
+        if c in string.printable:
+            length += 1
+        else:
+            length += 2
+    diff = num - length
+    if type == "left":
+        return str + " " * diff
+    elif type == "right":
+        return " " * diff + str
+    elif type == "center":
+        return str.center(num)
+    else:
+        return str

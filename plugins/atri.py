@@ -11,8 +11,13 @@ from utils.data import atri_text
 from utils.msg_util import record
 
 __permission__ = 3
-__plugin_name__ = "高性能萝卜子"
-__usage__ = "@Bot 想说的话"
+__plugin_name__ = "ATRI语音包"
+__plugin_usage__ = f"""
+{'亚托莉|atri':24s} | 获取随机一条ATRI语音
+{'亚托莉|atri <要说的话>':24s} | 根据文本相似度匹配一条ATRI语音
+"""
+__plugin_author__ = "风屿"
+__plugin_version__ = "1.0.0"
 
 atri = on_command(
     "atri",

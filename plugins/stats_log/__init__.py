@@ -8,10 +8,13 @@ from . import stat_hook
 from .draw import draw_stat, draw_xp_stat
 
 __permission__ = 1
-__plugin_name__ = "插件调用统计"
-__usage__ = """插件调用统计 | 返回插件的调用情况
-xp统计 | 返回pix搜索关键词调用情况
+__plugin_name__ = "统计数据"
+__plugin_usage__ = f"""
+{'调用统计':24s} | 调取本群一个月内的插件调用统计
+{'xp统计':24s} | 调取本群一个月内的pix关键词搜索统计
 """
+__plugin_author__ = "风屿"
+__plugin_version__ = "1.1.0"
 
 plugin_stat = on_command(
     "插件调用统计",

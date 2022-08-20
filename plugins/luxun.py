@@ -12,8 +12,11 @@ from configs.path_config import FONT_PATH, IMAGE_PATH
 
 __permission__ = 3
 __plugin_name__ = "鲁迅说"
-__usage__ = "用法：鲁迅说 [消息]"
-
+__plugin_usage__ = f"""
+{'鲁迅说|鲁迅说过 <要说的话>':24s} | 返回一张鲁迅说过 xxxx 的图片
+"""
+__plugin_author__ = "风屿"
+__plugin_version__ = "1.0.0"
 
 luxun = on_command("鲁迅说过", aliases={"鲁迅说"}, priority=20)
 
