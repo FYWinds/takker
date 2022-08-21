@@ -102,7 +102,6 @@ def update_plugin_list(driver):
 
         for user in user_list:
             user_id = user["user_id"]
-
             # 插件管理器状态更新
             plugin_status = await PluginManager.query_plugin_status(id=user_id)
             for plugin_name in [plugin.name for plugin in current_plugin_list]:
@@ -112,7 +111,7 @@ def update_plugin_list(driver):
                     else:
                         current_plugin_status[plugin_name] = plugin_status[plugin_name]
             await PluginManager.set_plugin_status(
-                id=user_id, status=current_plugin_status, isGroup=True
+                id=user_id, status=current_plugin_status
             )
 
         # 全局插件权限更新
@@ -123,7 +122,9 @@ def update_plugin_list(driver):
                 if plugin.name not in HIDDEN_PLUGINS:
                     plugin_info = getattr(plugin, "plugin_info", {})
                     if plugin.name not in plugin_perms:
-                        current_plugin_perms[plugin.name] = plugin_info.get("permission", 5)
+                        current_plugin_perms[plugin.name] = plugin_info.get(
+                            "permission", 5
+                        )
                     else:
                         current_plugin_perms[plugin.name] = plugin_perms[plugin.name]
         else:

@@ -1,8 +1,15 @@
-__permission__ = 1
+import httpx
+from nonebot import on_command
+from nonebot.typing import T_State
+from nonebot.adapters.cqhttp import Bot, Event
 
-__plugin_name__ = "一言"
-__plugin_usage__ = f"""
-{'.h <类型>':24s} | 获取指定类型的随机一言
+__plugin_info__ = {
+    "name": "一言",
+    "des": "由 hitokoto.cn 提供的随机一言",
+    "usage": {
+        ".h <类型>": {"des": "获取指定类型的随机一言", "eg": ".h a"},
+    },
+    "additional_info": """
 类型列表:
     a 动画
     b 文学
@@ -10,15 +17,12 @@ __plugin_usage__ = f"""
     d 诗词
     e 哲学
     f 网易云
-"""
-__plugin_author__ = "风屿"
-__plugin_version__ = "1.0.0"
+""".strip(),
+    "author": "风屿",
+    "version": "1.0.0",
+    "permission": 1,
+}
 
-
-import httpx
-from nonebot import on_command
-from nonebot.typing import T_State
-from nonebot.adapters.cqhttp import Bot, Event
 
 hitokoto = on_command(".h", priority=20)
 
@@ -26,10 +30,11 @@ hitokoto = on_command(".h", priority=20)
 @hitokoto.handle()
 async def handle_hitokoto_receive(bot: Bot, event: Event, state: T_State):
     args = str(event.get_message()).strip()
-    state["content"] = args
+    if args:
+        state["content"] = args
 
 
-@hitokoto.got("content", prompt="")
+@hitokoto.got("content", prompt="请指定一言的类型，具体类型请查看/help hitokoto")
 async def handle_content(bot: Bot, event: Event, state: T_State):
     content = state["content"]
     answer_content = await hitokoto_get(content)
@@ -38,7 +43,7 @@ async def handle_content(bot: Bot, event: Event, state: T_State):
 
 async def hitokoto_get(content: str):
 
-    help_message = __plugin_usage__
+    help_message = __plugin_info__["additional_info"]
 
     wrong_type = "对不起，您输入的类型暂不支持"
 
@@ -49,7 +54,7 @@ async def hitokoto_get(content: str):
     content_o = ord(content)
 
     if content_o < 97 or content_o > 102:
-        return f"{wrong_type}"
+        return wrong_type
 
     content = content.replace("c", "h")
     content = content.replace("d", "i")

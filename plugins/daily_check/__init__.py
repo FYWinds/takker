@@ -12,7 +12,6 @@ __plugin_info__ = {
     "usage": {"签到|抽签|运势|.luck": {"des": "获得当日签到图片", "eg": "签到"}},
     "author": "风屿",
     "version": "1.0.0",
-    "doc": "",
     "permission": 1,
 }
 

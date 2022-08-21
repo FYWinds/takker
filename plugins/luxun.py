@@ -10,13 +10,16 @@ from nonebot.adapters.cqhttp import Bot, MessageEvent
 from utils.msg_util import image
 from configs.path_config import FONT_PATH, IMAGE_PATH
 
-__permission__ = 3
-__plugin_name__ = "鲁迅说"
-__plugin_usage__ = f"""
-{'鲁迅说|鲁迅说过 <要说的话>':24s} | 返回一张鲁迅说过 xxxx 的图片
-"""
-__plugin_author__ = "风屿"
-__plugin_version__ = "1.0.0"
+__plugin_info__ = {
+    "name": "鲁迅说",
+    "usage": {
+        "鲁迅说|鲁迅说过 <要说的话>": {"des": "返回一张鲁迅说过 xxxx 的图片", "eg": "鲁迅说我没说过"},
+    },
+    "author": "风屿",
+    "version": "1.0.0",
+    "permission": 3,
+}
+
 
 luxun = on_command("鲁迅说过", aliases={"鲁迅说"}, priority=20)
 

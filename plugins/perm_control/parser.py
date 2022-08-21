@@ -8,6 +8,7 @@ perm_subparsers = perm_parser.add_subparsers()
 
 list_parser = perm_subparsers.add_parser("list")
 list_parser.add_argument("-p", "--plugin", action="store_true", help="查看插件权限列表")
+list_parser.add_argument("-u", "--user", action="store_true", help="查看用户权限列表")
 list_parser.add_argument("-g", "--group", action="store_true", help="查看群组权限列表")
 list_parser.set_defaults(handle=list_perm)
 

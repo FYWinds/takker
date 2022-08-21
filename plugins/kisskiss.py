@@ -13,14 +13,16 @@ from utils.browser import get_ua
 from utils.msg_util import image
 from configs.path_config import IMAGE_PATH
 
-# 插件信息
-__permission__ = 2
-__plugin_name__ = "亲亲"
-__plugin_usage__ = f"""
-{'亲 @目标':24s} | 返回一张你和目标的亲亲动图
-"""
-__plugin_author__ = "风屿"
-__plugin_version__ = "1.0.0"
+__plugin_info__ = {
+    "name": "亲亲",
+    "des": "动图生成",
+    "usage": {
+        "亲 @目标": "返回一张你和目标的亲亲动图",
+    },
+    "author": "风屿",
+    "version": "1.0.0",
+    "permission": 2,
+}
 kiss = on_command("亲", permission=GROUP, priority=20)
 
 

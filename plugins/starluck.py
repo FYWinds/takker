@@ -15,14 +15,18 @@ from utils.msg_util import text, image, reply
 from db.utils.starluck import Starluck
 from configs.path_config import FONT_PATH, IMAGE_PATH
 
-__permission__ = 1
-__plugin_name__ = "星座运势"
-__plugin_usage__ = f"""
-{'.sluck|sluck|星座运势':24s} | 返回你绑定的星座的当日运势
-{'.sluck|sluck|星座运势 <星座>':24s} | 绑定一个星座，返回这个星座的当日运势
-"""
-__plugin_author__ = "风屿"
-__plugin_version__ = "1.0.0"
+__plugin_info__ = {
+    "name": "星座运势",
+    "des": "每个星座每日的详细运势",
+    "usage": {
+        ".sluck|sluck|星座运势": "返回你绑定的星座的当日运势",
+        ".sluck|sluck|星座运势 <星座>": {"des": "绑定一个星座，返回这个星座的当日运势", "eg": ".sluck 双鱼座"},
+    },
+    "author": "风屿",
+    "version": "1.0.0",
+    "permission": 1,
+}
+
 
 starluck = on_command(
     ".sluck",

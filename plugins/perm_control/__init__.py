@@ -9,16 +9,38 @@ from utils.msg_util import image
 
 from .parser import perm_parser
 
-__permission__ = 0
-
-__plugin_name__ = "权限控制"
-__plugin_usage__ = f"""
-{'perm get':24s} | 获取当前会话的权限
-{'perm set <perm>':24s} | 设置当前会话的权限
-进阶用法请查看文档
-"""
-__plugin_author__ = "风屿"
-__plugin_version__ = "1.4.0"
+__plugin_info__ = {
+    "name": "权限控制",
+    "des": "机器人底层控制插件",
+    "usage": {
+        "perm get": {"des": "获取当前会话的权限等级"},
+        "perm set <权限等级>": {"des": "设置当前会话的权限等级", "eg": "perm set 3"},
+    },
+    "superuser_usage": {
+        "perm list -u/-g/-p": {"des": "获取所有群聊/插件的权限等级", "eg": "perm list -g"},
+        "perm get -u/-g <ID>": {"des": "获取指定用户/群聊的权限等级", "eg": "perm get -u 123456789"},
+        "perm <权限等级> set -u/-g <ID>": {
+            "des": "设置指定用户/群聊的权限等级",
+            "eg": "perm 3 set -u 123456789",
+        },
+        "perm <权限等级> set -p <插件名>": {
+            "des": "设置指定插件的权限等级",
+            "eg": "perm 3 set -p perm_control",
+        },
+        "perm reset -u/-g <ID>": {
+            "des": "重置指定用户/群聊的权限等级",
+            "eg": "perm reset -u 123456789",
+        },
+        "perm reset -p <插件名>": {
+            "des": "重置指定插件的权限等级",
+            "eg": "perm reset -p perm_control",
+        },
+    },
+    "author": "风屿",
+    "version": "1.4.0",
+    "doc": "https://takker.windis.cn/plugins/perm.html",
+    "permission": 0,
+}
 
 perm = on_shell_command("perm", parser=perm_parser, priority=1, block=True)
 
