@@ -18,7 +18,7 @@ __plugin_info__ = {
     "name": "B站UP主订阅助手",
     "des": "Bilibili UP主的动态更新/直播提醒",
     "admin_usage": {
-        "bs list": {"des": "查看订阅列表"},
+        "bs list": "查看订阅列表",
         "bs add <uid>": {
             "des": "添加订阅",
             "eg": "bs add 12345678  # 添加uid为12345678的UP主到订阅列表",

@@ -14,7 +14,7 @@ __plugin_info__ = {
     "name": "ATRI语音包",
     "des": "从游戏ATRI My Dear Moments内提取出来的ATRI原味语音！",
     "usage": {
-        "亚托莉|atri": {"des": "获取随机一条ATRI语音"},
+        "亚托莉|atri": "获取随机一条ATRI语音",
         "亚托莉|atri <要说的话>": {"des": "根据文本相似度匹配一条ATRI语音", "eg": "亚托莉|atri 晚安"},
     },
     "author": "风屿",

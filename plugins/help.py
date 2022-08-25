@@ -18,13 +18,15 @@ from utils.msg_util import at, image
 from utils.text_util import align
 from db.utils.plugin_perm import PluginPerm
 
-__plugin_info__: dict[str, Union[str, dict[str, dict[str, Union[int, str]]], int]] = {
+__plugin_info__: dict[
+    str, Union[str, dict[str, Union[dict[str, Union[int, str]], str]], int]
+] = {
     "name": "帮助菜单",
     "des": "查看各个插件的帮助菜单",
     "usage": {
-        "/help": {"des": "获取帮助菜单"},
+        "/help": "获取帮助菜单",
         "/help <插件名>": {"des": "获取指定插件的帮助菜单", "eg": "/help bili_sub"},
-        "/help list": {"des": "获取能查看帮助的插件列表"},
+        "/help list": "获取能查看帮助的插件列表",
     },
     "author": "风屿",
     "version": "1.4.0",

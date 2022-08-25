@@ -14,7 +14,7 @@ __plugin_info__ = {
     "name": "插件管理器",
     "des": "机器人底层控制插件",
     "admin_usage": {
-        "pm list": {"des": "查看当前会话插件列表"},
+        "pm list": "查看当前会话插件列表",
         "pm ban <插件名称> [-a/-r]": {"des": "禁用指定插件", "eg": "pm ban bili_sub"},
         "pm unban <插件名称> [-a/-r]": {"des": "启用指定插件", "eg": "pm unban bili_sub"},
     },

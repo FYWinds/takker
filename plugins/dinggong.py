@@ -13,7 +13,7 @@ from configs.path_config import VOICE_PATH
 __plugin_info__ = {
     "name": "钉宫语音包",
     "usage": {
-        "傲娇|钉宫": {"des": "返回一条随机的钉宫语音"}
+        "傲娇|钉宫": "返回一条随机的钉宫语音",
     },
     "author": "风屿",
     "version": "1.0.0",

@@ -8,7 +8,7 @@ from utils.data import book_of_answers
 __plugin_info__ = {
     "name": "答案之书",
     "usage": {
-        "答案之书": {"des": "返回一条随机的答案之书内容"},
+        "答案之书": "返回一条随机的答案之书内容",
     },
     "author": "风屿",
     "version": "1.4.0",
