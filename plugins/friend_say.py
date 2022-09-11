@@ -27,6 +27,7 @@ friend = on_command("我有个朋友", aliases={"我有一个朋友", "我有朋
 
 @friend.handle()
 async def _(bot: Bot, event: MessageEvent):
+    at, text = None, None
     for num, seg in enumerate(event.message):
         if seg.type == "at":
             at = seg.data["qq"]

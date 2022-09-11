@@ -1,18 +1,18 @@
-## Author HibiKier/zhenxun_bot
-## Edit by FYWinds
+# Author HibiKier/zhenxun_bot
+# Edit by FYWinds
 import os
 from io import BytesIO
 from typing import Union, Optional
 
 import ujson
 from nonebot.log import logger
-from nonebot.adapters.cqhttp.message import MessageSegment
+from nonebot.adapters.onebot.v11.message import MessageSegment
 
 from configs.path_config import IMAGE_PATH, VOICE_PATH
 
 
 def image(
-    img_file: str = None,
+    img_file: str = "",
     path: str = "",
     abspath: Optional[str] = None,
     c: Optional[Union[str, bytes, BytesIO]] = None,
@@ -21,6 +21,7 @@ def image(
         if os.path.exists(abspath):
             return MessageSegment.image("file:///" + abspath)
         else:
+            logger.warning(f"图片 {abspath} 不存在")
             return text("")
     elif c:
         if isinstance(c, str):
@@ -33,8 +34,6 @@ def image(
     else:
         img_file = str(img_file)
         if img_file.find("http") == -1:
-            if len(img_file.split(".")) == 1:
-                img_file += ".jpg"
             if os.path.exists(IMAGE_PATH + path + "/" + img_file):
                 return MessageSegment.image(
                     "file:///" + IMAGE_PATH + path + "/" + img_file
@@ -108,3 +107,7 @@ def music_163(id_: int) -> MessageSegment:
 
 def reply(id_: int) -> MessageSegment:
     return MessageSegment.reply(id_)
+
+
+def null() -> MessageSegment:
+    return MessageSegment.text("")

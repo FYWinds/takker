@@ -1,9 +1,13 @@
-
 from configs.config import OWNER, SUPERUSERS
 from nonebot.plugin import on_message, on_request
 from nonebot.typing import T_State
-from nonebot.adapters.cqhttp import (PRIVATE_FRIEND, Bot, GroupRequestEvent,
-                                     FriendRequestEvent, PrivateMessageEvent)
+from nonebot.adapters.cqhttp import (
+    PRIVATE_FRIEND,
+    Bot,
+    GroupRequestEvent,
+    FriendRequestEvent,
+    PrivateMessageEvent,
+)
 
 __permission__ = 0
 

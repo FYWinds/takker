@@ -59,11 +59,11 @@ async def live_sched():
                     "send_group_msg",
                     **{"message": live_msg, "group_id": g},
                 )
-                asyncio.sleep(random.random())
+                await asyncio.sleep(random.random())
             for u in push_list["user"]:
                 await bot.call_api(
                     "send_private_msg",
                     **{"message": live_msg, "user_id": u},
                 )
-                asyncio.sleep(random.random())
+                await asyncio.sleep(random.random())
         status[uid] = new_status

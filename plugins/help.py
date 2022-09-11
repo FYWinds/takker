@@ -80,7 +80,7 @@ async def get_result(bot: Bot, event: MessageEvent, state: T_State):
         if event.user_id in SUPERUSERS or str(event.user_id) == OWNER:
             identity = "superuser"
         elif event.sender.role in ["admin", "owner"]:
-            identity = "owner"
+            identity = "admin"
         else:
             identity = "norm"
         try:

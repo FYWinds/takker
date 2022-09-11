@@ -29,7 +29,7 @@ async def dy_sched():
     except (KeyError, ValueError):
         return
     for uid in uids:
-        asyncio.sleep(2)
+        await asyncio.sleep(2)
         name = await DB.get_user_name(uid)
 
         logger.debug(f"爬取动态 {name}（{uid}）")
@@ -59,7 +59,7 @@ async def dy_sched():
                         break
                     except Exception as e:
                         logger.error("截图失败，以下为错误日志:")
-                        logger.error(traceback(e))
+                        # logger.error(traceback(e))
                     await asyncio.sleep(0.1)
                 if not image:
                     logger.error("已达到重试上限，将在下个轮询中重新尝试")
@@ -71,13 +71,13 @@ async def dy_sched():
                         "send_group_msg",
                         **{"message": dynamic.message, "group_id": g},
                     )
-                    asyncio.sleep(random.random())
+                    await asyncio.sleep(random.random())
                 for u in push_list["user"]:
                     await bot.call_api(
                         "send_private_msg",
                         **{"message": dynamic.message, "user_id": u},
                     )
-                    asyncio.sleep(random.random())
+                    await asyncio.sleep(random.random())
 
                 last_time[uid] = dynamic.time
 

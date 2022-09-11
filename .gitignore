@@ -114,7 +114,11 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-# My Own Config
+# vscode
+.vscode/
+*.code-workspace
+
+# config, temp files and databases
 configs/config.py
 configs/config.yaml
 data/data.db
@@ -124,4 +128,4 @@ temp*.gif
 temp*.html
 data/*.db-*
 data/backups/*
-data/data.db.old
+test.py

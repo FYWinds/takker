@@ -95,7 +95,9 @@ class ImageUtil:
         height: int,
         paste_image_width: int = 0,
         paste_image_height: int = 0,
-        color: Union[str, Tuple[int, int, int], Tuple[int, int, int, int]] = None,
+        color: Optional[
+            Union[str, Tuple[int, int, int], Tuple[int, int, int, int]]
+        ] = None,
         image_mode: Literal[
             "CMYK", "HSV", "LAB", "RGB", "RGBA", "RGBX", "YCbCr"
         ] = "RGBA",
@@ -192,7 +194,7 @@ class ImageUtil:
         pos: Tuple[int, int],
         text: str,
         fill: Tuple[int, int, int] = (0, 0, 0),
-        center_type: Literal["center", "by_height", "by_width"] = None,
+        center_type: Optional[Literal["center", "by_height", "by_width"]] = None,
     ):
         """
         :说明: `text`
@@ -231,9 +233,9 @@ class ImageUtil:
     def paste(
         self,
         img: Union["ImageUtil", Image.Image],
-        pos: Tuple[int, int] = None,
+        pos: Optional[Tuple[int, int]] = None,
         alpha: bool = False,
-        center_type: Literal["center", "by_height", "by_width"] = None,
+        center_type: Optional[Literal["center", "by_height", "by_width"]] = None,
     ):
         """
         :说明: `paste`

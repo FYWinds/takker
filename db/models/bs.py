@@ -3,7 +3,6 @@ from typing import Union, Optional
 import httpx
 from tortoise.models import Model
 from tortoise.fields.data import IntField, CharField, BooleanField
-from tortoise.query_utils import Q
 
 
 class BiliSub(Model):

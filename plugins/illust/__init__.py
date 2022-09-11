@@ -3,7 +3,7 @@ from nonebot.plugin import on_shell_command
 from nonebot.typing import T_State
 from nonebot.adapters.cqhttp import Bot, MessageEvent, GroupMessageEvent
 
-from utils.msg_util import text, image, reply
+from utils.msg_util import null, text, image, reply
 from db.utils.illust_config import IllustConfig
 
 from .parser import pic_parser, set_parser
@@ -64,12 +64,12 @@ async def _(bot: Bot, event: MessageEvent, state: T_State):
                     message=(
                         (
                             reply(event.message_id)
-                            + (image(c=r["img_bytes"]) if c["send_image"] else None)
+                            + (image(c=r["img_bytes"]) if c["send_image"] else null())
                             + text(message)
                         )
                         if isinstance(event, GroupMessageEvent)
                         else (
-                            (image(c=r["img_bytes"]) if c["send_image"] else None)
+                            (image(c=r["img_bytes"]) if c["send_image"] else null())
                             + text(message)
                         )
                     ),

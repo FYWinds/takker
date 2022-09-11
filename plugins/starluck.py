@@ -140,11 +140,12 @@ async def get_data(star_pinyin: str):
         "star": star_pinyin,
     }
     headers = {"Authorization": f"APPCODE {ALI_API_TOKEN}"}
+    response = None
 
     async with httpx.AsyncClient() as client:
         response = await client.get(url=url, headers=headers, params=params)
 
-    return response.json()
+    return response.json() if response else None
 
 
 async def generate_content(resp_body: dict, star: str):

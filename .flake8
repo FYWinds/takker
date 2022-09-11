@@ -1,3 +1,9 @@
 [flake8]
-max-line-length = 90
-ignore = W391, W292, W503, E203, E262, E265, E501, F401
+max-line-length = 110
+max-complexity = 30
+exclude = .git, __pycache__
+
+ignore = 
+per-file-ignores =
+    # imported but unused
+    __init__.py: F401

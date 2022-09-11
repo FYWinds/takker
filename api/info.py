@@ -121,6 +121,8 @@ async def group_honor_info(gid: int, type: Optional[str] = "all") -> dict[Any, A
     :返回:
       - `dict[Any, Any]`: 响应数据 参考GOCQ文档
     """
+    r = await call("get_group_honor_info", group_id=gid, type=type)
+    return r
 
 
 async def group_join_request() -> dict[Any, Any]:

@@ -274,7 +274,9 @@ class Dynamic:
                     icon_color,
                     3,
                 )
-                draw.text((67, 13 + (i * 120)), up["up_title"], icon_color, up_title_font)
+                draw.text(
+                    (67, 13 + (i * 120)), up["up_title"], icon_color, up_title_font
+                )
                 # 粉丝量
                 draw.text(
                     (162, 66 + (i * 120)),
@@ -296,7 +298,7 @@ class Dynamic:
             qr_image = qr.make_image(
                 PilImage, fill_color=icon_color, back_color="#F5F5F7"
             )
-            qr_image = qr_image.resize((140, 140))
+            qr_image = qr_image.resize((140, 140))  # type: ignore
             baner_bg.paste(qr_image, (50, 10))
             # Logo
             # LOGO \uE725
