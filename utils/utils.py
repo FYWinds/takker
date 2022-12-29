@@ -1,12 +1,12 @@
 import time
-from typing import Union, Optional
 from collections import defaultdict
+from typing import Any
 
 from nonebot import require
-from nonebot.adapters.cqhttp import Event, GroupMessageEvent, PrivateMessageEvent
+from nonebot.adapters.cqhttp import Event
 
-from db.utils.perm import Perm
 from configs.config import HIDDEN_PLUGINS, MAX_PROCESS_TIME
+from db.utils.perm import Perm
 from db.utils.plugin_manager import PluginManager
 
 scheduler = require("nonebot_plugin_apscheduler").scheduler  # type: ignore
@@ -104,8 +104,8 @@ class ExploitCheck:
     """
 
     def __init__(self, default_check_time: float = 5, default_count: int = 4):
-        self.mint = defaultdict(int)
-        self.mtime = defaultdict(float)
+        self.mint: defaultdict[Any, int] = defaultdict(int)
+        self.mtime: defaultdict[Any, float] = defaultdict(float)
         self.check_time = default_check_time
         self.count = default_count
 

@@ -2,14 +2,13 @@
     "python.analysis.completeFunctionParens": true,
     "python.analysis.typeCheckingMode": "basic",
     "python.formatting.provider": "black",
-    "python.languageServer": "Pylance",
     "python.linting.flake8Enabled": true,
     "python.linting.mypyEnabled": true,
     "python.testing.pytestEnabled": true,
     "[python]": {
         "editor.codeActionsOnSave": {
             "source.organizeImports": true,
-            "source.fixAll": true
+            "source.fixAll": false
         }
     },
     "editor.formatOnSave": true,
@@ -25,7 +24,6 @@
     "git.autofetch": true,
     "git.enableSmartCommit": true,
     "python.analysis.diagnosticMode": "workspace",
-    "jupyter.jupyterServerType": "local",
     "python.analysis.autoImportCompletions": false,
     "python.sortImports.args": [
         "--ls"

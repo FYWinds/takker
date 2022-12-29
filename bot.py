@@ -2,7 +2,7 @@
 Author       : FYWinds i@windis.cn
 Date         : 2021-08-16 22:22:52
 LastEditors  : FYWinds i@windis.cn
-LastEditTime : 2022-09-07 02:55:38
+LastEditTime : 2022-10-22 19:50:23
 FilePath     : /bot.py
 
 Copyright (c) 2022 by FYWinds i@windis.cn
@@ -22,10 +22,11 @@ from utils.browser import close_browser
 
 if __name__ != "__main__":
     print("You should directly run this file!")
+    print("Try using `python bot.py prod` or `python bot.py dev`")
     print("Exiting...")
     sys.exit(1)
 
-env_file: str = f".env.{sys.argv[1]}" if len(sys.argv) > 1 else ".env.prod"
+env_file: str = f".env.{sys.argv[1]}" if len(sys.argv) >= 1 else ".env.prod"
 nonebot.init(_env_file=env_file)
 
 driver = nonebot.get_driver()

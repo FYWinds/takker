@@ -1,10 +1,23 @@
+"""
+Author       : FYWinds i@windis.cn
+Date         : 2021-08-16 10:22:53
+LastEditors  : FYWinds i@windis.cn
+LastEditTime : 2022-12-03 16:34:20
+FilePath     : /utils/text_util.py
+
+Copyright (c) 2022 by FYWinds i@windis.cn
+All Rights Reserved.
+Any modifications or distributions of the file
+should mark the original author's name.
+"""
+
 # Author djkcyl/ABot-Graia
 # Edit by FYWinds
 import string
-from typing import Any, Union, Literal
+from typing import Union, Literal
 
 
-def cut_text(str, cut):
+def cut_text(text: str, cut: int) -> list[str]:
     """
     :说明: `get_cut_str`
     > 长文本自动换行切分
@@ -19,8 +32,8 @@ def cut_text(str, cut):
     punc = """，,、。.？?）》】“"‘'；;：:！!·`~%^& """
     si = 0
     i = 0
-    next_str = str
-    str_list = []
+    next_str = text
+    str_list: list[str] = []
     for s in next_str:
         if s in string.printable:
             si += 1
