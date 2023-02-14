@@ -1,7 +1,6 @@
 import re
 import random
-from difflib import SequenceMatcher
-
+from difflib import ndiff
 from nonebot.rule import to_me
 from nonebot.plugin import on_command
 from nonebot.typing import T_State
@@ -35,29 +34,30 @@ atri = on_command(
 
 @atri.handle()
 async def _h(bot: Bot, event: GroupMessageEvent, state: T_State):
-    args = str(event.get_message()).strip()
-    if args:
+    if args := str(event.get_message()).strip():
         state["words"] = args
 
 
 @atri.got("words")
 async def _g(bot: Bot, event: GroupMessageEvent, state: T_State):
-    words = state["words"]
-    if words:
+    if words := state["words"]:
         diff: dict[str, float] = {}
         for text in atri_text:
-            r1 = SequenceMatcher(None, words, text["s"]).ratio()
-            r2 = SequenceMatcher(None, words, text["s_f"]).ratio()
-            r3 = SequenceMatcher(None, words, text["s_k"]).ratio()
-            diff |= {text["o"]: r1 * r2 + r3}  # 完全瞎想的计算方式，没啥特殊的意义
+            s_similarity = 1 - (
+                len(list(ndiff(words, text["s"])))
+                - sum(i[0] == " " for i in ndiff(words, text["s"]))
+            ) / max(len(words), len(text["s"]))
+            s_f_similarity = 1 - (
+                len(list(ndiff(words, text["s_f"])))
+                - sum(i[0] == " " for i in ndiff(words, text["s_f"]))
+            ) / max(len(words), len(text["s_f"]))
+            s_k_similarity = 1 - (
+                len(list(ndiff(words, text["s_k"])))
+                - sum(i[0] == " " for i in ndiff(words, text["s_k"]))
+            ) / max(len(words), len(text["s_k"]))
+            diff |= {text["o"]: s_similarity * 0.5 + s_f_similarity * 0.3 + s_k_similarity * 0.2}
         diff_sorted = dict(sorted(diff.items(), key=lambda item: item[1], reverse=True))
-        voice = random.choice(
-            [
-                list(diff_sorted.keys())[0],
-                list(diff_sorted.keys())[1],
-                list(diff_sorted.keys())[2],
-            ]
-        )
+        voice = random.choice(list(diff_sorted.keys())[:3])
     else:
         voice = random.choice(atri_text)["o"]
     text = re.findall("(.*).mp3", voice)[0]
